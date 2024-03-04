@@ -1,17 +1,47 @@
 <!DOCTYPE html>
 <html>
-    <head>
+<head>
+    {% block head %}
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block meta %}
+            <meta name="view-transition" content="same-origin"/>
+            <meta name="turbo-refresh-method" content="morph">
+        {% endblock %}
+        <meta name="description" content="{% block description %}SchoolIndex{% endblock %}">
+        <title>{% block title %}SchoolIndex{% endblock %}</title>
+        <link rel="icon"
+              href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
         {% endblock %}
 
         {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+    <div class="w-full flex h-screen">
+        <div class=" ">
+            {% block aside_menu %}
+                {% include 'layout/_aside.html.twig' %}
+            {% endblock %}
+        </div>
+        <div class="w-full flex flex-col">
+            {% block header %}
+                {% include 'layout/_top.html.twig' %}
+            {% endblock %}
+            {% block main %}
+            {% endblock %}
+        </div>
+
+        {% block footer %}{% endblock %}
+    </div>
+
+
+{% endblock %}
+</body>
 </html>

@@ -1,3 +1,19 @@
-body {
-    background-color: skyblue;
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html[data-turbo-visit-direction="forward"]::view-transition-old(sidebar):only-child {
+    animation: slide-to-right 0.5s ease-out;
+}
+
+.turbo-progress-bar {
+    height: 5px;
+    background-color: green;
 }
