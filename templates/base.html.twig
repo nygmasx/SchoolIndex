@@ -34,8 +34,11 @@
             {% block header %}
                 {% include 'layout/_top.html.twig' %}
             {% endblock %}
-            {% block main %}
-            {% endblock %}
+            <main data-turn-exit data-turn-enter class="h-screen">
+                {% block main %}
+                {% endblock %}
+            </main>
+
         </div>
 
         {% block footer %}{% endblock %}

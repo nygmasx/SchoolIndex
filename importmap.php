@@ -46,4 +46,7 @@ return [
     '@swup/debug-plugin' => [
         'version' => '3.0.0',
     ],
+    '@domchristie/turn' => [
+        'version' => '3.1.1',
+    ],
 ];

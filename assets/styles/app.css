@@ -17,3 +17,20 @@ html[data-turbo-visit-direction="forward"]::view-transition-old(sidebar):only-ch
     height: 5px;
     background-color: green;
 }
+
+html.turn-advance.turn-exit [data-turn-exit] {
+    animation-name: fade-out-up;
+    animation-duration: .3s;
+}
+
+/* Apply enter animations */
+html.turn-advance.turn-enter [data-turn-enter] {
+    animation-name: fade-in-up;
+    animation-duration: .6s;
+}
+
+/* For smoothness */
+html.turn-before-exit [data-turn-exit],
+html.turn-exit [data-turn-exit] {
+    will-change: transform, opacity;
+}

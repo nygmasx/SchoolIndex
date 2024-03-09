@@ -1,4 +1,5 @@
 import './bootstrap.js';
+import Turn from '@domchristie/turn'
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -6,5 +7,7 @@ import './bootstrap.js';
  * which should already be in your base.html.twig.
  */
 import './styles/app.css';
+import './vendor/@domchristie/turn/dist/turn.css'
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+Turn.start()
