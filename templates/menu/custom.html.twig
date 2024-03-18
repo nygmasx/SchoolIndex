@@ -1,0 +1,24 @@
+{% trans_default_domain 'SmartAdminBundle' %}
+
+{% set current_item = knp_menu_get_current_item('admin_main') %}
+{% set breadcrumb = knp_menu_get_breadcrumbs_array('admin_main', current_item) %}
+
+{% if not current_item.current|default(null) %}
+    {% set breadcrumb = [breadcrumb|first] %}
+{% endif %}
+
+<nav aria-label="{{ 'layout.breadcrumb'|trans }}" class="z-10 h-[45px] mr-auto">
+    <ol class="breadcrumb breadcrumb-container">
+        {% for item in breadcrumb|filter(v => v) %}
+            {% set active = loop.last and item.item.current is same as true %}
+
+            <li class="breadcrumb-item {{ active ? 'active' }}" {% if active %}aria-current="page"{% endif %}>
+                {% if item.uri is not null %}
+                    <a href="{{ item.uri }}">{{ item.label }}</a>
+                {% else %}
+                    <span>{{ item.label }}</span>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ol>
+</nav>
