@@ -38,12 +38,18 @@
                 {% block main %}
                 {% endblock %}
             </main>
-
+            {% block footer %}
+                <footer class=" p-4">
+                    <ul class="flex gap-4 items-center ml-0">
+                        <li><a href="#">{{ 'Mentions légales' }}</a></li>
+                        <li><span class="text-xl font-bold mr-4">•</span></li>
+                        <li><a href="#">{{ 'Contact' }}</a></li>
+                        <li><span class="text-xl font-bold mr-4">•</span></li>
+                        <li><a href="#">{{ 'Lycée Saint-Vincent' }}</a></li>
+                    </ul>
+                </footer>
+            {% endblock %}
         </div>
-
-        {% block footer %}{% endblock %}
-    </div>
-
 
 {% endblock %}
 </body>
