@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Suppression d'un utilisateur :{% endblock %}
+
+{% block body %}
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="max-w-lg w-full mx-auto bg-white p-10 border border-gray-300 rounded-lg shadow">
+        <h2 class="text-2xl font-bold text-gray-900 text-center">Confirmez la suppression</h2>
+        <p class="mt-4 text-lg text-gray-600 text-center">Voulez-vous vraiment supprimer l'utilisateur ?<br>Cette action est irréversible.</p>
+        
+        {{ form_start(confirmationForm, {'attr': {'class': 'space-y-6 mt-8'}}) }}
+            <div class="flex items-center justify-center">
+            </div>
+            
+            <div class="flex justify-center gap-4 mt-8">
+                <a href="{{ path('app_admin') }}" class="px-6 py-3 bg-gray-200 border border-transparent rounded-md font-semibold text-gray-700 hover:bg-gray-300 focus:outline-none focus:border-gray-300 focus:ring focus:ring-gray-200 transition ease-in-out duration-150">Annuler</a>
+                <button type="submit" class="px-6 py-3 bg-red-600 border border-transparent rounded-md font-semibold text-white hover:bg-red-700 focus:outline-none focus:border-red-700 focus:ring focus:ring-red-200 transition ease-in-out duration-150">Confirmer la suppression</button>
+            </div>
+            {{ form_end(confirmationForm) }}
+    </div>
+</div>
+{% endblock %}

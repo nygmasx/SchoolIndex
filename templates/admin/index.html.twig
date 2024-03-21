@@ -3,9 +3,100 @@
 {% block title %}Page d'administration{% endblock %}
 
 {% block main %}
+<h1 class="text-[28px] ml-12 text-customBlue font-epilogue md:mt-8 font-medium">Administration</h1>
 
-<div class="">
-    Hello Admin
+<div class="flex gap-3 min-md:ml-10 max-sm:ml-1 ml-8 mt-4 max-sm:hidden">
+    <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[220px] h-[40px] flex justify-center">
+        <a class="justify-center items-center flex text-white font-noto" href="#">Contributeurs</a>
+    </div>
+    <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
+        <a class="justify-center items-center flex text-white font-noto" href="">Exercices</a>
+    </div>
+    <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
+        <a class="justify-center items-center flex text-white font-noto" href="">Matières</a>
+    </div>
+    <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
+        <a class="justify-center items-center flex text-white font-noto" href="">Classes</a>
+    </div>
+    <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-80">
+        <a class="justify-center items-center flex text-white font-noto" href="">Thématiques</a>
+    </div>
+    <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-80">
+        <a class="justify-center items-center flex text-white font-noto" href="">Compétences</a>
+    </div>
+    <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-80">
+        <a class="justify-center items-center flex text-white font-noto" href="">Origines</a>
+    </div>
 </div>
 
+<div class="w-[90%] md:ml-[30px] min-md:w-[100%] min-md:ml-10 rounded-lg  sm:flex sm:flex-col justify-center  bg-white max-sm:w-[100%]">
+    <div class="flex justify-center max-sm:pt-2 ">
+        <select id="pageSelect" class="md:hidden ">
+            <option value="contributeurs">Contributeurs</option>
+            <option value="exercices">Exercices</option>
+            <option value="matieres">Matières</option>
+            <option value="classes">Classes</option>
+            <option value="thematiques">Thématiques</option>
+            <option value="competences">Compétences</option>
+            <option value="origines">Origines</option>
+        </select>
+    </div>
+
+    <h1 class="ml-7 text-[20px] font-semibold font-noto md:pt-6 max-sm:mt-[5px]">Gestion des contributeurs</h1>
+    <div class="ml-7">
+        <p class="font-noto text-customGrey pt-3">Rechercher un contributeur par nom, prénom, email:</p>
+        <form method="GET" action="{{ path('app_admin') }}">
+            <input id="searchInput" name="search" type="text" value="{{ searchTerm }}" class="mt-5 w-[45%] h-[50px] border border-slate-200 rounded-lg ">
+            <button type="submit" class="bg-slate-100 h-[50px] rounded-md ml-6 w-[15%] font-noto text-customGrey text-[16px] max-md:hidden">Rechercher</button>
+            <a href="{{ path("add_user")}}">
+                <button type="button" class="bg-customGreen h-[52px] rounded-md ml-16 w-[15%] font-noto text-white text-[16px] hover:bg-darkGreen max-md:w-[80px] max-md:h-[40px] max-md:ml-[30px]">Ajouter +</button>
+            </a>
+        </form>
+        <div class="overflow-x-auto relative shadow-md sm:rounded-lg mt-8">
+            <table id="contribTable" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="py-3 px-6">Nom</th>
+                        <th scope="col" class="py-3 px-6">Prénom</th>
+                        <th scope="col" class="py-3 px-6">Rôle</th>
+                        <th scope="col" class="py-3 px-6">Email</th>
+                        <th scope="col" class="py-3 px-6">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in pagination %}
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <td class="py-4 px-6">{{ user.lastName }}</td>
+                        <td class="py-4 px-6">{{ user.firstName }}</td>
+                        <td class="py-4 px-6">{{ user.roles|join(', ') }}</td>
+                        <td class="py-4 px-6">{{ user.email }}</td>
+                        <td class="py-4 px-6 md:flex md:flex-col md:justify-center md:items-center md:gap-3 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center max-sm:gap-3">
+                            <a href="{{ path('edit_user', {'id': user.id})}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Modifier</a>
+                            <a href="{{ path('user_delete', {'id': user.id}) }}" class="font-medium text-red-600 dark:text-red-500 hover:underline ml-4">Supprimer</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-5">
+            {{ knp_pagination_render(pagination, 'components/pagination/custom_pagination.html.twig') }}
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('pageSelect').addEventListener('change', function() {
+    var page = this.value;
+    switch(page) {
+        case 'contributeurs':
+            window.location.href = '#';
+            break;
+        case 'exercices':
+            window.location.href = '#';
+            break;
+        // Continuez avec les autres cas si nécessaire
+    }
+});
+</script>
 {% endblock %}

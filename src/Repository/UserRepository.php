@@ -8,6 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @extends ServiceEntityRepository<User>
@@ -40,6 +41,33 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
+    public function createQueryBuilderForAll()
+{
+    return $this->createQueryBuilder('u')
+        ->orderBy('u.id', 'ASC');
+}
+
+public function findBySearchTerm(string $searchTerm): array
+{
+    return $this->createQueryBuilder('u')
+        ->andWhere('u.name LIKE :searchTerm OR u.surname LIKE :searchTerm OR u.email LIKE :searchTerm')
+        ->setParameter('searchTerm', '%' . $searchTerm . '%')
+        ->getQuery()
+        ->getResult();
+}
+
+public function getSearchQueryBuilder(string $searchTerm = ''): QueryBuilder
+{
+    $qb = $this->createQueryBuilder('u');
+
+    if ($searchTerm) {
+        $qb->andWhere('u.email LIKE :searchTerm OR u.firstName LIKE :searchTerm OR u.lastName LIKE :searchTerm')
+            ->setParameter('searchTerm', '%' . $searchTerm . '%');
+    }
+
+    return $qb; // Ajoutez cette ligne pour corriger l'erreur
+}
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */
@@ -65,3 +93,4 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 //        ;
 //    }
 }
+

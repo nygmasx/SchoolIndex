@@ -1,0 +1,3 @@
+knp_paginator:
+    template:
+        pagination: '%kernel.project_dir%templates/components/pagination/custom_pagination.html.twig'
