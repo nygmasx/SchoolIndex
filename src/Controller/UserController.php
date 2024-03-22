@@ -84,24 +84,28 @@ class UserController extends AbstractController
     }
 
     #[Route('/edit/user/{id}', name: 'edit_user')]
-public function editUser(Request $request, EntityManagerInterface $manager, User $user): Response
+public function editUser(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $passwordHasher, User $user): Response
 {
     $form = $this->createForm(UserType::class, $user);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-        // Si le mot de passe a été modifié
+        // Vérifie si un nouveau mot de passe a été fourni
         $plainPassword = $form->get('password')->getData();
-        if (!empty($plainPassword)) {
-            $hashedPassword = $this->passwordHasher->hashPassword($user, $plainPassword);
+        if ($plainPassword) {
+            // Hash le nouveau mot de passe avant de le sauvegarder
+            $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
             $user->setPassword($hashedPassword);
         }
 
+        // Persiste les changements dans la base de données
         $manager->flush();
 
+        // Affiche un message de succès
         $this->addFlash('success', 'Les informations de l\'utilisateur ont été mises à jour.');
 
-        return $this->redirectToRoute('app_admin'); // Rediriger vers la page appropriée
+        // Redirige vers la page de gestion des utilisateurs
+        return $this->redirectToRoute('app_admin'); // Assurez-vous que 'app_admin' est le nom correct de la route vers laquelle vous voulez rediriger
     }
 
     return $this->render('admin/edit.html.twig', [
