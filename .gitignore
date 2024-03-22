@@ -21,4 +21,8 @@
 ###< symfony/phpunit-bridge ###
 
 ###> symfony/asset-mapper ###
+<<<<<<< HEAD
+=======
+/assets/vendor/
+>>>>>>> 18a5ef03260016a077e1606c47d1e6706366c802
 ###< symfony/asset-mapper ###
