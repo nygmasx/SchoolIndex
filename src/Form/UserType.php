@@ -26,7 +26,7 @@ class UserType extends AbstractType
                 'multiple' => true,
                 'label' => 'Rôles',
             ])
-            ->add('plainPassword', PasswordType::class, [
+            ->add('password', PasswordType::class, [
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'required' => false, // Rend le champ optionnel
