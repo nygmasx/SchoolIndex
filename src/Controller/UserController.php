@@ -12,6 +12,9 @@ use App\Form\UserType;
 use App\Entity\User;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use App\Security\LoginAuthenticator;
+
 
 class UserController extends AbstractController
 {
@@ -23,26 +26,31 @@ class UserController extends AbstractController
     }
 
     #[Route('/add/user', name: 'add_user')]
-    public function addUser(Request $request, EntityManagerInterface $manager): Response
+    public function addUser(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Il est plus sûr de récupérer le mot de passe après avoir vérifié que le formulaire est soumis et valide.
-            $plainPassword = $form->get('password')->getData();
-            // Hasher le mot de passe
-            $hashedPassword = $this->passwordHasher->hashPassword($user, $plainPassword);
-            $user->setPassword($hashedPassword);
+            // encode the plain password
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
 
-            $manager->persist($user);
-            $manager->flush();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_admin');
+
             
-            // Rediriger vers la page appropriée après l'ajout de l'utilisateur
-            return $this->redirectToRoute('app_admin'); // Assurez-vous de changer 'some_route' par la route réelle vers laquelle vous voulez rediriger l'utilisateur.
-        }
 
+        
+            // do anything else you need here, like send an email
+        }
         return $this->render('admin/add.html.twig', [
             'form' => $form->createView(),
         ]);
@@ -86,13 +94,18 @@ class UserController extends AbstractController
     #[Route('/edit/user/{id}', name: 'edit_user')]
 public function editUser(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $passwordHasher, User $user): Response
 {
-    $form = $this->createForm(UserType::class, $user);
+    // Crée le formulaire en indiquant que le mot de passe n'est pas requis
+    // Assurez-vous que votre UserType accepte et gère une option 'require_password'
+    $form = $this->createForm(UserType::class, $user, [
+        'require_password' => false,
+    ]);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
         // Vérifie si un nouveau mot de passe a été fourni
-        $plainPassword = $form->get('password')->getData();
-        if ($plainPassword) {
+        // Assurez-vous que le champ dans votre formulaire s'appelle 'plainPassword' si vous suivez les recommandations précédentes
+        $plainPassword = $form->get('plainPassword')->getData();
+        if (!empty($plainPassword)) {
             // Hash le nouveau mot de passe avant de le sauvegarder
             $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
             $user->setPassword($hashedPassword);
@@ -105,11 +118,13 @@ public function editUser(Request $request, EntityManagerInterface $manager, User
         $this->addFlash('success', 'Les informations de l\'utilisateur ont été mises à jour.');
 
         // Redirige vers la page de gestion des utilisateurs
-        return $this->redirectToRoute('app_admin'); // Assurez-vous que 'app_admin' est le nom correct de la route vers laquelle vous voulez rediriger
+        // Assurez-vous que 'app_admin' est le nom correct de la route vers laquelle vous voulez rediriger
+        return $this->redirectToRoute('app_admin');
     }
 
     return $this->render('admin/edit.html.twig', [
         'form' => $form->createView(),
     ]);
 }
+
 }
