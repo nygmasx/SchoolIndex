@@ -1,167 +1,161 @@
 <div class="bg-white rounded-md w-[95%]  md:w-[97%] mx-0 p-3 md:p-7">
-    <div class="flex flex-col md:flex-row   gap-2    ">
-        <div class="flex flex-col text-gray-500 md:w-[25%]  ">
-            <p class="font-medium text-gray-600">Niveau :</p>
-            <select name="niveau" id="niveau-exo" class="text-gray-500 rounded-md border-gray-300 border border-solid h-11 pl-2.5	  w-2/4 md:w-[95%]">
-                <option value="collège">Collège</option>
-                <option value="lycée">Lycée</option>
-                <option value="bts">BTS</option>
-                <option value="licence">Licence</option>
-            </select>
-        </div>
-        <div class="flex flex-col text-gray-500 md:w-[25%]  ">
-            <p class="font-medium text-gray-600">Thématique :</p>
-            <select name="thematique" id="thematique" class="text-gray-500 rounded-md border-gray-300 border border-solid h-11 pl-2.5	 w-2/4 md:w-[95%]">
-                <option value="base">Analyse</option>
-                <option value="lycée">Géométrie</option>
-                <option value="bts">Probabilités et statistiques</option>
-                <option value="licence">Suites</option>
-            </select>
-        </div>
-        <div class="flex flex-col text-gray-500 md:w-[25%]  ">
-            <p class="font-medium text-gray-600">Mots clés :</p>
-            <input class="text-gray-500 rounded-md border-gray-300 border border-solid h-11 w-3/4 p-2 outline-none md:w-[95%]"></input>
-    </div>
-    <div class="flex justify-center mt-7 md:w-[25%] ">
-        <button class=" bg-gray-100  font-medium text-gray-600 rounded-md border-gray-300 border border-solid h-11  w-3/4 md:w-[65%]">Rechercher</button>
-    </div>
+	<div class="flex flex-col md:flex-row   gap-2    ">
+		<div class="flex flex-col text-gray-500 md:w-[25%]  ">
+			<p class="font-medium text-gray-600">Niveau :</p>
+			<select name="niveau" id="niveau-exo" class="text-gray-500 rounded-md border-gray-300 border border-solid h-11 pl-2.5	  w-2/4 md:w-[95%]">
+				<option value="collège">Collège</option>
+				<option value="lycée">Lycée</option>
+				<option value="bts">BTS</option>
+				<option value="licence">Licence</option>
+			</select>
+		</div>
+		<div class="flex flex-col text-gray-500 md:w-[25%]  ">
+			<p class="font-medium text-gray-600">Thématique :</p>
+			<select name="thematique" id="thematique" class="text-gray-500 rounded-md border-gray-300 border border-solid h-11 pl-2.5	 w-2/4 md:w-[95%]">
+				<option value="base">Analyse</option>
+				<option value="lycée">Géométrie</option>
+				<option value="bts">Probabilités et statistiques</option>
+				<option value="licence">Suites</option>
+			</select>
+		</div>
+		<div class="flex flex-col text-gray-500 md:w-[25%]  ">
+			<p class="font-medium text-gray-600">Mots clés :</p>
+			<input class="text-gray-500 rounded-md border-gray-300 border border-solid h-11 w-3/4 p-2 outline-none md:w-[95%]"></input>
+	</div>
+	<div class="flex justify-center mt-7 md:w-[25%] ">
+		<button class=" bg-gray-100  font-medium text-gray-600 rounded-md border-gray-300 border border-solid h-11  w-3/4 md:w-[65%]">Rechercher</button>
+	</div>
 </div>
 
 <div class="mt-12">
-    <p class="text-xl font-semibold text-blue-900">3 exercices trouvés</p>
-    <div class=" mt-5 rounded-xl border border-solid border-gray-200">
-        <table class="w-full">
-        <thead class="text-left h-12 bg-gray-100">
-            <tr>
-                <th class="w-[30%] font-medium p-4 rounded-tl-xl">Nom</th>
-                <th class="font-medium p-4  ">Difficultés</th>
-                <th class="font-medium p-4  ">Mots clés</th>
-                <th class="font-medium p-4  ">Durée</th>
-                <th class=" font-medium p-4 rounded-tr-xl	 ">Fichiers</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="border-t	border-solid border-gray-200">
-                <td class="w-[30%] h-24 p-4 " >Les suites suivantes sont-elles croissantes? Décroissantes?</td>
-                <td class="p-4  ">Niveau 8</td>
-                <td class="p-4  ">
-                    <span class="bg-gray-200 px-4 py-2 rounded-full">arithmétique</span>
-                    <span class="bg-gray-200 px-4 py-2 rounded-full">base</span>
-                </td>
-                <td class="p-4  ">4h00</td>
-                <td class="p-4  ">
-                    <div class="flex gap-4 items-center">
-                        <a class="flex justify-center items-center gap-2 " href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Exercice</a>
-                        <a class="flex justify-center items-center gap-2 " href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Corrigé</a>
-                    </div>
-                </td>
-            </tr>
-            <tr class="border-t	border-solid border-gray-200">
-                <td  class="v p-4 ">Exercice sur une suite récurrente</td>
-                <td class="p-4  ">Niveau 9</td>
-                <td class="p-4  ">
-                    <span class="bg-gray-200 px-4 py-2 rounded-full">réccurrence</span>
-                </td>
-                <td class="p-4  ">1h00</td>
-                <td class="p-4  ">
-                    <div class="flex gap-4 items-center">
-                        <a class="flex justify-center items-center gap-2 " href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Exercice</a>
-                        <a class="flex justify-center items-center gap-2 " href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Corrigé</a>
-                    </div>
-                </td>
-            </tr>
-            <tr class="border-t	border-solid border-gray-200">
-                <td class="p-4" >Le flocon de Van Koch</td>
-                <td class="p-4  ">Niveau 8</td>
-                <td class="p-4  ">
-                    <span class="bg-gray-200 px-4 py-2 rounded-full">arithmétique</span>
-                </td>
-                <td class="p-4  ">2h00</td>
-                <td class="p-4">
-                    <div class="flex gap-4 items-center">
-                        <a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Exercice</a>
-                        <a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Corrigé</a>
-                    </div>
-                </td>
-            </tr>
-                        <tr class="border-t	border-solid border-gray-200">
-                <td class="p-4" >Le flocon de Van Koch</td>
-                <td class="p-4  ">Niveau 8</td>
-                <td class="p-4  ">
-                    <span class="bg-gray-200 px-4 py-2 rounded-full">arithmétique</span>
-                </td>
-                <td class="p-4  ">2h00</td>
-                <td class="p-4">
-                    <div class="flex gap-4 items-center">
-                        <a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Exercice</a>
-                        <a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Corrigé</a>
-                    </div>
-                </td>
-            </tr>
-                        <tr class="border-t	border-solid border-gray-200">
-                <td class="p-4" >Le flocon de Van Koch</td>
-                <td class="p-4  ">Niveau 8</td>
-                <td class="p-4  ">
-                    <span class="bg-gray-200 px-4 py-2 rounded-full">arithmétique</span>
-                </td>
-                <td class="p-4  ">2h00</td>
-                <td class="p-4">
-                    <div class="flex gap-4 items-center">
-                        <a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Exercice</a>
-                        <a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Corrigé</a>
-                    </div>
-                </td>
-            </tr>
-                        <tr class="border-t	border-solid border-gray-200">
-                <td class="p-4" >Le flocon de Van Koch</td>
-                <td class="p-4  ">Niveau 8</td>
-                <td class="p-4  ">
-                    <span class="bg-gray-200 px-4 py-2 rounded-full">arithmétique</span>
-                </td>
-                <td class="p-4  ">2h00</td>
-                <td class="p-4">
-                    <div class="flex gap-4 items-center">
-                        <a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Exercice</a>
-                        <a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Corrigé</a>
-                    </div>
-                </td>
-            </tr>
-                        <tr class="border-t	border-solid border-gray-200">
-                <td class="p-4" >Le flocon de Van Koch</td>
-                <td class="p-4  ">Niveau 8</td>
-                <td class="p-4  ">
-                    <span class="bg-gray-200 px-4 py-2 rounded-full">arithmétique</span>
-                </td>
-                <td class="p-4  ">2h00</td>
-                <td class="p-4">
-                    <div class="flex gap-4 items-center">
-                        <a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Exercice</a>
-                        <a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Corrigé</a>
-                    </div>
-                </td>
-            </tr>
-                        <tr class="border-t	border-solid border-gray-200">
-                <td class="p-4" >Le flocon de Van Koch</td>
-                <td class="p-4  ">Niveau 8</td>
-                <td class="p-4  ">
-                    <span class="bg-gray-200 px-4 py-2 rounded-full">arithmétique</span>
-                </td>
-                <td class="p-4  ">2h00</td>
-                <td class="p-4">
-                    <div class="flex gap-4 items-center">
-                        <a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Exercice</a>
-                        <a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Corrigé</a>
-                    </div>
-                </td>
-            </tr>
-            
-        </tbody>
-    </table>
-    </div>
-<<<<<<< HEAD
-</div></div>
-=======
+	<p class="text-xl font-semibold text-blue-900">3 exercices trouvés</p>
+	<div class=" mt-5 rounded-xl border border-solid border-gray-200">
+		<table class="w-full">
+			<thead class="text-left h-12 bg-gray-100">
+				<tr>
+					<th class="w-[30%] font-medium p-4 rounded-tl-xl">Nom</th>
+					<th class="font-medium p-4  ">Difficultés</th>
+					<th class="font-medium p-4  ">Mots clés</th>
+					<th class="font-medium p-4  ">Durée</th>
+					<th class=" font-medium p-4 rounded-tr-xl	 ">Fichiers</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="border-t	border-solid border-gray-200">
+					<td class="w-[30%] h-24 p-4 ">Les suites suivantes sont-elles croissantes? Décroissantes?</td>
+					<td class="p-4  ">Niveau 8</td>
+					<td class="p-4  ">
+						<span class="bg-gray-200 px-4 py-2 rounded-full">arithmétique</span>
+						<span class="bg-gray-200 px-4 py-2 rounded-full">base</span>
+					</td>
+					<td class="p-4  ">4h00</td>
+					<td class="p-4  ">
+						<div class="flex gap-4 items-center">
+							<a class="flex justify-center items-center gap-2 " href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Exercice</a>
+							<a class="flex justify-center items-center gap-2 " href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Corrigé</a>
+						</div>
+					</td>
+				</tr>
+				<tr class="border-t	border-solid border-gray-200">
+					<td class="v p-4 ">Exercice sur une suite récurrente</td>
+					<td class="p-4  ">Niveau 9</td>
+					<td class="p-4  ">
+						<span class="bg-gray-200 px-4 py-2 rounded-full">réccurrence</span>
+					</td>
+					<td class="p-4  ">1h00</td>
+					<td class="p-4  ">
+						<div class="flex gap-4 items-center">
+							<a class="flex justify-center items-center gap-2 " href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Exercice</a>
+							<a class="flex justify-center items-center gap-2 " href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Corrigé</a>
+						</div>
+					</td>
+				</tr>
+				<tr class="border-t	border-solid border-gray-200">
+					<td class="p-4">Le flocon de Van Koch</td>
+					<td class="p-4  ">Niveau 8</td>
+					<td class="p-4  ">
+						<span class="bg-gray-200 px-4 py-2 rounded-full">arithmétique</span>
+					</td>
+					<td class="p-4  ">2h00</td>
+					<td class="p-4">
+						<div class="flex gap-4 items-center">
+							<a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Exercice</a>
+							<a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Corrigé</a>
+						</div>
+					</td>
+				</tr>
+				<tr class="border-t	border-solid border-gray-200">
+					<td class="p-4">Le flocon de Van Koch</td>
+					<td class="p-4  ">Niveau 8</td>
+					<td class="p-4  ">
+						<span class="bg-gray-200 px-4 py-2 rounded-full">arithmétique</span>
+					</td>
+					<td class="p-4  ">2h00</td>
+					<td class="p-4">
+						<div class="flex gap-4 items-center">
+							<a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Exercice</a>
+							<a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Corrigé</a>
+						</div>
+					</td>
+				</tr>
+				<tr class="border-t	border-solid border-gray-200">
+					<td class="p-4">Le flocon de Van Koch</td>
+					<td class="p-4  ">Niveau 8</td>
+					<td class="p-4  ">
+						<span class="bg-gray-200 px-4 py-2 rounded-full">arithmétique</span>
+					</td>
+					<td class="p-4  ">2h00</td>
+					<td class="p-4">
+						<div class="flex gap-4 items-center">
+							<a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Exercice</a>
+							<a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Corrigé</a>
+						</div>
+					</td>
+				</tr>
+				<tr class="border-t	border-solid border-gray-200">
+					<td class="p-4">Le flocon de Van Koch</td>
+					<td class="p-4  ">Niveau 8</td>
+					<td class="p-4  ">
+						<span class="bg-gray-200 px-4 py-2 rounded-full">arithmétique</span>
+					</td>
+					<td class="p-4  ">2h00</td>
+					<td class="p-4">
+						<div class="flex gap-4 items-center">
+							<a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Exercice</a>
+							<a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Corrigé</a>
+						</div>
+					</td>
+				</tr>
+				<tr class="border-t	border-solid border-gray-200">
+					<td class="p-4">Le flocon de Van Koch</td>
+					<td class="p-4  ">Niveau 8</td>
+					<td class="p-4  ">
+						<span class="bg-gray-200 px-4 py-2 rounded-full">arithmétique</span>
+					</td>
+					<td class="p-4  ">2h00</td>
+					<td class="p-4">
+						<div class="flex gap-4 items-center">
+							<a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Exercice</a>
+							<a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Corrigé</a>
+						</div>
+					</td>
+				</tr>
+				<tr class="border-t	border-solid border-gray-200">
+					<td class="p-4">Le flocon de Van Koch</td>
+					<td class="p-4  ">Niveau 8</td>
+					<td class="p-4  ">
+						<span class="bg-gray-200 px-4 py-2 rounded-full">arithmétique</span>
+					</td>
+					<td class="p-4  ">2h00</td>
+					<td class="p-4">
+						<div class="flex gap-4 items-center">
+							<a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Exercice</a>
+							<a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Corrigé</a>
+						</div>
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
 </div>
->>>>>>> e39d24f88a5177d5f654f64e4f8e0e35d05cf898
-
-
