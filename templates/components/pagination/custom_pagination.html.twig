@@ -1,0 +1,40 @@
+{# tailwindcss Sliding pagination control implementation #}
+{% if pageCount > 1 %}
+    <div class="w-auto flex items-center justify-center">
+        <div class="flex w-fit gap-5 items-baseline flex-row border-lightGrey rounded-sm">
+        {% if first is defined and current != first %}
+            <span class="bg-white rounded-md h-9 flex justify-center items-center text-center text-lightGrey px-3 py-2 text-lg border border-lightGrey font-bold">
+                <a href="{{ path(route, query|merge({(pageParameterName): first})) }}">&lt;&lt;</a>
+            </span>
+        {% endif %}
+
+        {% if previous is defined %}
+            <span class="bg-white text-lightGrey px-3 text-lg py-2 border rounded-md h-9 flex justify-center items-center text-center border-lightGrey">
+                <a rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&lt;</a>
+            </span>
+        {% endif %}
+
+        {% for page in pagesInRange %}
+            {% if page != current %}
+                <span class="bg-white rounded-md h-9 flex justify-center items-center text-center text-black px-3 py-2 text-lg border  border-lightGrey">
+                    <a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+                </span>
+            {% else %}
+                <span class="bg-white rounded-md h-9 flex justify-center items-center text-center text-black px-3 py-2 text-lg border border-black">{{ page }}</span>
+            {% endif %}
+        {% endfor %}
+
+        {% if next is defined %}
+            <span class="bg-white rounded-md h-9 flex justify-center items-center text-center text-lightGrey px-3 py-2 text-lg border border-lightGrey">
+                <a rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">&gt;</a>
+            </span>
+        {% endif %}
+
+        {% if last is defined and current != last %}
+            <span class="bg-white rounded-md h-9 flex justify-center items-center text-center text-lightGrey px-3 py-2 text-lg border border-lightGrey font-bold">
+                <a href="{{ path(route, query|merge({(pageParameterName): last})) }}">&gt;&gt;</a>
+            </span>
+        {% endif %}
+        </div>
+    </div>
+{% endif %}

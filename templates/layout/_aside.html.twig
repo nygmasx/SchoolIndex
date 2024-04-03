@@ -19,6 +19,7 @@
 						Accueil
 					</a>
 
+<<<<<<< HEAD
 					<a href="{{ path('app_research') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal text-gray-500 hover:font-bold hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
 						<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M11.5894 19.7685C16.0077 19.7685 19.5894 16.1868 19.5894 11.7685C19.5894 7.35022 16.0077 3.76849 11.5894 3.76849C7.17114 3.76849 3.58942 7.35022 3.58942 11.7685C3.58942 16.1868 7.17114 19.7685 11.5894 19.7685Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -72,6 +73,63 @@
 
 		</div>
 	</div>
+=======
+<div class="lg:flex lg:flex-col w-[380px] h-full max-md: hidden">
+    <div class="flex flex-col w-[90%] h-[90%] justify-center">
+        <div class="flex items-center ml-6 mt-6 gap-4">
+            <img src="assets/logo.png" alt="Logo du lycée Saint-Vincent" class="w-[40px]">
+            <div>
+                <h1 class="text-2xl font-epilogue font-medium text-[#1B3168]">School Index</h1>
+                <h2 class="text-gray-500 font-epilogue">Lycée Saint Vincent - Senlis</h2>
+            </div>
+        </div>
+
+        <div class="lg:flex lg:flex-col lg:ml-8 lg:mt-10  lg:h-full">
+            <nav class=" flex flex-col justify-between h-full">
+                <div class="flex-col flex gap-4 mt-12 ">
+                    {% include "layout/_menu.html.twig" with {
+                        image_name : "assets/home_icon.png",
+                        page_name : "Accueil",
+                        page_link : "/"
+                    } %}
+
+                    {% include "layout/_menu.html.twig" with {
+                        image_name : "assets/search_icon.png",
+                        page_name : "Recherche",
+                        page_link : "/research"
+                    } %}
+
+                    {% include "layout/_menu.html.twig" with {
+                        image_name : "assets/maths_icon.png",
+                        page_name : "Mathématiques",
+                        page_link : "/"
+                    } %}
+
+                    {% include "layout/_menu.html.twig" with {
+                        image_name : "assets/my_exercices_icon.png",
+                        page_name : "Mes exercices",
+                        page_link : "/"
+                    } %}
+
+                    {% include "layout/_menu.html.twig" with {
+                        image_name : "assets/submit_icon.png",
+                        page_name : "Soumettre",
+                        page_link : "/"
+                    } %}
+                </div>
+
+                <div class="">
+                    {% include "layout/_menu.html.twig" with {
+                        image_name : "assets/disconnect_icon.png",
+                        page_name : "Déconnexion",
+                        page_link : "/login"
+                    } %}
+                </div>
+            </nav>
+
+        </div>
+    </div>
+>>>>>>> e39d24f88a5177d5f654f64e4f8e0e35d05cf898
 </div>
 
 
