@@ -107,8 +107,8 @@ html.turn-exit [data-turn-exit] {
 
     footer ul{
         flex-direction: column;
-    width: 100% !important;
-    margin-left: 0 !important;
+        width: 100% !important;
+        margin-left: 0 !important;
     }
     .point{
         display: none;

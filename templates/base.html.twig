@@ -29,9 +29,11 @@
                 {% include 'layout/_aside.html.twig' %}
             {% endblock %}
         <div class="w-full flex flex-col">
+
             {% block header %}
                 {% include 'layout/_top.html.twig' %}
             {% endblock %}
+
             <main data-turn-exit data-turn-enter class="ml-72 max-lg:ml-0">
                 {% block main %}
                 {% endblock %}
