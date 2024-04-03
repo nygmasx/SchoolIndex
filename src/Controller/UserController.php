@@ -59,7 +59,6 @@ class UserController extends AbstractController
     private function createDeleteConfirmationForm(): \Symfony\Component\Form\FormInterface
     {
         return $this->createFormBuilder()
-            ->add('confirm', SubmitType::class, ['label' => 'Confirmer la suppression'])
             ->getForm();
     }
 
