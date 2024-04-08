@@ -107,10 +107,37 @@ html.turn-exit [data-turn-exit] {
 
     footer ul{
         flex-direction: column;
-    width: 100% !important;
-    margin-left: 0 !important;
+        width: 100% !important;
+        margin-left: 0 !important;
     }
     .point{
         display: none;
     }
 }
+
+.rotate {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
+.arrow-down {
+    transition: transform 0.3s ease;
+}
+
+.arrow-up {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease; /* Ajoute une transition pour un effet d'animation fluide */
+  }
+
+.custom-select.open .select-selected {
+    border-bottom: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+<<<<<<< HEAD
+
+.active-svg path {
+    stroke: #1B3168; /* Couleur de remplissage du SVG */
+}
+=======
+>>>>>>> 53f661bafa4bd3e86db8a5173a64325fd83e5092
