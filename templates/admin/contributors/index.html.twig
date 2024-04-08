@@ -47,7 +47,7 @@
 			<h1 class="ml-7 text-[20px] font-semibold font-noto md:pt-6 max-sm:mt-[5px]">Gestion des contributeurs</h1>
 			<div class="mx-7	">
 				<p class="font-noto text-customGrey pt-3">Rechercher un contributeur par nom, prénom, email:</p>
-				<form method="GET" action="{{ path('app_admin') }}">
+				<form method="GET" action="{{ path('app_contributors') }}">
 					<input id="searchInput" name="search" type="text" value="{{ searchTerm }}" class="mt-5 w-[45%] h-[50px] border border-slate-200 rounded-lg ">
 <button type="submit" class="bg-slate-100 h-[50px] rounded-md ml-6 w-[15%] font-noto text-customGrey text-[16px] max-md:hidden transition duration-200 hover:bg-slate-200">Rechercher</button>
 					<a href="{{ path("add_user")}}">
@@ -103,20 +103,6 @@
 				</div>
 			</div>
 		</div>
-
-		<script>
-			document.getElementById('pageSelect').addEventListener('change', function () {
-var page = this.value;
-switch (page) {
-case 'contributeurs':
-window.location.href = '#';
-break;
-case 'exercices':
-window.location.href = '#';
-break;
-// Continuez avec les autres cas si nécessaire
-}
-});
-		</script>
 	</div>
+
 {% endblock %}
