@@ -18,39 +18,39 @@ use App\Security\LoginAuthenticator;
 
 class UserController extends AbstractController
 {
-    private $passwordHasher;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    public function __construct(private readonly UserPasswordHasherInterface $passwordHasher, 
+    private readonly UserAuthenticatorInterface $userAuthenticator, 
+    private readonly LoginAuthenticator $loginAuthenticator, 
+    private readonly EntityManagerInterface $entityManager,)
     {
-        $this->passwordHasher = $passwordHasher;
+        
     }
 
     #[Route('/add/user', name: 'add_user')]
-    public function addUser(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function addUser(Request $request): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+        
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
+            // Encode the plain password
             $user->setPassword(
-                $userPasswordHasher->hashPassword(
+                $this->passwordHasher->hashPassword(
                     $user,
                     $form->get('password')->getData()
                 )
             );
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
 
-            return $this->redirectToRoute('app_admin');
-
-            
-
-        
-            // do anything else you need here, like send an email
+            return $this->redirectToRoute('app_contributors');
+            // Vous voudrez peut-être ajuster la route 'app_contributors' selon vos besoins
         }
+
         return $this->render('admin/add.html.twig', [
             'form' => $form->createView(),
         ]);
@@ -59,71 +59,68 @@ class UserController extends AbstractController
     private function createDeleteConfirmationForm(): \Symfony\Component\Form\FormInterface
     {
         return $this->createFormBuilder()
+            ->add('confirm', SubmitType::class, ['label' => 'Confirmer la suppression'])
             ->getForm();
     }
 
     #[Route('/user-delete/{id}', name: 'user_delete', methods: ['GET', 'POST'])]
-    public function delete(Request $request, EntityManagerInterface $manager, string $id): Response
-    {
-        $user = $manager->getRepository(User::class)->find($id);
+public function delete(Request $request, string $id): Response
+{
+    // Utilisation de findBy au lieu de find
+    $user = $this->entityManager->getRepository(User::class)->findBy(['id' => $id]);
 
-        if (null === $user) {
-            throw $this->createNotFoundException('L\'user n\'a pas été trouvé.');
-        }
-
-        $form = $this->createDeleteConfirmationForm();
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $manager->remove($user);
-            $manager->flush();
-
-            $this->addFlash('success', 'L\'user a été supprimé avec succès.');
-
-            return $this->redirectToRoute('app_admin');
-        }
-
-        // Afficher la vue de confirmation si le formulaire n'a pas été soumis/validé
-        return $this->render('admin/delete.html.twig', [
-            'user' => $user,
-            'confirmationForm' => $form->createView(),
-        ]);
+    // findBy retourne un tableau, donc vérifiez si le tableau est vide
+    if (empty($user)) {
+        throw $this->createNotFoundException('L\'user n\'a pas été trouvé.');
     }
 
-    #[Route('/edit/user/{id}', name: 'edit_user')]
-public function editUser(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $passwordHasher, User $user): Response
-{
-    // Crée le formulaire en indiquant que le mot de passe n'est pas requis
-    // Assurez-vous que votre UserType accepte et gère une option 'require_password'
-    $form = $this->createForm(UserType::class, $user, [
-        'require_password' => false,
-    ]);
+    // Comme findBy retourne un tableau, prenez le premier élément
+    $user = $user[0];
+
+    $form = $this->createDeleteConfirmationForm();
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-        // Vérifie si un nouveau mot de passe a été fourni
-        // Assurez-vous que le champ dans votre formulaire s'appelle 'plainPassword' si vous suivez les recommandations précédentes
-        $plainPassword = $form->get('plainPassword')->getData();
-        if (!empty($plainPassword)) {
-            // Hash le nouveau mot de passe avant de le sauvegarder
-            $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
-            $user->setPassword($hashedPassword);
-        }
+        $this->entityManager->remove($user);
+        $this->entityManager->flush();
 
-        // Persiste les changements dans la base de données
-        $manager->flush();
+        $this->addFlash('success', 'L\'user a été supprimé avec succès.');
 
-        // Affiche un message de succès
-        $this->addFlash('success', 'Les informations de l\'utilisateur ont été mises à jour.');
-
-        // Redirige vers la page de gestion des utilisateurs
-        // Assurez-vous que 'app_admin' est le nom correct de la route vers laquelle vous voulez rediriger
-        return $this->redirectToRoute('app_admin');
+        return $this->redirectToRoute('app_contributors');
     }
 
-    return $this->render('admin/edit.html.twig', [
-        'form' => $form->createView(),
+    // Afficher la vue de confirmation si le formulaire n'a pas été soumis/validé
+    return $this->render('admin/delete.html.twig', [
+        'user' => $user,
+        'confirmationForm' => $form->createView(),
     ]);
 }
 
+    
+    #[Route('/edit/user/{id}', name: 'edit_user')]
+    public function editUser(User $user, Request $request): Response
+    {
+        $form = $this->createForm(UserType::class, $user, [
+            'require_password' => false,
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $plainPassword = $form->get('plainPassword')->getData();
+            if (!empty($plainPassword)) {
+                $hashedPassword = $this->passwordHasher->hashPassword($user, $plainPassword);
+                $user->setPassword($hashedPassword);
+            }
+
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Les informations de l\'utilisateur ont été mises à jour.');
+
+            return $this->redirectToRoute('app_contributors');
+        }
+
+        return $this->render('admin/contributors/edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }

@@ -114,3 +114,23 @@ html.turn-exit [data-turn-exit] {
         display: none;
     }
 }
+
+.rotate {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
+.arrow-down {
+    transition: transform 0.3s ease;
+}
+
+.arrow-up {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease; /* Ajoute une transition pour un effet d'animation fluide */
+  }
+
+.custom-select.open .select-selected {
+    border-bottom: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
