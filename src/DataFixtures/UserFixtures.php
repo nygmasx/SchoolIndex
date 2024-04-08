@@ -29,9 +29,16 @@ class UserFixtures extends Fixture
                 'firstName' => 'admin',
             ],
             [
+                'email' => 'paul@gmail.com',
+                'password' => 'paulgautier',
+                'roles' => ['ROLE_ADMIN'], // Définir explicitement le rôle ici
+                'lastName' => 'Paul',
+                'firstName' => 'Gautier',
+            ],
+            [
                 'email' => 'jean@gmail.com',
                 'password' => 'jeanvaljean',
-                'roles' => ['ROLE_USER'], // Définir explicitement le rôle ici
+                'roles' => ['ROLE_USER'],
                 'lastName' => 'Valjean',
                 'firstName' => 'Jean',
             ],
@@ -39,7 +46,7 @@ class UserFixtures extends Fixture
             [
                 'email' => 'javert@gmail.com',
                 'password' => 'inspectorjavert',
-                'roles' => ['ROLE_USER'], // Définir explicitement le rôle ici
+                'roles' => ['ROLE_USER'],
                 'lastName' => 'Javert',
                 'firstName' => 'Inspector',
             ],

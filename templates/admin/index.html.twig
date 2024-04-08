@@ -49,9 +49,9 @@
 				<p class="font-noto text-customGrey pt-3">Rechercher un contributeur par nom, prénom, email:</p>
 				<form method="GET" action="{{ path('app_admin') }}">
 					<input id="searchInput" name="search" type="text" value="{{ searchTerm }}" class="mt-5 w-[45%] h-[50px] border border-slate-200 rounded-lg ">
-					<button type="submit" class="bg-slate-100 h-[50px] rounded-md ml-6 w-[15%] font-noto text-customGrey text-[16px] max-md:hidden">Rechercher</button>
+<button type="submit" class="bg-slate-100 h-[50px] rounded-md ml-6 w-[15%] font-noto text-customGrey text-[16px] max-md:hidden transition duration-200 hover:bg-slate-200">Rechercher</button>
 					<a href="{{ path("add_user")}}">
-						<button type="button" class="bg-customGreen h-[52px] rounded-md ml-16 w-[15%] font-noto text-white text-[16px] hover:bg-darkGreen max-md:w-[80px] max-md:h-[40px] max-md:ml-[30px]">Ajouter +</button>
+						<button type="button" class="bg-customGreen h-[52px] rounded-md ml-16 w-[15%] font-noto text-white text-[16px] transition duration-200 hover:bg-darkGreen max-md:w-[80px] max-md:h-[40px] max-md:ml-[30px]">Ajouter +</button>
 					</a>
 				</form>
 				<div class="overflow-x-auto relative mt-5 rounded-xl border border-solid border-gray-200">
