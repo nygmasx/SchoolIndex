@@ -1,35 +1,155 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajout d'un utilisateur{% endblock %}
+{% block title %}Page d'administration{% endblock %}
 
-{% block body %}
-<div class="flex justify-center items-center min-h-screen">
-    <div class="p-4 w-full max-w-md">
-        <h1 class="text-2xl font-bold mb-4">Ajouter un utilisateur</h1>
-        {{ form_start(form, {'attr': {'class': 'space-y-4'}}) }}
-            {% for field in form %}
-                {% if field.vars.name != '_token' %} {# Exclut le champ '_token' du rendu #}
-                    <div class="flex flex-col mb-4">
-                        {{ form_label(field, null, {'label_attr': {'class': 'mb-2 font-semibold text-lg text-gray-700'}}) }}
-                        {% if field.vars.name == 'roles' %}
-                            {# Si votre champ rôle attend une valeur unique, assurez-vous que le champ est correctement configuré dans votre classe de formulaire Symfony #}
-                            {{ form_widget(field, {'attr': {'class': 'form-select block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-gray-700'}}) }}
-                        {% else %}
-                            {{ form_widget(field, {'attr': {'class': 'form-input block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50'}}) }}
-                        {% endif %}
-                        {{ form_errors(field, {'attr': {'class': 'text-red-500'}}) }}
-                    </div>
-                {% endif %}
-            {% endfor %}
-            <button type="submit" class="px-4 py-2 text-white font-bold rounded bg-customGreen hover:bg-darkGreen ">
-                Ajouter
-            </button>
-        {{ form_end(form) }}
+{% block main %}
+<div class="bg-slate-200 flex flex-col min-h-[95vh]">
+    <h1 class="text-[28px] ml-12 text-customBlue font-epilogue md:mt-8 font-medium">Administration</h1>
 
-        <div class="mt-3">
-            <a href="{{ path('app_contributors') }}" class="text-blue-500 hover:text-blue-800">Retour à la liste</a>
+    <div class="flex gap-3 min-md:ml-10 max-sm:ml-1 ml-8 mt-4 max-sm:hidden">
+        <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[220px] h-[40px] flex justify-center">
+            <a class="justify-center items-center flex text-white font-noto" href="#">Contributeurs</a>
+        </div>
+        <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
+            <a class="justify-center items-center flex text-white font-noto" href="">Exercices</a>
+        </div>
+        <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
+            <a class="justify-center items-center flex text-white font-noto" href="">Matières</a>
+        </div>
+        <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
+            <a class="justify-center items-center flex text-white font-noto" href="">Classes</a>
+        </div>
+        <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-80">
+            <a class="justify-center items-center flex text-white font-noto" href="">Thématiques</a>
+        </div>
+        <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-80">
+            <a class="justify-center items-center flex text-white font-noto" href="">Compétences</a>
+        </div>
+        <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-80">
+            <a class="justify-center items-center flex text-white font-noto" href="">Origines</a>
         </div>
     </div>
-</div>
 
+    <div class="w-[95%] md:ml-[30px] min-md:w-[100%] min-md:ml-10 rounded-lg  sm:flex sm:flex-col justify-center  bg-white max-sm:w-[100%] ">
+        <div class="flex justify-center max-sm:pt-2 ">
+            <select id="pageSelect" class="md:hidden ">
+                <option value="contributeurs">Contributeurs</option>
+                <option value="exercices">Exercices</option>
+                <option value="matieres">Matières</option>
+                <option value="classes">Classes</option>
+                <option value="thematiques">Thématiques</option>
+                <option value="competences">Compétences</option>
+                <option value="origines">Origines</option>
+            </select>
+        </div>
+        <h1 class="ml-7 text-[20px] font-semibold font-noto md:pt-6 max-sm:mt-[5px]">Ajouter un contributeur</h1>
+
+        <div class="w-[95%] md:ml-[30px] min-md:w-[100%] min-md:ml-10 rounded-lg  sm:flex sm:flex-col justify-center  bg-white max-sm:w-[100%] ">
+            <div class="flex max-sm:pt-2 w-full">
+                <!-- Formulaire -->
+<div class="mx-7 mt-6 w-full">
+    {{ form_start(form) }}
+
+    <div class="flex gap-12">
+
+        <div class="w-[35%]">
+        {{ form_label(form.lastName, 'Nom :', {
+        'label_attr': {
+            'class': 'noto text-color text-customGrey',
+            'data-toggle': 'tooltip',
+        }
+        }) }}
+        {{ form_errors(form.lastName) }}
+        {{ form_widget(form.lastName, { 
+            'attr': {
+                'class': 'my-custom-class flex flex-column border border-borderGrey rounded-md p-2 mb-4 focus:outline-none focus:border-darkGrey w-full',
+                'placeholder': 'Saisissez le nom du contributeur',
+            } 
+        }) }}
+    </div>
+
+
+        <div class="w-[35%]">
+            {{ form_label(form.role, 'Rôle :', {
+            'label_attr': {
+                'class': 'noto text-color text-customGrey',
+                'data-toggle': 'tooltip',
+            } 
+            }) }}
+            {{ form_errors(form.role) }}
+            {{ form_widget(form.role, { 
+                'attr': {
+                    'class': 'my-custom-class flex flex-column text-customGrey border border-borderGrey rounded-md p-2 mb-4 focus:outline-none focus:border-darkGrey w-full', 
+                } 
+            }) }}
+        </div>
+    </div>
+
+    <div class="w-[35%]">
+        {{ form_label(form.firstName, 'Prénom :',{
+            'label_attr': {
+                'class': 'noto text-color text-customGrey',
+                'data-toggle': 'tooltip',
+        }} ) }}
+        {{ form_errors(form.firstName) }}
+        {{ form_widget(form.firstName, { 
+            'attr': {
+                'class': 'my-custom-class flex flex-column border border-borderGrey rounded-md p-2 mb-4 focus:outline-none focus:border-darkGrey w-full',
+                'placeholder': 'Saisissez le prénom',
+            } 
+        }) }}
+    </div>
+
+    <div class="w-[35%]">
+        {{ form_label(form.email, 'Email :',
+        {
+            'label_attr': {
+                'class': 'noto text-color text-customGrey',
+                'data-toggle': 'tooltip',
+            }  
+        
+        }) }}
+        {{ form_errors(form.email) }}
+        {{ form_widget(form.email, { 
+            'attr': {
+                'class': 'my-custom-class flex flex-column border border-borderGrey rounded-md p-2 mb-4 focus:outline-none focus:border-darkGrey w-full',
+                'placeholder': 'Saisissez l\'email',
+            } 
+        }) }}
+    </div>
+
+    <div class="w-[35%]">
+        {{ form_label(form.password, 'Mot de passe :',
+        {
+            'label_attr': {
+                'class': 'noto text-color text-customGrey',
+                'data-toggle': 'tooltip',
+            } 
+        }) }}
+        {{ form_errors(form.password) }}
+        {{ form_widget(form.password, { 
+            'attr': {
+                'class': 'my-custom-class flex flex-column border border-borderGrey rounded-md p-2 mb-4 focus:outline-none focus:border-darkGrey w-full',
+                'placeholder': 'Saisissez le mot de passe',
+            } 
+        }) }}
+    </div>
+
+    <div class="flex gap-7 pt-3 pb-8">
+
+    <a href="{{path('app_contributors')}}" class=" font-semibold h-[45px] items-center flex justify-center text-sm bg-borderGrey font-noto text-fontGrey py-2 px-4 rounded hover:bg-darkGrey focus:outline-none focus:shadow-outline">< Retour à la liste</a>
+
+        <div class="">
+            {{ form_widget(form.submit, { 
+                'label': 'Enregistrer',
+                'attr': {
+                    'class': 'h-[45px] font-semibold items-center flex justify-center text-sm bg-borderGrey font-noto text-fontGrey py-2 px-4 rounded hover:bg-darkGrey focus:outline-none focus:shadow-outline',
+                }
+            }) }}
+        </div>
+
+    </div>
+
+    {{ form_end(form) }}
+</div>
 {% endblock %}

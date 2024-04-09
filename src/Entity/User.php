@@ -37,6 +37,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $firstName = null;
 
+    private ?string $role = null;
+
     #[ORM\OneToMany(mappedBy: 'createdBy', targetEntity: Exercise::class)]
     private Collection $exercises;
 
@@ -61,6 +63,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): static
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+
 
     /**
      * A visual identifier that represents this user.
