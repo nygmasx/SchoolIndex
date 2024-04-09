@@ -15,6 +15,8 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordC
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\SecurityRequestAttributes;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class LoginAuthenticator extends AbstractLoginFormAuthenticator
 {
@@ -43,15 +45,22 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
-    {
-        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-            return new RedirectResponse($targetPath);
-        }
+{
+    // Vérifier si le token contient des informations sur l'utilisateur
+    if ($token->getUser() instanceof UserInterface) {
+        // Récupérer les rôles de l'utilisateur depuis le token
+        $roles = $token->getRoleNames();
 
-        // For example:
-         return new RedirectResponse($this->urlGenerator->generate('app_contributors'));
-        // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        // Vérifier si l'utilisateur a le rôle d'administrateur
+        if (in_array('ROLE_ADMIN', $roles, true)) {
+            // Si l'utilisateur est un administrateur, rediriger vers app_contributors
+            return new RedirectResponse($this->urlGenerator->generate('app_contributors'));
+        }
     }
+    
+    // Redirection par défaut vers app_home si aucune redirection spécifique n'est nécessaire
+    return new RedirectResponse($this->urlGenerator->generate('app_home'));
+}
 
     protected function getLoginUrl(Request $request): string
     {

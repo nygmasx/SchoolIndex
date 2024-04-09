@@ -8,6 +8,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\User;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use App\Enum\RoleEnum;
 
 class UserFixtures extends Fixture
 {
@@ -24,14 +25,14 @@ class UserFixtures extends Fixture
             [
                 'email' => 'admin@example.com',
                 'password' => 'admin123',
-                'roles' => ['ROLE_ADMIN'], // Définir explicitement le rôle ici
+                'roles' => [RoleEnum::ADMIN],
                 'lastName' => 'admin',
                 'firstName' => 'admin',
             ],
             [
                 'email' => 'jean@gmail.com',
                 'password' => 'jeanvaljean',
-                'roles' => ['ROLE_USER'], // Définir explicitement le rôle ici
+                'roles' => [RoleEnum::STUDENT],
                 'lastName' => 'Valjean',
                 'firstName' => 'Jean',
             ],
@@ -39,7 +40,7 @@ class UserFixtures extends Fixture
             [
                 'email' => 'javert@gmail.com',
                 'password' => 'inspectorjavert',
-                'roles' => ['ROLE_USER'], // Définir explicitement le rôle ici
+                'roles' => [RoleEnum::STUDENT],
                 'lastName' => 'Javert',
                 'firstName' => 'Inspector',
             ],
@@ -48,28 +49,28 @@ class UserFixtures extends Fixture
             [
                 'email' => 'cosette@gmail.com',
                 'password' => 'cosettefantine',
-                'roles' => ['ROLE_USER'],
+                'roles' => [RoleEnum::STUDENT],
                 'lastName' => 'Fantine',
                 'firstName' => 'Cosette',
             ],
             [
                 'email' => 'marius@gmail.com',
                 'password' => 'pontmercy',
-                'roles' => ['ROLE_USER'],
+                'roles' => [RoleEnum::STUDENT],
                 'lastName' => 'Pontmercy',
                 'firstName' => 'Marius',
             ],
             [
                 'email' => 'enjolras@gmail.com',
                 'password' => 'revolution',
-                'roles' => ['ROLE_USER'],
+                'roles' => [RoleEnum::STUDENT],
                 'lastName' => 'Enjolras',
                 'firstName' => 'Enjolras',
             ],
             [
                 'email' => 'thenardier@gmail.com',
                 'password' => 'masterofthehouse',
-                'roles' => ['ROLE_USER'],
+                'roles' => [RoleEnum::STUDENT],
                 'lastName' => 'Thénardier',
                 'firstName' => 'Thénardier',
             ],
@@ -77,7 +78,7 @@ class UserFixtures extends Fixture
             [
                 'email' => 'elodie@gmail.com',
                 'password' => 'elodiepass',
-                'roles' => ['ROLE_USER'],
+                'roles' => [RoleEnum::STUDENT],
                 'lastName' => 'Martin',
                 'firstName' => 'Elodie',
             ],
@@ -85,21 +86,21 @@ class UserFixtures extends Fixture
             [
                 'email' => 'thomas@gmail.com',
                 'password' => 'thomaspass',
-                'roles' => ['ROLE_USER'],
+                'roles' => [RoleEnum::TEACHER],
                 'lastName' => 'Dupont',
                 'firstName' => 'Thomas',
             ],
             [
                 'email' => 'sophie@gmail.com',
                 'password' => 'sophiepass',
-                'roles' => ['ROLE_USER'],
+                'roles' => [RoleEnum::TEACHER],
                 'lastName' => 'Durand',
                 'firstName' => 'Sophie',
             ],
             [
                 'email' => 'lucas@gmail.com',
                 'password' => 'lucaspass',
-                'roles' => ['ROLE_USER'],
+                'roles' => [RoleEnum::TEACHER],
                 'lastName' => 'Petit',
                 'firstName' => 'Lucas',
             ],
@@ -110,7 +111,6 @@ class UserFixtures extends Fixture
             $user = new User();
             $user->setEmail($userDatum['email']);
             
-            // Hachez le mot de passe avant de le définir
             $hashedPassword = $this->passwordHasher->hashPassword(
                 $user,
                 $userDatum['password']
@@ -120,7 +120,7 @@ class UserFixtures extends Fixture
             $user->setLastName($userDatum['lastName']);
             $user->setFirstName($userDatum['firstName']);
             
-            // Attribuer le rôle défini dans $userData
+            // Utilisation des constantes de RoleEnum pour définir les rôles
             $user->setRoles($userDatum['roles']);
 
             $manager->persist($user);

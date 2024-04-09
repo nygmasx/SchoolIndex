@@ -41,7 +41,7 @@ class ContributorsController extends AbstractController
         );
 
         // Renvoyez le résultat à votre template, avec la pagination et le terme de recherche
-        return $this->render('admin/contributors/index.html.twig', [
+        return $this->render('Admin/Contributors/index.html.twig', [
             'pagination' => $pagination,
             'searchTerm' => $searchTerm,
         ]);
