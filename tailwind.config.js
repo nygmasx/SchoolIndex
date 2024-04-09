@@ -20,12 +20,10 @@ module.exports = {
         borderGrey: '#F6F6F6',
         darkGrey: '#DADADA',
         fontGrey:'#757575',
-        
-        
       },
     },
   },
   plugins: [
-    require('flowbite/plugin') // add the flowbite plugin
+    require('flowbite/plugin')
   ],
 }
