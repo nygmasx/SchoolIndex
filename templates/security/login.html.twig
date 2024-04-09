@@ -5,7 +5,7 @@
 
 {% block main %}
 
-    <div class="bg-slate-200 flex flex-col items-center h-full font-['Epilogue'] ">
+    <div class="bg-slate-200 flex flex-col items-center min-h-[91vh] font-['Epilogue'] ">
         <div class="w-full text-center md:w-[90%] lg:text-start">
             <h1  class="text-3xl md:text-4xl font-medium text-center lg:text-start text-blue-950 p-4">Connexion</h1>
         </div>
@@ -39,13 +39,16 @@
                     <label for="inputPassword"
                            class="md:text-center lg:text-justify text-gray-700 md:text-[18px] lg:p-6 lg:ml-6 font-medium">Password
                         :</label>
-                    <input type="password" name="password" id="inputPassword"
+
+                        <div class="flex gap-4">
+                            <input type="password" name="password" id="inputPassword"
                            class="border-gray-400 border rounded mt-2 md:mt-4 p-1 md:w-10/12 md:m-auto lg:m-0 lg:p-3 lg:ml-12 lg:mb-6 lg:w-4/12"
                            autocomplete="current-password" placeholder="Saisissez votre mot de passe" required
                             {{ stimulus_controller('symfony/ux-toggle-password/toggle-password', {
                                 buttonClasses: ['toggle-password-button']
                             }) }}
                     >
+                        </div>
                 </div>
 
 

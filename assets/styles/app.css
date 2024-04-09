@@ -9,6 +9,10 @@
     box-sizing: border-box;
 }
 
+body{
+    overflow-x: hidden;
+}
+
 html[data-turbo-visit-direction="forward"]::view-transition-old(sidebar):only-child {
     animation: slide-to-right 0.5s ease-out;
 }
@@ -34,3 +38,106 @@ html.turn-before-exit [data-turn-exit],
 html.turn-exit [data-turn-exit] {
     will-change: transform, opacity;
 }
+
+.shadow-right {
+    box-shadow: 0px 3px 35px 0px rgba(0, 0, 0, 0.08);
+}
+
+.toggle-password-button{
+    position: sticky !important;
+}
+
+.active{
+    background-color: rgb(243 244 246);
+    color: rgb(23 37 84);
+    font-weight: bold;
+}
+
+.deconnexion{
+    background-color: rgb(243 244 246);
+}
+
+.hover\:text-blue-950:hover svg path {
+    stroke: rgb(23 37 84);
+}
+
+/* Styles pour la liste d'options */
+#options-list {
+    left: 50%;
+    transform: translateX(50%);
+    transition: opacity 0.3s ease-in-out;
+}
+
+#options-list-smol {
+    left: 25%;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#options-list li {
+    list-style: none;
+}
+
+/* Styles pour l'image du profil */
+#profile-img {
+    width: 40px;
+    height: 40px;
+}
+
+@media screen and (max-width: 500px) {
+
+    ul{
+        width: 55% !important;
+    }
+
+    #options-list {
+        left: 0%;
+        transform: translateX(50%);
+    }
+}
+
+.footer {
+    margin-top: auto;
+}
+
+@media screen and (max-width: 500px ) {
+    footer{
+        padding-top: 15px;
+    min-height: 23vh;
+    }
+
+    footer ul{
+        flex-direction: column;
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+    .point{
+        display: none;
+    }
+}
+
+.rotate {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
+.arrow-down {
+    transition: transform 0.3s ease;
+}
+
+.arrow-up {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease; /* Ajoute une transition pour un effet d'animation fluide */
+  }
+
+.custom-select.open .select-selected {
+    border-bottom: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+<<<<<<< HEAD
+
+.active-svg path {
+    stroke: #1B3168; /* Couleur de remplissage du SVG */
+}
+=======
+>>>>>>> 53f661bafa4bd3e86db8a5173a64325fd83e5092

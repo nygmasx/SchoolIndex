@@ -24,24 +24,27 @@
 </head>
 <body>
 {% block body %}
-    <div class="w-full flex h-screen">
-        <div class=" ">
+    <div class="w-full flex h-screen max-lg:flex-col">
             {% block aside_menu %}
                 {% include 'layout/_aside.html.twig' %}
             {% endblock %}
-        </div>
         <div class="w-full flex flex-col">
+
             {% block header %}
                 {% include 'layout/_top.html.twig' %}
             {% endblock %}
-            <main data-turn-exit data-turn-enter class="h-screen">
+
+            <main data-turn-exit data-turn-enter class="ml-72 max-lg:ml-0">
                 {% block main %}
                 {% endblock %}
             </main>
 
+            <footer class="bg-slate-200 mt-auto	">
+                {% block footer %}
+                {% include 'layout/footer.html.twig' %}
+                {% endblock %}
+            </footer>
         </div>
-
-        {% block footer %}{% endblock %}
     </div>
 
 

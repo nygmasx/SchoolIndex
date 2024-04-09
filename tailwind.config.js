@@ -3,12 +3,25 @@ module.exports = {
   content: [
     "./assets/**/*.js",
     "./templates/**/*.html.twig",
+    "./node_modules/flowbite/**/*.js" // set up the path to the flowbite package
   ],
   theme: {
     fontFamily: {
       'epilogue': ["Epilogue", "sans-serif"],
+      'noto': ["Noto Sans", "sans-serif"],
     },
-    extend: {},
+    extend: {
+      colors: {
+        customBlue: '#1B3168',
+        customGrey: '#666666' ,
+        customGreen: '#52B788',
+        darkGreen: '#40916c',
+        lightGrey: '#DFE3E8',
+        
+      },
+    },
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin') // add the flowbite plugin
+  ],
 }
