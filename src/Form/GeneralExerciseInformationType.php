@@ -24,27 +24,35 @@ class GeneralExerciseInformationType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nom'
+                "label" => "Nom de l'exercice",
+                'required' => true
+            ])
+            ->add('course', EntityType::class, [
+                "label" => "Matière",
+                'class' => Course::class,
+                'choice_label' => 'name',
+            ])
+            ->add('classroom', EntityType::class, [
+                'class' => Classroom::class,
+                'label' => 'Classe',
+                'choice_label' => 'name',
+            ])
+            ->add('thematic', EntityType::class, [
+                'class' => Thematic::class,
+                'label' => 'Thématique',
+                'choice_label' => 'name',
             ])
             ->add('chapter', TextType::class, [
                 'label' => 'Chapitre'
             ])
-            ->add('keywords', ChoiceTagType::class, [
+            ->add('keywords', TextType::class, [
                 'label' => 'Mots Clés'
             ])
-            ->add('difficulty')
-            ->add('duration')
-            ->add('course', EntityType::class, [
-                'class' => Course::class,
-                'choice_label' => 'id',
+            ->add('difficulty', ChoiceType::class, [
+                'label' => 'Difficulté'
             ])
-            ->add('classroom', EntityType::class, [
-                'class' => Classroom::class,
-                'choice_label' => 'id',
-            ])
-            ->add('thematic', EntityType::class, [
-                'class' => Thematic::class,
-                'choice_label' => 'id',
+            ->add('duration', TextType::class, [
+                'label' => 'Durée (en heure)'
             ])
             ->add('skill', EntityType::class, [
                 'class' => Skill::class,

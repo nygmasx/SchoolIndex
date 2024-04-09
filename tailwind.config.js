@@ -17,11 +17,11 @@ module.exports = {
         customGreen: '#52B788',
         darkGreen: '#40916c',
         lightGrey: '#DFE3E8',
-        
+
       },
     },
   },
   plugins: [
-    require('flowbite/plugin') // add the flowbite plugin
+    require('flowbite/plugin')
   ],
 }
