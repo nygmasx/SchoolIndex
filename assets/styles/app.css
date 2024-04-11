@@ -134,3 +134,10 @@ html.turn-exit [data-turn-exit] {
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
 }
+<<<<<<< HEAD
+
+.active-svg path {
+    stroke: #1B3168; /* Couleur de remplissage du SVG */
+}
+=======
+>>>>>>> 53f661bafa4bd3e86db8a5173a64325fd83e5092

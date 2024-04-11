@@ -11,24 +11,24 @@
 		<div class="flex flex-col ml-8 mt-10  h-full ">
 			<nav class=" flex flex-col justify-between h-full">
 				<div class="flex-col flex gap-4 mt-12 ">
-					<a href="{{ path('app_home') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
-						<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+					{% set activeRoute = app.request.attributes.get('_route') %}
+					<a href="{{ path('app_home') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 text-gray-500 {{ activeRoute == 'app_home' ? 'active' : '' }} hover:font-bold hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+						<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="{{ activeRoute == 'app_home' ? 'active-svg' : '' }}">
 							<path d="M3.58948 9.49689L12.5895 2.49689L21.5895 9.49689V20.4969C21.5895 21.0273 21.3788 21.536 21.0037 21.9111C20.6286 22.2862 20.1199 22.4969 19.5895 22.4969H5.58948C5.05904 22.4969 4.55034 22.2862 4.17526 21.9111C3.80019 21.536 3.58948 21.0273 3.58948 20.4969V9.49689Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M9.58948 22.4969V12.4969H15.5895V22.4969" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
 						Accueil
 					</a>
 
-					<a href="{{ path('app_research') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal text-gray-500 hover:font-bold hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
-						<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<a href="{{ path('app_research') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 text-gray-500 {{ activeRoute == 'app_research' ? 'active' : '' }} hover:font-bold hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+						<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="{{ activeRoute == 'app_research' ? 'active-svg' : '' }}">
 							<path d="M11.5894 19.7685C16.0077 19.7685 19.5894 16.1868 19.5894 11.7685C19.5894 7.35022 16.0077 3.76849 11.5894 3.76849C7.17114 3.76849 3.58942 7.35022 3.58942 11.7685C3.58942 16.1868 7.17114 19.7685 11.5894 19.7685Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M21.5894 21.7685L17.2894 17.4685" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
 						Rechercher
 					</a>
 
-
-					<a href="{{ path('app_research') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+					<a href="{{ path('app_research') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
 						<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M19.5894 3.0401H5.58942C4.48485 3.0401 3.58942 3.93553 3.58942 5.0401V19.0401C3.58942 20.1447 4.48485 21.0401 5.58942 21.0401H19.5894C20.694 21.0401 21.5894 20.1447 21.5894 19.0401V5.0401C21.5894 3.93553 20.694 3.0401 19.5894 3.0401Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M9.58942 17.0401C11.5894 17.0401 12.3894 16.0401 12.3894 14.2401V10.0401C12.3894 8.04009 13.3894 6.74009 15.5894 7.04009" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -37,39 +37,40 @@
 						Mathématiques
 					</a>
 
-					<a href="{{ path('app_research') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
-						<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M8.58942 4.31165H21.5894V6.31165H8.58942V4.31165ZM3.58942 3.81165H6.58942V6.81165H3.58942V3.81165ZM3.58942 10.8116H6.58942V13.8116H3.58942V10.8116ZM3.58942 17.8116H6.58942V20.8116H3.58942V17.8116ZM8.58942 11.3116H21.5894V13.3116H8.58942V11.3116ZM8.58942 18.3116H21.5894V20.3116H8.58942V18.3116Z" fill="#757575"/>
-						</svg>
-						Mes exercices
-					</a>
+					{% if app.user %}
+						<a href="{{ path('app_research') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+							<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8.58942 4.31165H21.5894V6.31165H8.58942V4.31165ZM3.58942 3.81165H6.58942V6.81165H3.58942V3.81165ZM3.58942 10.8116H6.58942V13.8116H3.58942V10.8116ZM3.58942 17.8116H6.58942V20.8116H3.58942V17.8116ZM8.58942 11.3116H21.5894V13.3116H8.58942V11.3116ZM8.58942 18.3116H21.5894V20.3116H8.58942V18.3116Z" fill="#757575"/>
+							</svg>
+							Mes exercices
+						</a>
 
 
-					<a href="{{ path('app_research') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
-						<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M22.5895 2.58325L15.5895 22.5833L11.5895 13.5833L2.58948 9.58325L22.5895 2.58325Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M22.5895 2.58325L11.5895 13.5833" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-						Soumettre
-					</a>
-
-
-				</div>
-
-				<div>
-					<a href="{{ path('app_login') }}" data-turbo-action="visit" class=" lg:flex lg:gap-[15px] w-[90%] font-normal hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer deconnexion">
-						<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M9.58942 21.8538H5.58942C5.05898 21.8538 4.55028 21.6431 4.1752 21.268C3.80013 20.8929 3.58942 20.3842 3.58942 19.8538V5.85379C3.58942 5.32336 3.80013 4.81465 4.1752 4.43958C4.55028 4.0645 5.05898 3.85379 5.58942 3.85379H9.58942" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M16.5894 17.8538L21.5894 12.8538L16.5894 7.85379" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M21.5894 12.8538H9.58942" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-						Déconnexion
-					</a>
+						<a href="{{ path('app_research') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+							<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M22.5895 2.58325L15.5895 22.5833L11.5895 13.5833L2.58948 9.58325L22.5895 2.58325Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M22.5895 2.58325L11.5895 13.5833" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+							Soumettre
+						</a>
+					{% endif %}
 
 
 				</div>
+
+				{% if app.user %}
+					<div>
+						<a href="{{ path('app_logout') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer deconnexion">
+							<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M9.58942 21.8538H5.58942C5.05898 21.8538 4.55028 21.6431 4.1752 21.268C3.80013 20.8929 3.58942 20.3842 3.58942 19.8538V5.85379C3.58942 5.32336 3.80013 4.81465 4.1752 4.43958C4.55028 4.0645 5.05898 3.85379 5.58942 3.85379H9.58942" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M16.5894 17.8538L21.5894 12.8538L16.5894 7.85379" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M21.5894 12.8538H9.58942" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+							Déconnexion
+						</a>
+					</div>
+				{% endif %}
 			</nav>
-
 		</div>
 	</div>
 </div>
@@ -77,24 +78,23 @@
 
 {# //////////////////////////////////////RESPONSIVE////////////////////////////////////// #}
 
-<nav class=" flex justify-center w-full fixed bottom-0 bg-slate-200 lg:hidden z-10">
-	<div class=" flex gap-5 md:gap-16 max-md:gap-8">
-		<a href="{{ path('app_home') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
-			<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<nav class="flex justify-center w-full fixed bottom-0 bg-slate-200 lg:hidden z-10">
+	<div class="flex gap-5 md:gap-16 max-md:gap-8">
+		<a href="{{ path('app_home') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300  {{ activeRoute == 'app_home' ? 'active' : '' }} hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+			<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="{{ activeRoute == 'app_home' ? 'active-svg' : '' }}">
 				<path d="M3.58948 9.49689L12.5895 2.49689L21.5895 9.49689V20.4969C21.5895 21.0273 21.3788 21.536 21.0037 21.9111C20.6286 22.2862 20.1199 22.4969 19.5895 22.4969H5.58948C5.05904 22.4969 4.55034 22.2862 4.17526 21.9111C3.80019 21.536 3.58948 21.0273 3.58948 20.4969V9.49689Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				<path d="M9.58948 22.4969V12.4969H15.5895V22.4969" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 			</svg>
 		</a>
 
-		<a href="{{ path('app_research') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal text-gray-500 hover:font-bold hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
-			<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<a href="{{ path('app_research') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 text-gray-500  {{ activeRoute == 'app_research' ? 'active' : '' }} hover:font-bold hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+			<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="{{ activeRoute == 'app_research' ? 'active-svg' : '' }}">
 				<path d="M11.5894 19.7685C16.0077 19.7685 19.5894 16.1868 19.5894 11.7685C19.5894 7.35022 16.0077 3.76849 11.5894 3.76849C7.17114 3.76849 3.58942 7.35022 3.58942 11.7685C3.58942 16.1868 7.17114 19.7685 11.5894 19.7685Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				<path d="M21.5894 21.7685L17.2894 17.4685" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 			</svg>
 		</a>
 
-
-		<a href="{{ path('app_research') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+		<a href="{{ path('app_research') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] transition duration-300 font-normal hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
 			<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M19.5894 3.0401H5.58942C4.48485 3.0401 3.58942 3.93553 3.58942 5.0401V19.0401C3.58942 20.1447 4.48485 21.0401 5.58942 21.0401H19.5894C20.694 21.0401 21.5894 20.1447 21.5894 19.0401V5.0401C21.5894 3.93553 20.694 3.0401 19.5894 3.0401Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				<path d="M9.58942 17.0401C11.5894 17.0401 12.3894 16.0401 12.3894 14.2401V10.0401C12.3894 8.04009 13.3894 6.74009 15.5894 7.04009" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -102,20 +102,19 @@
 			</svg>
 		</a>
 
-			<img
-			src="images/pp.png" alt="photo de profil" class="bg-sky-200 rounded-full cursor-pointer" id="profile-img">
-			<!-- Liste des options -->
+		{% if app.user %}
+			<img src="images/pp.png" alt="photo de profil" class="bg-sky-200 rounded-full cursor-pointer" id="profile-img">
 			<ul class="hidden bg-white absolute bottom-14 left-0 w-[30%] p-2 rounded-lg shadow-lg" id="options-list">
 				<li>
-					<a href="{{ path('app_research') }}" data-turbo-action="visit" class="flex gap-[15px] w-[90%] font-normal hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+					<a href="{{ path('app_research') }}" data-turbo-action="visit" class="flex gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
 						<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M8.58942 4.31165H21.5894V6.31165H8.58942V4.31165ZM3.58942 3.81165H6.58942V6.81165H3.58942V3.81165ZM3.58942 10.8116H6.58942V13.8116H3.58942V10.8116ZM3.58942 17.8116H6.58942V20.8116H3.58942V17.8116ZM8.58942 11.3116H21.5894V13.3116H8.58942V11.3116ZM8.58942 18.3116H21.5894V20.3116H8.58942V18.3116Z" fill="#757575"/>
 						</svg>
-					Mes exercices
+						Mes exercices
 					</a>
 				</li>
 				<li>
-					<a href="{{ path('app_research') }}" data-turbo-action="visit" class="flex gap-[15px] w-[90%] font-normal hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+					<a href="{{ path('app_research') }}" data-turbo-action="visit" class="flex gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
 						<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M22.5895 2.58325L15.5895 22.5833L11.5895 13.5833L2.58948 9.58325L22.5895 2.58325Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M22.5895 2.58325L11.5895 13.5833" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -124,7 +123,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="{{ path('app_login') }}" data-turbo-action="visit" class=" flex gap-[15px] w-[90%] font-normal hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+					<a href="{{ path('app_logout') }}" data-turbo-action="visit" class="flex gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
 						<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M9.58942 21.8538H5.58942C5.05898 21.8538 4.55028 21.6431 4.1752 21.268C3.80013 20.8929 3.58942 20.3842 3.58942 19.8538V5.85379C3.58942 5.32336 3.80013 4.81465 4.1752 4.43958C4.55028 4.0645 5.05898 3.85379 5.58942 3.85379H9.58942" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M16.5894 17.8538L21.5894 12.8538L16.5894 7.85379" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -134,5 +133,12 @@
 					</a>
 				</li>
 			</ul>
+		{% else %}
+			<a href="{{ path('app_login') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] transition duration-300 font-normal hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+				<svg width="23" height="24" viewbox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M9 9V6L14 10L9 14V11H0V9H9ZM1.458 13H3.582C4.28005 14.7191 5.55371 16.1422 7.18512 17.0259C8.81652 17.9097 10.7043 18.1991 12.5255 17.8447C14.3468 17.4904 15.9883 16.5142 17.1693 15.0832C18.3503 13.6523 18.9975 11.8554 19 10C19.001 8.14266 18.3558 6.34283 17.1749 4.90922C15.994 3.47561 14.3511 2.49756 12.528 2.14281C10.7048 1.78807 8.81505 2.07874 7.18278 2.96498C5.55051 3.85121 4.27747 5.27778 3.582 7H1.458C2.732 2.943 6.522 0 11 0C16.523 0 21 4.477 21 10C21 15.523 16.523 20 11 20C6.522 20 2.732 17.057 1.458 13Z" stroke="#757575" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" fill="#757575"/>
+				</svg>
+			</a>
+		{% endif %}
 	</div>
 </nav>
