@@ -19,12 +19,12 @@ use App\Security\LoginAuthenticator;
 class UserController extends AbstractController
 {
 
-    public function __construct(private readonly UserPasswordHasherInterface $passwordHasher, 
-    private readonly UserAuthenticatorInterface $userAuthenticator, 
-    private readonly LoginAuthenticator $loginAuthenticator, 
+    public function __construct(private readonly UserPasswordHasherInterface $passwordHasher,
+    private readonly UserAuthenticatorInterface $userAuthenticator,
+    private readonly LoginAuthenticator $loginAuthenticator,
     private readonly EntityManagerInterface $entityManager,)
     {
-        
+
     }
 
     #[Route('/add/user', name: 'add_user')]
@@ -33,7 +33,7 @@ class UserController extends AbstractController
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-        
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Encode the plain password
@@ -51,7 +51,7 @@ class UserController extends AbstractController
             // Vous voudrez peut-être ajuster la route 'app_contributors' selon vos besoins
         }
 
-        return $this->render('admin/add.html.twig', [
+        return $this->render('admin/contributors/add.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -96,7 +96,7 @@ public function delete(Request $request, string $id): Response
     ]);
 }
 
-    
+
     #[Route('/edit/user/{id}', name: 'edit_user')]
     public function editUser(User $user, Request $request): Response
     {
