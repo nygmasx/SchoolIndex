@@ -12,37 +12,27 @@ class ClassroomFixtures extends Fixture
     {
         // Créer des classes fictives
         $classesData = [
-            ['name' => '6ème'],
-            ['name' => '5ème'],
-            ['name' => '4ème'],
-            ['name' => '3ème'],
-            ['name' => 'Seconde'],
-            ['name' => 'Première'],
-            ['name' => 'Terminale'],
-            ['name' => '1ère année'],
-            ['name' => '2ème année'],
-            ['name' => 'Licence'], 
+            'Collège' => ['6ème', '5ème', '4ème', '3ème'],
+            'Lycée' => ['Seconde', 'Première', 'Terminale'],
+            'BTS' => ['BTS01', 'BTS02'],
+            'Autre' => ['Licence'],
         ];
 
-        // Boucle à travers les données et crée les classes
-        foreach ($classesData as $index => $classData) {
-            $classroom = new Classroom();
-            $classroom->setName($classData['name']);
-            $referenceName = 'classroom_' . $index; // Nom de référence unique
-            $this->addReference($referenceName, $classroom);
+        foreach ($classesData as $group => $classes) {
+            foreach ($classes as $className) {
+                $classroom = new Classroom();
+                $classroom->setName($className);
 
-            // Persiste l'entité
-            $manager->persist($classroom);
+                // Persiste l'entité
+                $manager->persist($classroom);
+
+                // Ajoute une référence
+                $referenceName = 'classroom_' . strtolower(str_replace(' ', '_', $className));
+                $this->addReference($referenceName, $classroom);
+            }
         }
 
         // Flush toutes les opérations en base de données
         $manager->flush();
     }
-
-    /*public function getDependencies(): array
-    {
-        return [
-            
-        ];
-    }*/
 }
