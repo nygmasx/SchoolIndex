@@ -65,7 +65,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_contributors');
         }
 
-        return $this->render('Admin/Contributors/add.html.twig', [
+        return $this->render('admin/contributors/add.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -91,7 +91,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_contributors');
         }
 
-        return $this->render('Admin/Contributors/delete.html.twig', [
+        return $this->render('admin/contributors/delete.html.twig', [
             'user' => $user,
             'confirmationForm' => $form->createView(),
         ]);
@@ -125,7 +125,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_contributors');
         }
 
-        return $this->render('Admin/Contributors/edit.html.twig', [
+        return $this->render('admin/contributors/edit.html.twig', [
             'form' => $form->createView(),
         ]);
     }
