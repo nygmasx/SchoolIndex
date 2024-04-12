@@ -1,0 +1,86 @@
+{
+    "app": {
+        "path": "\/assets\/app-695019cf6957016bc57930b319e9cfd4.js",
+        "type": "js"
+    },
+    "\/assets\/bootstrap.js": {
+        "path": "\/assets\/bootstrap-7d6354d3e22b86483b44e32a99d2c73c.js",
+        "type": "js"
+    },
+    "\/assets\/@symfony\/stimulus-bundle\/controllers.js": {
+        "path": "\/assets\/@symfony\/stimulus-bundle\/controllers-133a8671ba35dd2f9ed3a40d0465de81.js",
+        "type": "js"
+    },
+    "\/assets\/@symfony\/ux-swup\/controller.js": {
+        "path": "\/assets\/@symfony\/ux-swup\/controller-1fed7c787b6e59d377334dede91f3823.js",
+        "type": "js"
+    },
+    "\/assets\/@symfony\/ux-toggle-password\/controller.js": {
+        "path": "\/assets\/@symfony\/ux-toggle-password\/controller-646141d412da02b6d4bc5870f07b3101.js",
+        "type": "js"
+    },
+    "\/assets\/@symfony\/ux-toggle-password\/style.min.css": {
+        "path": "\/assets\/@symfony\/ux-toggle-password\/style.min-bb69f59f4ea5f4481a50eb10706b0e2a.css",
+        "type": "css"
+    },
+    "\/assets\/@symfony\/ux-turbo\/turbo_controller.js": {
+        "path": "\/assets\/@symfony\/ux-turbo\/turbo_controller-ce5e32dafdec0b7752f02e3e2cb25751.js",
+        "type": "js"
+    },
+    "\/assets\/controllers\/hello_controller.js": {
+        "path": "\/assets\/controllers\/hello_controller-87b6385829902356204e988334af9bf5.js",
+        "type": "js"
+    },
+    "\/assets\/styles\/app.css": {
+        "path": "\/assets\/styles\/app-077bb7db4b98add9a40a08b636ffba16.css",
+        "type": "css"
+    },
+    "\/assets\/vendor\/@domchristie\/turn\/dist\/turn.css": {
+        "path": "\/assets\/vendor\/@domchristie\/turn\/dist\/turn-acf0a462afaca5161df1b16f4f83f33f.css",
+        "type": "css"
+    },
+    "@hotwired\/stimulus": {
+        "path": "\/assets\/vendor\/@hotwired\/stimulus\/stimulus.index-8169deece04a7eb6681b3f3b7fc63a95.js",
+        "type": "js"
+    },
+    "@symfony\/stimulus-bundle": {
+        "path": "\/assets\/@symfony\/stimulus-bundle\/loader-e1ee9ace0562f2e6a52301e4ccc8627d.js",
+        "type": "js"
+    },
+    "@hotwired\/turbo": {
+        "path": "\/assets\/vendor\/@hotwired\/turbo\/turbo.index-bc0c8bf326e8073d5850bd89dfe30f28.js",
+        "type": "js"
+    },
+    "@swup\/fade-theme": {
+        "path": "\/assets\/vendor\/@swup\/fade-theme\/fade-theme.index-23c2ed0ff99028472d7be255baffb517.js",
+        "type": "js"
+    },
+    "@swup\/slide-theme": {
+        "path": "\/assets\/vendor\/@swup\/slide-theme\/slide-theme.index-6405564592910f3c9c42d5198520079f.js",
+        "type": "js"
+    },
+    "@swup\/forms-plugin": {
+        "path": "\/assets\/vendor\/@swup\/forms-plugin\/forms-plugin.index-26df92bfea0c90e98a709de87d88c57b.js",
+        "type": "js"
+    },
+    "@swup\/plugin": {
+        "path": "\/assets\/vendor\/@swup\/plugin\/plugin.index-8cd75b0ef186c51ffcea9438e40da8c2.js",
+        "type": "js"
+    },
+    "swup": {
+        "path": "\/assets\/vendor\/swup\/swup.index-6d246d3630162ee11d01193fbc679e00.js",
+        "type": "js"
+    },
+    "delegate-it": {
+        "path": "\/assets\/vendor\/delegate-it\/delegate-it.index-3ddc4dd07b8fb7610eba323505f36263.js",
+        "type": "js"
+    },
+    "@swup\/debug-plugin": {
+        "path": "\/assets\/vendor\/@swup\/debug-plugin\/debug-plugin.index-d127ae0755ec61a7f695145685b39825.js",
+        "type": "js"
+    },
+    "@domchristie\/turn": {
+        "path": "\/assets\/vendor\/@domchristie\/turn\/turn.index-ddb37304cfb4887822ebbbcc2b99d99c.js",
+        "type": "js"
+    }
+}
