@@ -51,7 +51,7 @@ class UserController extends AbstractController
             // Vous voudrez peut-être ajuster la route 'app_contributors' selon vos besoins
         }
 
-        return $this->render('admin/add.html.twig', [
+        return $this->render('admin/contributors/add.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -90,7 +90,7 @@ public function delete(Request $request, string $id): Response
     }
 
     // Afficher la vue de confirmation si le formulaire n'a pas été soumis/validé
-    return $this->render('admin/delete.html.twig', [
+    return $this->render('admin/contributors/delete.html.twig', [
         'user' => $user,
         'confirmationForm' => $form->createView(),
     ]);
