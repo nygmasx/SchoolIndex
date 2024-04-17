@@ -8,21 +8,11 @@ use App\Entity\Classroom;
 
 class ClassroomFixtures extends Fixture
 {
+    public const REFERENCE_IDENTIFIER = 'classroom_';
+    public const CLASSROOM = ['6ème', '5ème', ''];
     public function load(ObjectManager $manager): void
     {
-        // Créer des classes fictives
-        $classesData = [
-            ['name' => '6ème'],
-            ['name' => '5ème'],
-            ['name' => '4ème'],
-            ['name' => '3ème'],
-            ['name' => 'Seconde'],
-            ['name' => 'Première'],
-            ['name' => 'Terminale'],
-            ['name' => '1ère année'],
-            ['name' => '2ème année'],
-            ['name' => 'Licence'], 
-        ];
+
 
         // Boucle à travers les données et crée les classes
         foreach ($classesData as $index => $classData) {
@@ -38,11 +28,4 @@ class ClassroomFixtures extends Fixture
         // Flush toutes les opérations en base de données
         $manager->flush();
     }
-
-    /*public function getDependencies(): array
-    {
-        return [
-            
-        ];
-    }*/
 }
