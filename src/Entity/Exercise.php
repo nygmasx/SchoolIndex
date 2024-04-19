@@ -64,21 +64,24 @@ class Exercise
     #[ORM\ManyToMany(targetEntity: Skill::class, inversedBy: 'exercises')]
     private Collection $skill;
 
-    #[ORM\OneToMany(mappedBy: 'exercise', targetEntity: File::class)]
-    private Collection $exerciseFile;
-
-    #[ORM\OneToMany(mappedBy: 'exercise', targetEntity: File::class)]
-    private Collection $correctionFile;
-
     #[ORM\ManyToOne(inversedBy: 'exercises')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $createdBy = null;
 
+    #[ORM\OneToOne(inversedBy: 'exercise', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?File $exerciseFile = null;
+
+    #[ORM\OneToOne(inversedBy: 'exercise', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?File $correctionFile = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
     public function __construct()
     {
         $this->skill = new ArrayCollection();
-        $this->exerciseFile = new ArrayCollection();
-        $this->correctionFile = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -278,66 +281,6 @@ class Exercise
         return $this;
     }
 
-    /**
-     * @return Collection<int, File>
-     */
-    public function getExerciseFile(): Collection
-    {
-        return $this->exerciseFile;
-    }
-
-    public function addExerciseFile(File $exerciseFile): static
-    {
-        if (!$this->exerciseFile->contains($exerciseFile)) {
-            $this->exerciseFile->add($exerciseFile);
-            $exerciseFile->setExercise($this);
-        }
-
-        return $this;
-    }
-
-    public function removeExerciseFile(File $exerciseFile): static
-    {
-        if ($this->exerciseFile->removeElement($exerciseFile)) {
-            // set the owning side to null (unless already changed)
-            if ($exerciseFile->getExercise() === $this) {
-                $exerciseFile->setExercise(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, File>
-     */
-    public function getCorrectionFile(): Collection
-    {
-        return $this->correctionFile;
-    }
-
-    public function addCorrectionFile(File $correctionFile): static
-    {
-        if (!$this->correctionFile->contains($correctionFile)) {
-            $this->correctionFile->add($correctionFile);
-            $correctionFile->setExercise($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCorrectionFile(File $correctionFile): static
-    {
-        if ($this->correctionFile->removeElement($correctionFile)) {
-            // set the owning side to null (unless already changed)
-            if ($correctionFile->getExercise() === $this) {
-                $correctionFile->setExercise(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getCreatedBy(): ?User
     {
         return $this->createdBy;
@@ -346,6 +289,42 @@ class Exercise
     public function setCreatedBy(?User $createdBy): static
     {
         $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    public function getExerciseFile(): ?File
+    {
+        return $this->exerciseFile;
+    }
+
+    public function setExerciseFile(File $exerciseFile): static
+    {
+        $this->exerciseFile = $exerciseFile;
+
+        return $this;
+    }
+
+    public function getCorrectionFile(): ?File
+    {
+        return $this->correctionFile;
+    }
+
+    public function setCorrectionFile(File $correctionFile): static
+    {
+        $this->correctionFile = $correctionFile;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

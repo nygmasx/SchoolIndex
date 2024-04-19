@@ -6,26 +6,20 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Classroom;
 
-class ClassroomFixtures extends Fixture
+final class ClassroomFixtures extends Fixture
 {
     public const REFERENCE_IDENTIFIER = 'classroom_';
-    public const CLASSROOM = ['6ème', '5ème', ''];
+    public const CLASSROOM = ['6ème', '5ème', '4ème', '3ème', 'Seconde', 'Première', 'Terminale', 'BTS1', 'BTS2', 'Licence'];
     public function load(ObjectManager $manager): void
     {
 
+        for ($i = 0; $i < \count(self::CLASSROOM); ++$i) {
+            $supportCategory = (new Classroom())
+                ->setName(self::CLASSROOM[$i]);
 
-        // Boucle à travers les données et crée les classes
-        foreach ($classesData as $index => $classData) {
-            $classroom = new Classroom();
-            $classroom->setName($classData['name']);
-            $referenceName = 'classroom_' . $index; // Nom de référence unique
-            $this->addReference($referenceName, $classroom);
-
-            // Persiste l'entité
-            $manager->persist($classroom);
+            $manager->persist($supportCategory);
+            $this->addReference(self::REFERENCE_IDENTIFIER.$i, $supportCategory);
         }
-
-        // Flush toutes les opérations en base de données
         $manager->flush();
     }
 }

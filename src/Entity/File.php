@@ -25,8 +25,7 @@ class File
     #[ORM\Column]
     private ?int $size = null;
 
-    #[ORM\ManyToOne(inversedBy: 'exerciseFile')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\OneToOne(mappedBy: 'exerciseFile', cascade: ['persist', 'remove'])]
     private ?Exercise $exercise = null;
 
     public function getId(): ?int
@@ -87,8 +86,13 @@ class File
         return $this->exercise;
     }
 
-    public function setExercise(?Exercise $exercise): static
+    public function setExercise(Exercise $exercise): static
     {
+        // set the owning side of the relation if necessary
+        if ($exercise->getExerciseFile() !== $this) {
+            $exercise->setExerciseFile($this);
+        }
+
         $this->exercise = $exercise;
 
         return $this;
