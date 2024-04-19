@@ -18,15 +18,15 @@ class Thematic
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'thematic', targetEntity: Course::class)]
-    private Collection $course;
-
     #[ORM\OneToMany(mappedBy: 'thematic', targetEntity: Exercise::class)]
     private Collection $exercises;
 
+    #[ORM\ManyToOne(inversedBy: 'thematics')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Course $course = null;
+
     public function __construct()
     {
-        $this->course = new ArrayCollection();
         $this->exercises = new ArrayCollection();
     }
 
@@ -43,36 +43,6 @@ class Thematic
     public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Course>
-     */
-    public function getCourse(): Collection
-    {
-        return $this->course;
-    }
-
-    public function addCourse(Course $course): static
-    {
-        if (!$this->course->contains($course)) {
-            $this->course->add($course);
-            $course->setThematic($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCourse(Course $course): static
-    {
-        if ($this->course->removeElement($course)) {
-            // set the owning side to null (unless already changed)
-            if ($course->getThematic() === $this) {
-                $course->setThematic(null);
-            }
-        }
 
         return $this;
     }
@@ -103,6 +73,18 @@ class Thematic
                 $exercise->setThematic(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCourse(): ?Course
+    {
+        return $this->course;
+    }
+
+    public function setCourse(?Course $course): static
+    {
+        $this->course = $course;
 
         return $this;
     }

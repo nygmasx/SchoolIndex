@@ -9,6 +9,9 @@ import Turn from '@domchristie/turn'
 import './styles/app.css';
 import './vendor/@domchristie/turn/dist/turn.css'
 
+
+Turn.start();
+
 document.addEventListener('turbo:load', function() {
     const profileImg = document.getElementById('profile-img');
     const optionsList = document.getElementById('options-list');
@@ -60,19 +63,19 @@ document.getElementById('pageSelect').addEventListener('change', function () {
     }
     });
 
-    // Datatable 
+    // Datatable
 
     document.addEventListener("DOMContentLoaded", function() {
         const customSelect = document.getElementById('customSelect');
         const selectItems = document.querySelector('.select-items');
         const arrowDown = document.querySelector('.arrow-down');
         const selectedLevel = document.querySelector('.select-selected span'); // Sélectionne l'élément qui affiche le niveau sélectionné
-      
+
         customSelect.addEventListener('click', function() {
           selectItems.classList.toggle('hidden');
           arrowDown.classList.toggle('arrow-up');
         });
-      
+
         const topLevelItems = selectItems.querySelectorAll('.flex.items-center.justify-between');
         topLevelItems.forEach(function(item) {
           item.addEventListener('click', function(event) {
@@ -85,7 +88,7 @@ document.getElementById('pageSelect').addEventListener('change', function () {
             }
           });
         });
-      
+
         document.addEventListener('click', function(event) {
           const targetElement = event.target;
           if (!customSelect.contains(targetElement)) {

@@ -18,20 +18,20 @@ class Course
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'course')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Thematic $thematic = null;
-
     #[ORM\OneToMany(mappedBy: 'course', targetEntity: Skill::class)]
     private Collection $skills;
 
     #[ORM\OneToMany(mappedBy: 'course', targetEntity: Exercise::class)]
     private Collection $exercises;
 
+    #[ORM\OneToMany(targetEntity: Thematic::class, mappedBy: 'course')]
+    private Collection $thematics;
+
     public function __construct()
     {
         $this->skills = new ArrayCollection();
         $this->exercises = new ArrayCollection();
+        $this->thematics = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -47,18 +47,6 @@ class Course
     public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getThematic(): ?Thematic
-    {
-        return $this->thematic;
-    }
-
-    public function setThematic(?Thematic $thematic): static
-    {
-        $this->thematic = $thematic;
 
         return $this;
     }
@@ -117,6 +105,36 @@ class Course
             // set the owning side to null (unless already changed)
             if ($exercise->getCourse() === $this) {
                 $exercise->setCourse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Thematic>
+     */
+    public function getThematics(): Collection
+    {
+        return $this->thematics;
+    }
+
+    public function addThematic(Thematic $thematic): static
+    {
+        if (!$this->thematics->contains($thematic)) {
+            $this->thematics->add($thematic);
+            $thematic->setCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeThematic(Thematic $thematic): static
+    {
+        if ($this->thematics->removeElement($thematic)) {
+            // set the owning side to null (unless already changed)
+            if ($thematic->getCourse() === $this) {
+                $thematic->setCourse(null);
             }
         }
 

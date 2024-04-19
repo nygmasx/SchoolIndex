@@ -60,11 +60,11 @@
         }
         }) }}
         {{ form_errors(form.lastName) }}
-        {{ form_widget(form.lastName, { 
+        {{ form_widget(form.lastName, {
             'attr': {
                 'class': 'my-custom-class flex flex-column border border-borderGrey rounded-md p-2 mb-4 focus:outline-none focus:border-darkGrey w-full',
                 'placeholder': 'Saisissez le nom du contributeur',
-            } 
+            }
         }) }}
     </div>
 
@@ -74,13 +74,13 @@
             'label_attr': {
                 'class': 'noto text-color text-customGrey',
                 'data-toggle': 'tooltip',
-            } 
+            }
             }) }}
             {{ form_errors(form.role) }}
-            {{ form_widget(form.role, { 
+            {{ form_widget(form.role, {
                 'attr': {
-                    'class': 'my-custom-class flex flex-column text-customGrey border border-borderGrey rounded-md p-2 mb-4 focus:outline-none focus:border-darkGrey w-full', 
-                } 
+                    'class': 'my-custom-class flex flex-column text-customGrey border border-borderGrey rounded-md p-2 mb-4 focus:outline-none focus:border-darkGrey w-full',
+                }
             }) }}
         </div>
     </div>
@@ -92,11 +92,11 @@
                 'data-toggle': 'tooltip',
         }} ) }}
         {{ form_errors(form.firstName) }}
-        {{ form_widget(form.firstName, { 
+        {{ form_widget(form.firstName, {
             'attr': {
                 'class': 'my-custom-class flex flex-column border border-borderGrey rounded-md p-2 mb-4 focus:outline-none focus:border-darkGrey w-full',
                 'placeholder': 'Saisissez le prénom',
-            } 
+            }
         }) }}
     </div>
 
@@ -106,15 +106,15 @@
             'label_attr': {
                 'class': 'noto text-color text-customGrey',
                 'data-toggle': 'tooltip',
-            }  
-        
+            }
+
         }) }}
         {{ form_errors(form.email) }}
-        {{ form_widget(form.email, { 
+        {{ form_widget(form.email, {
             'attr': {
                 'class': 'my-custom-class flex flex-column border border-borderGrey rounded-md p-2 mb-4 focus:outline-none focus:border-darkGrey w-full',
                 'placeholder': 'Saisissez l\'email',
-            } 
+            }
         }) }}
     </div>
 
@@ -124,14 +124,14 @@
             'label_attr': {
                 'class': 'noto text-color text-customGrey',
                 'data-toggle': 'tooltip',
-            } 
+            }
         }) }}
         {{ form_errors(form.password) }}
-        {{ form_widget(form.password, { 
+        {{ form_widget(form.password, {
             'attr': {
                 'class': 'my-custom-class flex flex-column border border-borderGrey rounded-md p-2 mb-4 focus:outline-none focus:border-darkGrey w-full',
                 'placeholder': 'Saisissez le mot de passe',
-            } 
+            }
         }) }}
     </div>
 
@@ -140,7 +140,7 @@
     <a href="{{path('app_contributors')}}" class=" font-semibold h-[45px] items-center flex justify-center text-sm bg-borderGrey font-noto text-fontGrey py-2 px-4 rounded hover:bg-darkGrey focus:outline-none focus:shadow-outline">< Retour à la liste</a>
 
         <div class="">
-            {{ form_widget(form.submit, { 
+            {{ form_widget(form.submit, {
                 'label': 'Enregistrer',
                 'attr': {
                     'class': 'h-[45px] font-semibold items-center flex justify-center text-sm bg-borderGrey font-noto text-fontGrey py-2 px-4 rounded hover:bg-darkGrey focus:outline-none focus:shadow-outline',
