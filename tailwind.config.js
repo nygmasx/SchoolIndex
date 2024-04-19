@@ -17,9 +17,7 @@ module.exports = {
         customGreen: '#52B788',
         darkGreen: '#40916c',
         lightGrey: '#DFE3E8',
-        borderGrey: '#F6F6F6',
-        darkGrey: '#DADADA',
-        fontGrey:'#757575',
+
       },
     },
   },

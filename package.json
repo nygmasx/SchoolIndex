@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@domchristie/turn": "^3.1.1",
     "flowbite": "^2.3.0"
   }
 }
