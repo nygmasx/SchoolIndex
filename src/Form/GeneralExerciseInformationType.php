@@ -14,6 +14,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -46,18 +47,24 @@ class GeneralExerciseInformationType extends AbstractType
                 'label' => 'Chapitre'
             ])
             ->add('keywords', TextType::class, [
-                'label' => 'Mots Clés'
+                'label' => 'Mots Clés',
+                'autocomplete' => true,
+                'tom_select_options' => [
+                    'create' => true,
+                    'createOnBlur' => true,
+                    'delimiter' => ',',
+                ],
             ])
             ->add('difficulty', ChoiceType::class, [
-                'label' => 'Difficulté'
+                'label' => 'Difficulté',
+
             ])
             ->add('duration', TextType::class, [
                 'label' => 'Durée (en heure)'
             ])
             ->add('skill', EntityType::class, [
                 'class' => Skill::class,
-                'choice_label' => 'id',
-                'multiple' => true,
+                'choice_label' => 'name',
             ]);
     }
 
