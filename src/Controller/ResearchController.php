@@ -2,16 +2,23 @@
 
 namespace App\Controller;
 
+use App\Entity\Classroom;
+use App\Entity\Thematic;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
 
 class ResearchController extends AbstractController
 {
-    #[Route(path: '/research', name: 'app_research')]
-        public function index(Request $request):Response{
-            return $this->render('research/index.html.twig', [
-            ]);
-        }
+    #[Route('/research', name: 'app_research')]
+    public function index(EntityManagerInterface $entityManager): Response
+    {
+        $classrooms = $entityManager->getRepository(Classroom::class)->findAll();
+        $thematics = $entityManager->getRepository(Thematic::class)->findAll();
+        return $this->render('research/index.html.twig', [
+            'classrooms' => $classrooms,
+            'thematics' => $thematics
+        ]);
+    }
 }

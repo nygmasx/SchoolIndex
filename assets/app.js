@@ -62,38 +62,3 @@ document.getElementById('pageSelect').addEventListener('change', function () {
     // Continuez avec les autres cas si nécessaire
     }
     });
-
-    // Datatable
-
-    document.addEventListener("DOMContentLoaded", function() {
-        const customSelect = document.getElementById('customSelect');
-        const selectItems = document.querySelector('.select-items');
-        const arrowDown = document.querySelector('.arrow-down');
-        const selectedLevel = document.querySelector('.select-selected span'); // Sélectionne l'élément qui affiche le niveau sélectionné
-
-        customSelect.addEventListener('click', function() {
-          selectItems.classList.toggle('hidden');
-          arrowDown.classList.toggle('arrow-up');
-        });
-
-        const topLevelItems = selectItems.querySelectorAll('.flex.items-center.justify-between');
-        topLevelItems.forEach(function(item) {
-          item.addEventListener('click', function(event) {
-            const subItems = item.nextElementSibling;
-            if (subItems) {
-              subItems.classList.toggle('hidden');
-              arrowDown.classList.toggle('arrow-up');
-              selectedLevel.textContent = item.querySelector('span').textContent; // Met à jour le texte avec le niveau sélectionné
-              event.stopPropagation();
-            }
-          });
-        });
-
-        document.addEventListener('click', function(event) {
-          const targetElement = event.target;
-          if (!customSelect.contains(targetElement)) {
-            selectItems.classList.add('hidden');
-            arrowDown.classList.remove('arrow-up');
-          }
-        });
-      });
