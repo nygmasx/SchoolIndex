@@ -115,19 +115,41 @@ html.turn-exit [data-turn-exit] {
     }
 }
 
-.rotate {
-    transform: rotate(180deg);
-    transition: transform 0.3s ease;
+#dropdown-trigger svg {
+    transition: transform 0.3s ease; /* Ajoute une transition fluide */
 }
 
-.arrow-down {
-    transition: transform 0.3s ease;
+#dropdown-trigger.open{
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 
-.arrow-up {
-    transform: rotate(180deg);
-    transition: transform 0.3s ease; /* Ajoute une transition pour un effet d'animation fluide */
-  }
+#dropdown-trigger.open svg {
+    transform: rotate(180deg); /* Inverse l'orientation de la flèche lorsque la liste est ouverte */
+}
+
+#dropdown-trigger-level svg {
+    transition: transform 0.3s ease; /* Ajoute une transition fluide */
+}
+
+#dropdown-trigger-level.open {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom: none;
+}
+
+#dropdown-trigger-level.open svg {
+    transform: rotate(180deg); /* Inverse l'orientation de la flèche lorsque la liste est ouverte */
+}
+
+#dropdown-trigger-college svg {
+    transition: transform 0.3s ease; /* Ajoute une transition fluide */
+}
+
+#dropdown-trigger-college.open svg {
+    transform: rotate(180deg); /* Inverse l'orientation de la flèche lorsque la liste est ouverte */
+}
+
 
 .active-svg path {
     stroke: #1B3168; /* Couleur de remplissage du SVG */
