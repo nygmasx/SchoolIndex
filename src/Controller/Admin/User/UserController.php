@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin\User;
 
 use App\Entity\User;
 use App\Form\UserType;
@@ -24,7 +24,7 @@ class UserController extends AbstractController
         private EntityManagerInterface $entityManager,
     ) {}
 
-    #[Route('/add/user', name: 'add_user')]
+    #[Route('/user/new', name: 'new_user')]
     public function addUser(Request $request, AuthorizationCheckerInterface $authChecker): Response
     {
 
@@ -62,42 +62,50 @@ class UserController extends AbstractController
             $this->entityManager->persist($user);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('app_contributors');
+            return $this->redirectToRoute('app_contributor');
         }
 
-        return $this->render('admin/contributors/add.html.twig', [
+        return $this->render('admin/contributor/create.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/user-delete/{id}', name: 'user_delete', methods: ['GET', 'POST'])]
-    public function delete(Request $request, User $user, AuthorizationCheckerInterface $authChecker): Response
+    #[Route('/user/delete/{id}', name: 'user_delete', methods: ['GET', 'POST'])]
+    public function delete(Request $request, User $user, AuthorizationCheckerInterface $authChecker, EntityManagerInterface $entityManager): Response
     {
-
         // Vérifie si l'utilisateur a le rôle admin
         if (!$authChecker->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé. Vous n\'avez pas les permissions nécessaires.');
         }
 
-        $form = $this->createDeleteConfirmationForm();
+        
+        // Création du formulaire de confirmation
+        $form = $this->createFormBuilder()
+            ->add('confirm', SubmitType::class, [
+                'label' => 'Confirmer',
+                'attr' => ['class' => 'btn btn-danger']
+            ])
+            ->getForm();
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->remove($user);
-            $this->entityManager->flush();
+            $entityManager->remove($user);
+            $entityManager->flush();
 
             $this->addFlash('success', 'L\'utilisateur a été supprimé avec succès.');
 
-            return $this->redirectToRoute('app_contributors');
+            return $this->redirectToRoute('app_contributor');
         }
 
-        return $this->render('admin/contributors/delete.html.twig', [
+        return $this->render('admin/contributor/delete.html.twig', [
             'user' => $user,
             'confirmationForm' => $form->createView(),
         ]);
     }
 
-    #[Route('/edit/user/{id}', name: 'edit_user')]
+
+    #[Route('/user/edit/{id}', name: 'edit_user')]
     public function editUser(User $user, Request $request, AuthorizationCheckerInterface $authChecker): Response
     {
 
@@ -122,18 +130,13 @@ class UserController extends AbstractController
 
             $this->addFlash('success', 'Les informations de l\'utilisateur ont été mises à jour.');
 
-            return $this->redirectToRoute('app_contributors');
+            return $this->redirectToRoute('app_contributor');
         }
 
-        return $this->render('admin/contributors/edit.html.twig', [
+        return $this->render('admin/contributor/edit.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
-    private function createDeleteConfirmationForm(): \Symfony\Component\Form\FormInterface
-    {
-        return $this->createFormBuilder()
-            ->add('confirm', SubmitType::class, ['label' => 'Confirmer la suppression'])
-            ->getForm();
-    }
+    
 }

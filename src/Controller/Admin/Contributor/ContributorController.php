@@ -2,7 +2,7 @@
 
 // src/Controller/AdminController.php
 
-namespace App\Controller\Admin\Contributors;
+namespace App\Controller\Admin\Contributor;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,9 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\UserRepository;
 
-#[Route('/admin')]
-
-class ContributorsController extends AbstractController
+class ContributorController extends AbstractController
 {
 
     public function __construct(
@@ -24,7 +22,7 @@ class ContributorsController extends AbstractController
         
     }
 
-    #[Route('/contributors', name: 'app_contributors')]
+    #[Route('/contributor', name: 'app_contributor')]
     public function index(Request $request): Response
     {
         // Capture le terme de recherche depuis la requête
@@ -41,7 +39,7 @@ class ContributorsController extends AbstractController
         );
 
         // Renvoyez le résultat à votre template, avec la pagination et le terme de recherche
-        return $this->render('admin/contributors/index.html.twig', [
+        return $this->render('admin/contributor/index.html.twig', [
             'pagination' => $pagination,
             'searchTerm' => $searchTerm,
         ]);

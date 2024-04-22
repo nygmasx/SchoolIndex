@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Course;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @extends ServiceEntityRepository<Course>
@@ -20,6 +21,33 @@ class CourseRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Course::class);
     }
+
+    public function createQueryBuilderForAll()
+{
+    return $this->createQueryBuilder('u')
+        ->orderBy('u.id', 'ASC');
+}
+
+public function findBySearchTerm(string $searchTerm): array
+{
+    return $this->createQueryBuilder('u')
+        ->andWhere('u.name LIKE :searchTerm OR u.surname LIKE :searchTerm OR u.email LIKE :searchTerm')
+        ->setParameter('searchTerm', '%' . $searchTerm . '%')
+        ->getQuery()
+        ->getResult();
+}
+
+public function getSearchQueryBuilder(string $searchTerm = ''): QueryBuilder
+{
+    $qb = $this->createQueryBuilder('u');
+
+    if ($searchTerm) {
+        $qb->andWhere('u.name LIKE :searchTerm')
+            ->setParameter('searchTerm', '%' . $searchTerm . '%');
+    }
+
+    return $qb; // Ajoutez cette ligne pour corriger l'erreur
+}
 
 //    /**
 //     * @return Course[] Returns an array of Course objects
