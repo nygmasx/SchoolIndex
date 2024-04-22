@@ -6,7 +6,7 @@
 {% block main %}
 	<div class="bg-slate-200 flex flex-col items-center min-h-screen font-['Epilogue'] pb-5">
 		<div class="w-full text-center lg:text-start">
-			<h1 class="text-2xl	 md:text-4xl font-medium text-center lg:text-start text-blue-900 p-4">
+			<h1 class="text-2xl	 md:text-4xl font-medium text-center lg:text-start text-blue-900 py-12 px-6 ">
 				Rechercher un exercice
 			</h1>
 		</div>
@@ -14,69 +14,86 @@
 			<div class="flex flex-col md:flex-row   gap-2">
 				<div class="flex flex-col text-gray-500 md:w-[25%]">
 					<p class="font-medium text-gray-600">Niveau :</p>
-					<div id="customSelect" class="custom-select select-none md:w-[95%]">
-						<div class="flex items-center justify-between text-gray-500 rounded-md border-gray-300 border border-solid h-11 px-2.5  select-selected cursor-pointer">
-							<span>Collège</span>
+					<div>
+						<div id="dropdown-trigger-level" class="select-none flex items-center justify-between text-gray-500 rounded-md border-gray-300 border border-solid h-11 px-2.5  select-selected cursor-pointer">
+							<span>----</span>
 							<svg class="arrow-down" width="12" height="8" viewbox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z" fill="#757575"/>
 							</svg>
 						</div>
-						<div class="select-items border border-t-0 border-gray-300 hidden">
-							<div class="flex items-center justify-between border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer">
+						<div class="dropdown-level level-list  border border-t-0 border-gray-300 hidden select-none">
+							<div class="flex items-center justify-between border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer" data-level="college">
 								<span>Collège</span>
 								<svg class="arrow-down" width="12" height="8" viewbox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z" fill="#757575"/>
 								</svg>
-                            </div>
-								<div class="hidden">
-									<div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer">6ème</div>
-									<div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer">5ème</div>
-									<div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer">4ème</div>
-									<div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer">3ème</div>
-								</div>
 							</div>
-							<div class="flex items-center justify-between border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer">
+							<div class="dropdown-college hidden">
+								{% for classroom in classrooms %}
+									{% if classroom.name in ['6ème', '5ème', '4ème', '3ème'] %}
+										<div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 pl-6 	cursor-pointer college-class">{{ classroom.name }}</div>
+									{% endif %}
+								{% endfor %}
+							</div>
+
+							<div class=" flex items-center justify-between border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer" data-level="lycee">
 								<span>Lycée</span>
 								<svg class="arrow-down" width="12" height="8" viewbox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z" fill="#757575"/>
 								</svg>
 							</div>
-							<div class="hidden">
-								<div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer">Seconde</div>
-								<div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer">Première</div>
-								<div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer">Terminale</div>
+							<div class="dropdown-lycee hidden ">
+								{% for classroom in classrooms %}
+									{% if classroom.name in ['Seconde', 'Première', 'Terminale'] %}
+										<div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 pl-6 cursor-pointer lycee-class">{{ classroom.name }}</div>
+									{% endif %}
+								{% endfor %}
 							</div>
-							<div class="flex items-center justify-between border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer">
+							<div class="flex items-center justify-between border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer" data-level="bts">
 								<span>BTS</span>
 								<svg class="arrow-down" width="12" height="8" viewbox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z" fill="#757575"/>
 								</svg>
 							</div>
-							<div class="hidden">
-								<div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer">BTS-01</div>
-								<div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer">BTS-02</div>
+							<div class="dropdown-bts hidden select-none">
+								{% for classroom in classrooms %}
+									{% if classroom.name in ['BTS-01', 'BTS-02'] %}
+										<div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 pl-6 cursor-pointer bts-class">{{ classroom.name }}</div>
+									{% endif %}
+								{% endfor %}
 							</div>
-							<div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer">Licence</div>
+
+							<div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer licence-class">
+								{% for classroom in classrooms %}
+									{% if classroom.name == 'Licence' %}
+										{{ classroom.name }}
+									{% endif %}
+								{% endfor %}
+							</div>
+
 						</div>
 					</div>
 				</div>
 
 				<div class="flex flex-col text-gray-500 md:w-[25%]">
 					<p class="font-medium text-gray-600">Thématique :</p>
-					<div class="custom-select select-none w-[95%]">
-						<div class="flex items-center justify-between text-gray-500 rounded-md border-gray-300 border border-solid h-11 px-2.5  select-selected cursor-pointer">
-							<span>Analyse</span>
-							<svg class="arrow-down" width="12" height="8" viewbox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<div class="custom-select select-none">
+						<div class="flex items-center justify-between text-gray-500 rounded-md border-gray-300 border border-solid h-11 px-2.5 select-selected cursor-pointer" id="dropdown-trigger">
+							<span>----</span>
+							<svg width="12" height="8" viewbox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z" fill="#757575"/>
 							</svg>
 						</div>
+						<div class="dropdown-list thematic-list hidden">
 							{% for thematic in thematics %}
-								<div class="select-items border border-t-0 border-gray-300 hidden">
-									<div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer">{{ thematic.name }}</div>
+								<div class="select-item border border-t-0 border-gray-300 	">
+									<div class="border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer">{{ thematic.name }}</div>
 								</div>
 							{% endfor %}
+						</div>
 					</div>
 				</div>
+
 				<div class="flex flex-col text-gray-500 md:w-[25%]  ">
 					<p class="font-medium text-gray-600">Mots clés :</p>
 					<input class="text-gray-500 rounded-md border-gray-300 border border-solid h-11 w-3/4 p-2 outline-none md:w-[95%]"></input>
@@ -103,7 +120,7 @@
 						<tr class="border-t	border-solid border-gray-200">
 							<td class="w-[30%] h-24 px-6	py-' ">Les suites suivantes sont-elles croissantes? Décroissantes?</td>
 							<td class="px-6	py-4  ">Niveau 8</td>
-							<td class="px-6	py-4  ">
+							<td class="px-6	py-4 flex flex-wrap	gap-1.5	">
 								<span class="bg-gray-200 px-4 py-2 rounded-full">arithmétique</span>
 								<span class="bg-gray-200 px-4 py-2 rounded-full">base</span>
 							</td>
@@ -118,8 +135,11 @@
 						<tr class="border-t	border-solid border-gray-200">
 							<td class="px-6	py-4 ">Exercice sur une suite récurrente</td>
 							<td class="px-6	py-4  ">Niveau 9</td>
-							<td class="px-6	py-4  ">
+							<td class="px-6	py-4 flex flex-wrap	gap-1.5	">
 								<span class="bg-gray-200 px-4 py-2 rounded-full">réccurrence</span>
+								<span class="bg-gray-200 px-4 py-2 rounded-full">calcul de matrice</span>
+								<span class="bg-gray-200 px-4 py-2 rounded-full">Graphe et ordonnancement</span>
+								<span class="bg-gray-200 px-4 py-2 rounded-full">Probabilités et statistique</span>
 							</td>
 							<td class="px-6	py-4  ">1h00</td>
 							<td class="px-6	py-4  ">
@@ -132,7 +152,7 @@
 						<tr class="border-t	border-solid border-gray-200">
 							<td class="px-6	py-4">Le flocon de Van Koch</td>
 							<td class="px-6	py-4  ">Niveau 8</td>
-							<td class="px-6	py-4  ">
+							<td class="px-6	py-4 flex flex-wrap	gap-1.5	">
 								<span class="bg-gray-200 px-4 py-2 rounded-full">arithmétique</span>
 							</td>
 							<td class="px-6	py-4  ">2h00</td>
@@ -146,7 +166,7 @@
 						<tr class="border-t	border-solid border-gray-200">
 							<td class="px-6	py-4">Le flocon de Van Koch</td>
 							<td class="px-6	py-4  ">Niveau 8</td>
-							<td class="px-6	py-4  ">
+							<td class="px-6	py-4 flex flex-wrap	gap-1.5	">
 								<span class="bg-gray-200 px-4 py-2 rounded-full">arithmétique</span>
 							</td>
 							<td class="px-6	py-4  ">2h00</td>
@@ -160,7 +180,7 @@
 						<tr class="border-t	border-solid border-gray-200">
 							<td class="px-6	py-4">Le flocon de Van Koch</td>
 							<td class="px-6	py-4  ">Niveau 8</td>
-							<td class="px-6	py-4  ">
+							<td class="px-6	py-4 flex flex-wrap	gap-1.5	">
 								<span class="bg-gray-200 px-4 py-2 rounded-full">arithmétique</span>
 							</td>
 							<td class="px-6	py-4  ">2h00</td>
@@ -174,7 +194,7 @@
 						<tr class="border-t	border-solid border-gray-200">
 							<td class="px-6	py-4">Le flocon de Van Koch</td>
 							<td class="px-6	py-4  ">Niveau 8</td>
-							<td class="px-6	py-4  flex">
+							<td class="px-6	py-4 flex flex-wrap	gap-1.5	">
 								<span class="bg-gray-200 px-4 py-2 rounded-full">arithmétique</span>
 							</td>
 							<td class="px-6	py-4  ">2h00</td>
@@ -188,7 +208,7 @@
 						<tr class="border-t	border-solid border-gray-200">
 							<td class="px-6	py-4">Le flocon de Van Koch</td>
 							<td class="px-6	py-4  ">Niveau 8</td>
-							<td class="px-6	py-4  ">
+							<td class="px-6	py-4 flex flex-wrap	gap-1.5	">
 								<span class="bg-gray-200 px-4 py-2 rounded-full">arithmétique</span>
 							</td>
 							<td class="px-6	py-4  ">2h00</td>
@@ -202,7 +222,7 @@
 						<tr class="border-t	border-solid border-gray-200">
 							<td class="px-6	py-4">Le flocon de Van Koch</td>
 							<td class="px-6	py-4  ">Niveau 8</td>
-							<td class="px-6	py-4  ">
+							<td class="px-6	py-4 flex flex-wrap	gap-1.5	">
 								<span class="bg-gray-200 px-4 py-2 rounded-full">arithmétique</span>
 							</td>
 							<td class="px-6	py-4  ">2h00</td>
@@ -219,4 +239,124 @@
 			</div>
 		</div>
 
-{% endblock %}
+		<script>
+			// Liste pour les thématiques//
+document.addEventListener('DOMContentLoaded', function () {
+const dropdownTrigger = document.getElementById('dropdown-trigger');
+const dropdownList = document.querySelector('.dropdown-list');
+const thematicItems = document.querySelectorAll('.dropdown-list .select-item');
+
+dropdownTrigger.addEventListener('click', function (event) {
+dropdownList.classList.toggle('hidden');
+dropdownTrigger.classList.toggle('open');
+event.stopPropagation();
+});
+
+thematicItems.forEach(function (item) {
+item.addEventListener('click', function () {
+const selectedThematic = item.textContent.trim();
+dropdownTrigger.querySelector('span').textContent = selectedThematic;
+dropdownList.classList.add('hidden');
+dropdownTrigger.classList.remove('open');
+hideSelectedThematic(selectedThematic);
+});
+});
+
+document.addEventListener('click', function (event) {
+const isClickInsideDropdown = dropdownTrigger.contains(event.target) || dropdownList.contains(event.target);
+if (! isClickInsideDropdown) {
+dropdownList.classList.add('hidden');
+dropdownTrigger.classList.remove('open');
+}
+});
+
+function hideSelectedThematic(selectedThematic) {
+thematicItems.forEach(function (item) {
+const thematicName = item.textContent.trim();
+if (thematicName === selectedThematic) {
+item.style.display = 'none';
+} else {
+item.style.display = 'block';
+}
+});
+}
+});
+
+
+// liste pour les niveaux//
+const dropdownTriggerLevel = document.getElementById('dropdown-trigger-level');
+const dropdownLevel = document.querySelector('.dropdown-level');
+const levelItems = document.querySelectorAll('.dropdown-level > div[data-level]');
+const arrows = document.querySelectorAll('.dropdown-level .arrow-down');
+const selectText = document.querySelector('#dropdown-trigger-level span');
+
+// Fonction pour fermer toutes les sous-listes sauf celle spécifiée
+function closeAllSubDropdowns(except) {
+levelItems.forEach((item, index) => {
+if (item !== except) {
+const subDropdown = document.querySelector (`.dropdown-${
+item.dataset.level
+}`);
+if (subDropdown && ! subDropdown.classList.contains('hidden')) {
+subDropdown.classList.add('hidden');
+arrows[index].classList.remove('open');
+arrows[index].setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);');
+}
+}
+});
+}
+
+dropdownTriggerLevel.addEventListener('click', function (event) {
+dropdownLevel.classList.toggle('hidden');
+dropdownTriggerLevel.classList.toggle('open');
+arrows.forEach(arrow => arrow.classList.toggle('open')); // Ajout ou suppression de la classe 'open' aux flèches
+event.stopPropagation();
+});
+
+levelItems.forEach((item, index) => {
+item.addEventListener('click', function (event) {
+const subDropdown = document.querySelector (`.dropdown-${
+this.dataset.level
+}`);
+if (subDropdown) {
+subDropdown.classList.toggle('hidden');
+arrows[index].classList.toggle('open');
+// Ajout ou suppression de la classe 'open' à la flèche correspondante
+// Ajoutez les styles directement au SVG lorsque la liste est ouverte
+if (! subDropdown.classList.contains('hidden')) {
+arrows[index].setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(180deg);');
+closeAllSubDropdowns(item); // Fermez toutes les sous-listes sauf celle qui vient d'être ouverte
+} else { // Si la classe 'hidden' est réappliquée, retirez les styles du SVG
+arrows[index].setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);');
+}
+}
+event.stopPropagation();
+});
+});
+
+// Gestionnaire d'événements pour les éléments sélectionnables dans les sous-listes
+document.querySelectorAll('.college-class, .lycee-class, .bts-class, .licence-class').forEach(item => {
+item.addEventListener('click', function (event) {
+selectText.textContent = item.textContent; // Mettre à jour le texte du sélecteur avec l'élément sélectionné de la sous-liste
+dropdownLevel.classList.add('hidden'); // Fermer la liste des niveaux
+dropdownTriggerLevel.classList.remove('open'); // Retirer la classe 'open' du sélecteur
+arrows.forEach(arrow => arrow.classList.remove('open')); // Retrait de la classe 'open' à toutes les flèches
+arrows.forEach(arrow => arrow.setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);')); // Réinitialisez les styles des flèches
+closeAllSubDropdowns(); // Fermer toutes les sous-listes
+event.stopPropagation();
+});
+});
+
+document.addEventListener('click', function (event) {
+const isClickInsideDropdown = dropdownTriggerLevel.contains(event.target) || dropdownLevel.contains(event.target);
+if (! isClickInsideDropdown) {
+dropdownLevel.classList.add('hidden');
+dropdownTriggerLevel.classList.remove('open');
+arrows.forEach(arrow => arrow.classList.remove('open')); // Retrait de la classe 'open' à toutes les flèches
+arrows.forEach(arrow => arrow.setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);')); // Réinitialisez les styles des flèches
+closeAllSubDropdowns(); // Fermer toutes les sous-listes
+}
+});
+		</script>
+
+	{% endblock %}

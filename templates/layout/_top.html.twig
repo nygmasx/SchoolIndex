@@ -3,7 +3,6 @@
         {% if app.user %}
             {% set currentUser = app.user %}
             <p class=" text-base">{{ currentUser.lastName }} {{ currentUser.firstName }} </p>
-            <img src="{{ asset('images/pp.png') }}" alt="photo de profil" class="bg-sky-200 rounded-full">
         {% else %}
             <a href="{{ path('app_login') }}" class="font-medium text-lg text-blue-950 flex items-center justify-center gap-1.5">
                 <svg width="17" height="16" viewbox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">

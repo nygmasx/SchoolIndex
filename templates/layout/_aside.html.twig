@@ -1,13 +1,15 @@
 {# _layout.html.twig #}
 <div class="flex flex-col w-72 shadow-right z-10 fixed bg-white h-screen max-lg:hidden">
 	<div class="flex flex-col h-[90%] justify-center">
-		<div class="flex items-center ml-6 mt-6 gap-4">
-			<img src="{{asset("assets/logo.png")}}" alt="Logo du lycée Saint-Vincent" class="w-[40px]">
-			<div>
-				<h1 class="text-2xl font-epilogue font-medium text-[#1B3168]">School Index</h1>
-				<h2 class="text-gray-500 font-epilogue text-sm">Lycée Saint Vincent - Senlis</h2>
+		<a href="{{ path('app_home') }}" data-turbo-action="visit">
+			<div class="flex items-center ml-6 mt-6 gap-4">
+				<img src="{{asset("assets/logo.png")}}" alt="Logo du lycée Saint-Vincent" class="w-[40px]">
+				<div>
+					<h1 class="text-2xl font-epilogue font-medium text-[#1B3168]">School Index</h1>
+					<h2 class="text-gray-500 font-epilogue text-sm">Lycée Saint Vincent - Senlis</h2>
+				</div>
 			</div>
-		</div>
+		</a>
 		<div class="flex flex-col ml-8 mt-10  h-full ">
 			<nav class=" flex flex-col justify-between h-full">
 				<div class="flex-col flex gap-4 mt-12 ">
@@ -28,8 +30,8 @@
 						Rechercher
 					</a>
 
-					<a href="{{ path('app_research') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
-						<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<a href="{{ path('app_mathematiques') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 text-gray-500 {{ activeRoute == 'app_mathematiques' ? 'active' : '' }} hover:font-bold hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+						<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="{{ activeRoute == 'app_mathematiques' ? 'active-svg' : '' }}">
 							<path d="M19.5894 3.0401H5.58942C4.48485 3.0401 3.58942 3.93553 3.58942 5.0401V19.0401C3.58942 20.1447 4.48485 21.0401 5.58942 21.0401H19.5894C20.694 21.0401 21.5894 20.1447 21.5894 19.0401V5.0401C21.5894 3.93553 20.694 3.0401 19.5894 3.0401Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M9.58942 17.0401C11.5894 17.0401 12.3894 16.0401 12.3894 14.2401V10.0401C12.3894 8.04009 13.3894 6.74009 15.5894 7.04009" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M9.58942 11.2401H15.2894" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -53,6 +55,14 @@
 							</svg>
 							Soumettre
 						</a>
+						{% if is_granted('ROLE_ADMIN') %}
+							<a href="{{ path('app_contributors') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+								<svg width="25px" height="25px" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+								Dashboard
+							</a>
+						{% endif %}
 					{% endif %}
 
 
@@ -94,7 +104,7 @@
 			</svg>
 		</a>
 
-		<a href="{{ path('app_research') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] transition duration-300 font-normal hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+		<a href="{{ path('app_mathematiques') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] transition duration-300 font-normal hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
 			<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M19.5894 3.0401H5.58942C4.48485 3.0401 3.58942 3.93553 3.58942 5.0401V19.0401C3.58942 20.1447 4.48485 21.0401 5.58942 21.0401H19.5894C20.694 21.0401 21.5894 20.1447 21.5894 19.0401V5.0401C21.5894 3.93553 20.694 3.0401 19.5894 3.0401Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				<path d="M9.58942 17.0401C11.5894 17.0401 12.3894 16.0401 12.3894 14.2401V10.0401C12.3894 8.04009 13.3894 6.74009 15.5894 7.04009" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -103,7 +113,6 @@
 		</a>
 
 		{% if app.user %}
-			<img src="images/pp.png" alt="photo de profil" class="bg-sky-200 rounded-full cursor-pointer" id="profile-img">
 			<ul class="hidden bg-white absolute bottom-14 left-0 w-[30%] p-2 rounded-lg shadow-lg" id="options-list">
 				<li>
 					<a href="{{ path('app_research') }}" data-turbo-action="visit" class="flex gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
@@ -132,8 +141,18 @@
 						Déconnexion
 					</a>
 				</li>
+				{% if is_granted('ROLE_ADMIN') %}
+				<li>
+					<a href="{{ path('app_contributors') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+						<svg width="25px" height="25px" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+						Dashboard
+					</a>
+				</li>
+
+				{% endif %}
 			</ul>
-		{% else %}
 			<a href="{{ path('app_login') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] transition duration-300 font-normal hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
 				<svg width="23" height="24" viewbox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M9 9V6L14 10L9 14V11H0V9H9ZM1.458 13H3.582C4.28005 14.7191 5.55371 16.1422 7.18512 17.0259C8.81652 17.9097 10.7043 18.1991 12.5255 17.8447C14.3468 17.4904 15.9883 16.5142 17.1693 15.0832C18.3503 13.6523 18.9975 11.8554 19 10C19.001 8.14266 18.3558 6.34283 17.1749 4.90922C15.994 3.47561 14.3511 2.49756 12.528 2.14281C10.7048 1.78807 8.81505 2.07874 7.18278 2.96498C5.55051 3.85121 4.27747 5.27778 3.582 7H1.458C2.732 2.943 6.522 0 11 0C16.523 0 21 4.477 21 10C21 15.523 16.523 20 11 20C6.522 20 2.732 17.057 1.458 13Z" stroke="#757575" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" fill="#757575"/>
