@@ -79,9 +79,44 @@ class Exercise
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    public function __construct()
+    public function __construct(
+        ?string    $name = null,
+        ?Course    $course = null,
+        ?Classroom $classroom = null,
+        ?Thematic  $thematic = null,
+        ?string    $chapter = null,
+        ?string    $keywords = null,
+        ?int       $difficulty = null,
+        ?float     $duration = null,
+        ?Origin    $origin = null,
+        ?string    $originName = null,
+        ?string    $originInformation = null,
+        ?string    $proposedbyType = null,
+        ?string    $proposedByFirstName = null,
+        ?string    $proposedByLastName = null,
+        ?User      $createdBy = null,
+        ?File      $exerciseFile = null,
+        ?File      $correctionFile = null,
+    )
     {
         $this->skill = new ArrayCollection();
+        $this->name = $name;
+        $this->course = $course;
+        $this->classroom = $classroom;
+        $this->thematic = $thematic;
+        $this->chapter = $chapter;
+        $this->keywords = $keywords;
+        $this->difficulty = $difficulty;
+        $this->duration = $duration;
+        $this->origin = $origin;
+        $this->originName = $originName;
+        $this->originInformation = $originInformation;
+        $this->proposedbyType = $proposedbyType;
+        $this->proposedByFirstName = $proposedByFirstName;
+        $this->proposedByLastName = $proposedByLastName;
+        $this->createdBy = $createdBy;
+        $this->exerciseFile = $exerciseFile;
+        $this->correctionFile = $correctionFile;
     }
 
     public function getId(): ?int

@@ -203,10 +203,11 @@ class FileFixtures extends Fixture
                 ->setName($fileData['name'])
                 ->setOriginalName($fileData['originalName'])
                 ->setExtension($fileData['extension'])
-                ->setSize($fileData['size']);
+                ->setSize($fileData['size'])
+                ->setUpdatedAt(new \DateTimeImmutable());
 
             $manager->persist($file);
-            $this->addReference(self::REFERENCE_IDENTIFIER.$i, $file);
+            $this->addReference(self::REFERENCE_IDENTIFIER . $i, $file);
         }
 
         $manager->flush();

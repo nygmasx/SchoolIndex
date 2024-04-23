@@ -90,8 +90,8 @@
 
                 <div class="w-1/2">
                     <div class="mb-5">
-                        {{ form_label(form.skill, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                        {{ form_widget(form.skill, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'countries-course'}}) }}
+                        {{ form_label(form.skills, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                        {{ form_widget(form.skills, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'countries-course'}}) }}
                     </div>
 
                     <div class="mb-5">
@@ -109,12 +109,11 @@
                         </div>
                     </div>
 
-
                     {{ form_rest(form) }}
                     <button type="submit">Soumettre</button>
                     {{ form_end(form) }}
                 </div>
-            </div>
         </div>
+    </div>
     </div>
 {% endblock %}

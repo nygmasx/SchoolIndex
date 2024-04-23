@@ -4,8 +4,11 @@ namespace App\Entity;
 
 use App\Repository\FileRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
+use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
 #[ORM\Entity(repositoryClass: FileRepository::class)]
+#[Uploadable]
 class File
 {
     #[ORM\Id]
@@ -24,6 +27,12 @@ class File
 
     #[ORM\Column]
     private ?int $size = null;
+
+    #[UploadableField(mapping: 'exercises', fileNameProperty: 'name', size: 'size', mimeType: 'extension', originalName: 'originalName')]
+    private ?\Vich\UploaderBundle\Entity\File $uploadedFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToOne(mappedBy: 'exerciseFile', cascade: ['persist', 'remove'])]
     private ?Exercise $exercise = null;
@@ -95,6 +104,31 @@ class File
 
         $this->exercise = $exercise;
 
+        return $this;
+    }
+
+    public function getUploadedFile(): ?\Vich\UploaderBundle\Entity\File
+    {
+        return $this->uploadedFile;
+    }
+
+    public function setUploadedFile(?\Vich\UploaderBundle\Entity\File $uploadedFile): void
+    {
+        $this->uploadedFile = $uploadedFile;
+
+        if (null !== $uploadedFile) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
         return $this;
     }
 }
