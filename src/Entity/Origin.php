@@ -21,6 +21,12 @@ class Origin
     #[ORM\OneToMany(mappedBy: 'origin', targetEntity: Exercise::class)]
     private Collection $exercises;
 
+    public function __toString(): string
+    {
+        // TODO: Implement __toString() method.
+        return $this->name;
+    }
+
     public function __construct()
     {
         $this->exercises = new ArrayCollection();

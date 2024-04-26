@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\DifficultyLevelEnum;
 use App\Repository\ExerciseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -36,8 +37,8 @@ class Exercise
     #[ORM\Column(type: Types::TEXT)]
     private ?string $keywords = null;
 
-    #[ORM\Column]
-    private ?int $difficulty = null;
+    #[ORM\Column(type: 'string', enumType: DifficultyLevelEnum::class)]
+    private ?DifficultyLevelEnum $difficulty = null;
 
     #[ORM\Column]
     private ?float $duration = null;
@@ -80,23 +81,23 @@ class Exercise
     private ?\DateTimeImmutable $createdAt = null;
 
     public function __construct(
-        ?string    $name = null,
-        ?Course    $course = null,
-        ?Classroom $classroom = null,
-        ?Thematic  $thematic = null,
-        ?string    $chapter = null,
-        ?string    $keywords = null,
-        ?int       $difficulty = null,
-        ?float     $duration = null,
-        ?Origin    $origin = null,
-        ?string    $originName = null,
-        ?string    $originInformation = null,
-        ?string    $proposedbyType = null,
-        ?string    $proposedByFirstName = null,
-        ?string    $proposedByLastName = null,
-        ?User      $createdBy = null,
-        ?File      $exerciseFile = null,
-        ?File      $correctionFile = null,
+        ?string              $name = null,
+        ?Course              $course = null,
+        ?Classroom           $classroom = null,
+        ?Thematic            $thematic = null,
+        ?string              $chapter = null,
+        ?string              $keywords = null,
+        ?DifficultyLevelEnum $difficulty = null,
+        ?float               $duration = null,
+        ?Origin              $origin = null,
+        ?string              $originName = null,
+        ?string              $originInformation = null,
+        ?string              $proposedbyType = null,
+        ?string              $proposedByFirstName = null,
+        ?string              $proposedByLastName = null,
+        ?User                $createdBy = null,
+        ?File                $exerciseFile = null,
+        ?File                $correctionFile = null,
     )
     {
         $this->skill = new ArrayCollection();
@@ -196,12 +197,12 @@ class Exercise
         return $this;
     }
 
-    public function getDifficulty(): ?int
+    public function getDifficulty(): ?DifficultyLevelEnum
     {
         return $this->difficulty;
     }
 
-    public function setDifficulty(int $difficulty): static
+    public function setDifficulty(DifficultyLevelEnum $difficulty): static
     {
         $this->difficulty = $difficulty;
 

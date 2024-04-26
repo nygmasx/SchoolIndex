@@ -39,7 +39,7 @@ final class ExerciseController extends AbstractController
     {
     }
 
-    #[Route('/exercise/create/{step}', name: 'app_submit_exercise')]
+    #[Route('/exercise/{step}', name: 'app_submit_exercise')]
     public function create(string $step, Request $request, #[CurrentUser] User $currentUser): Response
     {
         $form = match ($step) {

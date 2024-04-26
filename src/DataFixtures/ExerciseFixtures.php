@@ -3,9 +3,11 @@
 namespace App\DataFixtures;
 
 use App\Entity\Exercise;
+use App\Enum\DifficultyLevelEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 use Random\RandomException;
 
 class ExerciseFixtures extends Fixture implements DependentFixtureInterface
@@ -19,7 +21,7 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
             'thematic' => 'thematic_3',
             'chapter' => 'Chapitre 2',
             'keywords' => 'algèbre@maths@calcul',
-            'difficulty' => 3,
+            'difficulty' => DifficultyLevelEnum::BACPLUS2,
             'duration' => 45.5,
             'original_name' => 'Mathématiques avancées',
             'originInformation' => 'Exercice tiré du livre "Mathématiques avancées".',
@@ -28,6 +30,7 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
             'proposedByLasName' => 'Guyard',
             'file' => 'file_0',
             'correction_file' => 'file_5',
+            'created_by' => 'user_1',
         ],
         [
             'name' => "Dérivation d'une fonction exponentielle",
@@ -35,7 +38,7 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
             'chapter' => 'Chapitre 3',
             'thematic' => 'thematic_3',
             'keywords' => 'algèbre@maths@calcul',
-            'difficulty' => 4,
+            'difficulty' => DifficultyLevelEnum::BAC,
             'duration' => 200,
             'original_name' => 'Mathématiques avancées',
             'originInformation' => 'Exercice tiré du livre "Mathématiques avancées".',
@@ -44,6 +47,7 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
             'proposedByLasName' => 'Guyard',
             'file' => 'file_4',
             'correction_file' => 'file_6',
+            'created_by' => 'user_1',
         ],
         [
             'name' => 'Coordonnées',
@@ -51,7 +55,7 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
             'chapter' => 'Chapitre 5',
             'thematic' => 'thematic_5',
             'keywords' => 'algèbre@maths@calcul',
-            'difficulty' => 2,
+            'difficulty' => DifficultyLevelEnum::BACPLUS3,
             'duration' => 150,
             'original_name' => 'Mathématiques avancées',
             'originInformation' => 'Exercice tiré du livre "Mathématiques avancées".',
@@ -60,6 +64,7 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
             'proposedByLasName' => 'Guyard',
             'file' => 'file_3',
             'correction_file' => 'file_7',
+            'created_by' => 'user_1',
         ],
         [
             'name' => 'Molière, le malade imaginaire',
@@ -67,13 +72,14 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
             'chapter' => 'Chapitre 5',
             'thematic' => 'thematic_2',
             'keywords' => 'théatre@molière',
-            'difficulty' => 2,
+            'difficulty' => DifficultyLevelEnum::BACPLUS5,
             'duration' => 150,
             'original_name' => 'Le Malade Imaginaire',
             'originInformation' => 'Livre de molière',
             'proposedByType' => 'Livre',
             'file' => 'file_2',
             'correction_file' => 'file_8',
+            'created_by' => 'user_2',
         ],
         [
             'name' => 'Paris Ville Lumière',
@@ -81,7 +87,7 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
             'chapter' => 'Chapitre 2',
             'thematic' => 'thematic_1',
             'keywords' => 'paris@littérature@arts',
-            'difficulty' => 2,
+            'difficulty' => DifficultyLevelEnum::BACPLUS8,
             'duration' => 90,
             'original_name' => 'classique&cie BTS',
             'origin_information' => 'Johan Faerber',
@@ -90,6 +96,7 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
             'proposedByLasName' => 'Hougron',
             'file' => 'file_1',
             'correction_file' => 'file_9',
+            'created_by' => 'user_2',
         ],
     ];
 
@@ -99,6 +106,7 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
+        $faker = Factory::create('fr_FR');
         foreach (self::EXERCISES as $i => $exerciseInfo) {
             $exercise = (new Exercise())
                 ->setName($exerciseInfo['name'])
@@ -107,7 +115,7 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
                 ->setThematic($this->getReference($exerciseInfo['thematic']))
                 ->setChapter($exerciseInfo['chapter'])
                 ->setKeywords($exerciseInfo['keywords'])
-                ->setDifficulty($exerciseInfo['difficulty'])
+                ->setDifficulty(DifficultyLevelEnum::random())
                 ->setDuration($exerciseInfo['duration'])
                 ->setOrigin($this->getReference(OriginFixtures::REFERENCE_IDENTIFIER . random_int(0, count(OriginFixtures::ORIGIN) - 1)))
                 ->setoriginName($exerciseInfo['original_name'])
@@ -117,7 +125,7 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
                 ->setProposedByLastName('Guyard')
                 ->setExerciseFile($this->getReference($exerciseInfo['file']))
                 ->setCorrectionFile($this->getReference($exerciseInfo['correction_file']))
-                ->setCreatedBy($this->getReference(UserFixtures::REFERENCE_IDENTIFIER.$i))
+                ->setCreatedBy($this->getReference($exerciseInfo['created_by']))
                 ->setCreatedAt(\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', date('Y-m-d H:i:s')));
 
             $manager->persist($exercise);

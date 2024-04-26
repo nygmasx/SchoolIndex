@@ -29,7 +29,7 @@ class ExerciseSourceType extends AbstractType
             ->add('originInformation', TextType::class, [
                 "label" => "Informations complémentaires :",
             ])
-            ->add('proposedByType', ChoiceType::class, [
+            ->add('proposedbyType', ChoiceType::class, [
                     "label" => "Ou proposé par un :",
             ])
             ->add('proposedByFirstName', TextType::class, [

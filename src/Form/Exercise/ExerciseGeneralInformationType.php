@@ -8,10 +8,12 @@ use App\Entity\Course;
 use App\Entity\Exercise;
 use App\Entity\Skill;
 use App\Entity\Thematic;
+use App\Enum\DifficultyLevelEnum;
 use App\Form\Type\ChoiceTagType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -52,9 +54,10 @@ class ExerciseGeneralInformationType extends AbstractType
                     'delimiter' => ',',
                 ],
             ])
-            ->add('difficulty', ChoiceType::class, [
+            ->add('difficulty', EnumType::class, [
                 'label' => 'Difficulté',
-
+                'class' => DifficultyLevelEnum::class,
+                'choice_label' => static fn (DifficultyLevelEnum $target): string => $target->value
             ])
             ->add('duration', TextType::class, [
                 'label' => 'Durée (en heure)'

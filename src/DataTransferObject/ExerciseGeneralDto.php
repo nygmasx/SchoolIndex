@@ -6,6 +6,7 @@ use App\Entity\Classroom;
 use App\Entity\Course;
 use App\Entity\Skill;
 use App\Entity\Thematic;
+use App\Enum\DifficultyLevelEnum;
 use Carbon\CarbonImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -17,7 +18,7 @@ class ExerciseGeneralDto
     private Thematic $thematic;
     private ?string $chapter = null;
     private ?string $keywords = null;
-    private ?string $difficulty = null;
+    private ?DifficultyLevelEnum $difficulty = null;
     private ?string $duration = null;
     private ArrayCollection $skills;
     private CarbonImmutable $createdAt;
@@ -77,12 +78,12 @@ class ExerciseGeneralDto
         $this->duration = $duration;
     }
 
-    public function getDifficulty(): ?string
+    public function getDifficulty(): ?DifficultyLevelEnum
     {
         return $this->difficulty;
     }
 
-    public function setDifficulty(?string $difficulty): void
+    public function setDifficulty(?DifficultyLevelEnum $difficulty): void
     {
         $this->difficulty = $difficulty;
     }
