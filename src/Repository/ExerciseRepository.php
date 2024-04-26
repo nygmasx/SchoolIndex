@@ -14,12 +14,77 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Exercise[]    findAll()
  * @method Exercise[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+
 class ExerciseRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Exercise::class);
     }
+
+    public function findMathExercises()
+    {
+        return $this->createQueryBuilder('e')
+            ->leftJoin('e.course', 'c')
+            ->andWhere('c.name = :courseName')
+            ->setParameter('courseName', 'Mathématiques')
+            ->getQuery();
+    }
+
+    public function findLatestMathExercises($limit)
+    {
+        return $this->createQueryBuilder('e')
+            ->leftJoin('e.course', 'c')
+            ->andWhere('c.name = :courseName')
+            ->setParameter('courseName', 'Mathématiques')
+            ->orderBy('e.createdAt', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByCourseName($courseName)
+    {
+        return $this->createQueryBuilder('e')
+            ->join('e.course', 'c')
+            ->andWhere('c.name = :courseName')
+            ->setParameter('courseName', $courseName)
+            ->getQuery()
+            ->getResult();
+    }
+
+    // Méthode pour rechercher les exercices par nom de classe
+    public function findByClassName($className)
+    {
+        return $this->createQueryBuilder('e')
+            ->join('e.classroom', 'cl')
+            ->andWhere('cl.name = :className')
+            ->setParameter('className', $className)
+            ->getQuery()
+            ->getResult();
+    }
+
+    // Méthode pour rechercher les exercices par nom de thématique
+    public function findByThematicName($thematicName)
+    {
+        return $this->createQueryBuilder('e')
+            ->join('e.thematic', 't')
+            ->andWhere('t.name = :thematicName')
+            ->setParameter('thematicName', $thematicName)
+            ->getQuery()
+            ->getResult();
+    }
+
+    // Méthode pour rechercher les exercices par mots-clés
+    public function findByKeywords($keywords)
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.title LIKE :keywords OR e.description LIKE :keywords')
+            ->setParameter('keywords', '%' . $keywords . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
 
 //    /**
 //     * @return Exercise[] Returns an array of Exercise objects

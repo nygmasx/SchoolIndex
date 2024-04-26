@@ -138,6 +138,20 @@ html.turn-exit [data-turn-exit] {
     border-bottom: none;
 }
 
+#course-dropdown-trigger svg {
+    transition: transform 0.3s ease; /* Ajoute une transition fluide */
+}
+
+#course-dropdown-trigger.open svg {
+    transform: rotate(180deg); /* Inverse l'orientation de la flèche lorsque la liste est ouverte */
+}
+
+#course-dropdown-trigger.open {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+
 #dropdown-trigger-level.open svg {
     transform: rotate(180deg); /* Inverse l'orientation de la flèche lorsque la liste est ouverte */
 }

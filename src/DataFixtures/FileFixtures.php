@@ -74,7 +74,126 @@ class FileFixtures extends Fixture
             'extension' => 'pdf',
             'size' => 3072,
         ],
-        // Add more files here using the same structure
+        [
+            'name' => 'file11',
+            'originalName' => 'original_file11.pdf',
+            'extension' => 'pdf',
+            'size' => 4096,
+        ],
+        [
+            'name' => 'file12',
+            'originalName' => 'original_file12.docx',
+            'extension' => 'docx',
+            'size' => 5120,
+        ],
+        [
+            'name' => 'file13',
+            'originalName' => 'original_file13.pdf',
+            'extension' => 'pdf',
+            'size' => 6144,
+        ],
+        [
+            'name' => 'file14',
+            'originalName' => 'original_file14.pdf',
+            'extension' => 'pdf',
+            'size' => 7168,
+        ],
+        [
+            'name' => 'file15',
+            'originalName' => 'original_file15.pdf',
+            'extension' => 'pdf',
+            'size' => 8192,
+        ],
+        [
+            'name' => 'file16',
+            'originalName' => 'original_file16.pdf',
+            'extension' => 'pdf',
+            'size' => 9216,
+        ],
+        [
+            'name' => 'file17',
+            'originalName' => 'original_file17.pdf',
+            'extension' => 'pdf',
+            'size' => 10240,
+        ],
+        [
+            'name' => 'file18',
+            'originalName' => 'original_file18.pdf',
+            'extension' => 'pdf',
+            'size' => 11264,
+        ],
+        [
+            'name' => 'file19',
+            'originalName' => 'original_file19.pdf',
+            'extension' => 'pdf',
+            'size' => 12288,
+        ],
+        [
+            'name' => 'file20',
+            'originalName' => 'original_file20.pdf',
+            'extension' => 'pdf',
+            'size' => 13312,
+        ],
+        [
+            'name' => 'file21',
+            'originalName' => 'original_file21.pdf',
+            'extension' => 'pdf',
+            'size' => 14336,
+        ],
+        [
+            'name' => 'file22',
+            'originalName' => 'original_file22.docx',
+            'extension' => 'docx',
+            'size' => 15360,
+        ],
+        [
+            'name' => 'file23',
+            'originalName' => 'original_file23.pdf',
+            'extension' => 'pdf',
+            'size' => 16384,
+        ],
+        [
+            'name' => 'file24',
+            'originalName' => 'original_file24.pdf',
+            'extension' => 'pdf',
+            'size' => 17408,
+        ],
+        [
+            'name' => 'file25',
+            'originalName' => 'original_file25.pdf',
+            'extension' => 'pdf',
+            'size' => 18432,
+        ],
+        [
+            'name' => 'file26',
+            'originalName' => 'original_file26.pdf',
+            'extension' => 'pdf',
+            'size' => 19456,
+        ],
+        [
+            'name' => 'file27',
+            'originalName' => 'original_file27.pdf',
+            'extension' => 'pdf',
+            'size' => 20480,
+        ],
+        [
+            'name' => 'file28',
+            'originalName' => 'original_file28.pdf',
+            'extension' => 'pdf',
+            'size' => 21504,
+        ],
+        [
+            'name' => 'file29',
+            'originalName' => 'original_file29.pdf',
+            'extension' => 'pdf',
+            'size' => 22528,
+        ],
+        [
+            'name' => 'file30',
+            'originalName' => 'original_file30.pdf',
+            'extension' => 'pdf',
+            'size' => 23552,
+        ],        
     ];
 
     public function load(ObjectManager $manager)

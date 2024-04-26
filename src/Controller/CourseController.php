@@ -11,33 +11,37 @@ use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\ExerciseRepository;
 
-class MathematiquesController extends AbstractController
+class CourseController extends AbstractController
 {
-    #[Route('/mathematiques', name: 'app_mathematiques')]
+    #[Route('/matieres', name: 'app_matieres')]
     public function index(EntityManagerInterface $entityManager, PaginatorInterface $paginator, Request $request, ExerciseRepository $exerciseRepository): Response
     {
-        // Récupérer tous les exercices liés au cours de mathématiques
-        $mathExercisesQuery = $exerciseRepository->findMathExercises();
+        // Récupérer le nom de la matière depuis la requête (par exemple)
+        $matiere = $request->query->get('matiere');
+
+        // Récupérer tous les exercices liés à la matière sélectionnée
+        $matiereExercisesQuery = $exerciseRepository->findMatiereExercises($matiere);
         
         // Paginer les résultats
         $pagination = $paginator->paginate(
-            $mathExercisesQuery,
+            $matiereExercisesQuery,
             $request->query->getInt('page', 1), 
             5
         );
-        
-        // Récupérer les trois derniers exercices liés aux mathématiques
-        $latestMathExercises = $exerciseRepository->findLatestMathExercises(3);
+
+        // Récupérer les trois derniers exercices liés à la matière sélectionnée
+        $latestMatiereExercises = $exerciseRepository->findLatestMatiereExercises($matiere, 3);
         
         // Limite d'exercices dans le deuxième tableau
         $secondTableLimit = 5;
         
         // Récupérer les exercices pour le deuxième tableau
-        $secondTableExercises = $entityManager->getRepository(Exercise::class)->findBy(['course' => 'Mathématiques'], ['createdAt' => 'DESC'], $secondTableLimit);
+        $secondTableExercises = $entityManager->getRepository(Exercise::class)->findBy(['course' => $matiere], ['createdAt' => 'DESC'], $secondTableLimit);
 
-        return $this->render('mathematiques/index.html.twig', [
+        return $this->render('matieres/index.html.twig', [
+            'matiere' => $matiere,
             'pagination' => $pagination,
-            'latestExercises' => $latestMathExercises,
+            'latestExercises' => $latestMatiereExercises,
             'secondTableExercises' => $secondTableExercises,
         ]);
     }
