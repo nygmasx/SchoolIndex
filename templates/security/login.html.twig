@@ -10,7 +10,7 @@
             <h1  class="text-3xl md:text-4xl font-medium text-center lg:text-start text-blue-950 pt-12 px-4 pb-4">Connexion</h1>
         </div>
         <div data-turbo="false"
-             class="bg-white rounded-md w-[85%] md:w-[90%] lg:h-[75%] mx-0 p-0">
+             class="bg-white rounded-md w-[85%] md:w-[90%] min-h-[75vh] mx-0 p-0">
             <p class="text-[14px] md:text-[18px] lg:text-[16px] p-4 lg:p-4 lg:ml-6 lg:mt-2">Cet espace est réservé aux
                 enseignants du lycée Saint-Vincent - Senlis. Si vous n’avez pas encore de compte, veuillez effectuer
                 votre demande directement en envoyant un email à
@@ -41,7 +41,7 @@
                         :</label>
                         <div class="flex gap-4">
                             <input type="password" name="password" id="inputPassword"
-                           class="border-gray-400 border rounded mt-2 md:mt-4 p-1 md:w-10/12 md:m-auto lg:m-0 lg:p-3 lg:ml-12 lg:mb-6 lg:w-4/12"
+                           class="border-gray-400 border w-full rounded mt-2 md:mt-4 p-1 md:w-10/12 md:m-auto lg:m-0 lg:p-3 lg:ml-12 lg:mb-6 lg:w-4/12"
                            autocomplete="current-password" placeholder="Saisissez votre mot de passe" required
                             {{ stimulus_controller('symfony/ux-toggle-password/toggle-password', {
                                 buttonClasses: ['toggle-password-button']

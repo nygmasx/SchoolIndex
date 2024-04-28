@@ -79,11 +79,14 @@ class ExerciseRepository extends ServiceEntityRepository
     public function findByKeywords($keywords)
     {
         return $this->createQueryBuilder('e')
-            ->andWhere('e.title LIKE :keywords OR e.description LIKE :keywords')
+            ->andWhere('e.keywords LIKE :keywords')
             ->setParameter('keywords', '%' . $keywords . '%')
             ->getQuery()
             ->getResult();
     }
+    
+    
+    
 
 
 //    /**

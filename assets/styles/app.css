@@ -166,7 +166,7 @@ html.turn-exit [data-turn-exit] {
 
 
 .active-svg path {
-    stroke: #1B3168; /* Couleur de remplissage du SVG */
+    stroke: rgb(23, 37, 84); /* Couleur de remplissage du SVG */
 }
 
 
@@ -174,3 +174,21 @@ html.turn-exit [data-turn-exit] {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
+ 
+.hover-element svg path {
+    fill: #757575; /* Couleur par défaut pour le SVG */
+  }
+  
+  .hover-element:hover svg path {
+    fill: rgb(23, 37, 84); /* Style lors du survol */
+  }
+  
+  .hover-element.active {
+    color: rgb(23, 37, 84); /* Style actif pour le texte */
+    background-color: rgb(243 244 246);  }
+  
+  .hover-element.active svg path {
+    stroke: rgb(23, 37, 84); /* Style actif pour le contour du SVG */
+    fill: rgb(23, 37, 84); /* Style actif pour le remplissage du SVG */
+  }
+  

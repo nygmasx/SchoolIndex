@@ -1,27 +1,23 @@
 {
     "app": {
-        "path": "\/assets\/app-55141c843790da2eeb1923b7bc99aa1e.js",
+        "path": "\/assets\/app-310f073637c884940380428141a558d0.js",
         "type": "js"
     },
-    "\/assets\/styles\/app.css": {
-        "path": "\/assets\/styles\/app-82e421102c667b8a80c6aeee3f6dc21c.css",
-        "type": "css"
-    },
-    "\/assets\/vendor\/@domchristie\/turn\/dist\/turn.css": {
-        "path": "\/assets\/vendor\/@domchristie\/turn\/dist\/turn-acf0a462afaca5161df1b16f4f83f33f.css",
-        "type": "css"
-    },
-    "@hotwired\/stimulus": {
-        "path": "\/assets\/vendor\/@hotwired\/stimulus\/stimulus.index-8169deece04a7eb6681b3f3b7fc63a95.js",
-        "type": "js"
-    },
-    "@symfony\/stimulus-bundle": {
-        "path": "\/assets\/@symfony\/stimulus-bundle\/loader-e1ee9ace0562f2e6a52301e4ccc8627d.js",
+    "\/assets\/bootstrap.js": {
+        "path": "\/assets\/bootstrap-7d6354d3e22b86483b44e32a99d2c73c.js",
         "type": "js"
     },
     "\/assets\/@symfony\/stimulus-bundle\/controllers.js": {
-        "path": "\/assets\/@symfony\/stimulus-bundle\/controllers-133a8671ba35dd2f9ed3a40d0465de81.js",
+        "path": "\/assets\/@symfony\/stimulus-bundle\/controllers-3050ae13f1cd323067dea938939a684a.js",
         "type": "js"
+    },
+    "\/assets\/@symfony\/ux-live-component\/live_controller.js": {
+        "path": "\/assets\/@symfony\/ux-live-component\/live_controller-fd9380642323cc211d12f22a34ea9052.js",
+        "type": "js"
+    },
+    "\/assets\/@symfony\/ux-live-component\/live.min.css": {
+        "path": "\/assets\/@symfony\/ux-live-component\/live.min-5108f988fb2a3dbb292d6feebc9db7e8.css",
+        "type": "css"
     },
     "\/assets\/@symfony\/ux-swup\/controller.js": {
         "path": "\/assets\/@symfony\/ux-swup\/controller-1fed7c787b6e59d377334dede91f3823.js",
@@ -41,6 +37,22 @@
     },
     "\/assets\/controllers\/hello_controller.js": {
         "path": "\/assets\/controllers\/hello_controller-87b6385829902356204e988334af9bf5.js",
+        "type": "js"
+    },
+    "\/assets\/styles\/app.css": {
+        "path": "\/assets\/styles\/app-3206688c598bdecb008f764abb309cb2.css",
+        "type": "css"
+    },
+    "\/assets\/vendor\/@domchristie\/turn\/dist\/turn.css": {
+        "path": "\/assets\/vendor\/@domchristie\/turn\/dist\/turn-acf0a462afaca5161df1b16f4f83f33f.css",
+        "type": "css"
+    },
+    "@hotwired\/stimulus": {
+        "path": "\/assets\/vendor\/@hotwired\/stimulus\/stimulus.index-8169deece04a7eb6681b3f3b7fc63a95.js",
+        "type": "js"
+    },
+    "@symfony\/stimulus-bundle": {
+        "path": "\/assets\/@symfony\/stimulus-bundle\/loader-e1ee9ace0562f2e6a52301e4ccc8627d.js",
         "type": "js"
     },
     "@hotwired\/turbo": {
@@ -77,6 +89,22 @@
     },
     "@domchristie\/turn": {
         "path": "\/assets\/vendor\/@domchristie\/turn\/turn.index-ddb37304cfb4887822ebbbcc2b99d99c.js",
+        "type": "js"
+    },
+    "flowbite": {
+        "path": "\/assets\/vendor\/flowbite\/flowbite.index-80ccca73368887b0aab83daf721a4516.js",
+        "type": "js"
+    },
+    "@popperjs\/core": {
+        "path": "\/assets\/vendor\/@popperjs\/core\/core.index-ceb5b6c0f9e1d3f6c78ef733facfdcda.js",
+        "type": "js"
+    },
+    "flowbite\/dist\/flowbite.min.css": {
+        "path": "\/assets\/vendor\/flowbite\/dist\/flowbite.min-c615e5d4426da4c203cac3b8668abf2d.css",
+        "type": "css"
+    },
+    "@symfony\/ux-live-component": {
+        "path": "\/assets\/@symfony\/ux-live-component\/live_controller-fd9380642323cc211d12f22a34ea9052.js",
         "type": "js"
     }
 }

@@ -24,8 +24,8 @@ class ResearchController extends AbstractController
         $thematicName = $request->query->get('thematic');
         $keywords = $request->query->get('keywords');
 
-        // Récupérer tous les exercices
-        $exercisesQuery = $exerciseRepository->findAll();
+        // Récupérer tous les exercices triés par date de création décroissante
+        $exercisesQuery = $exerciseRepository->findBy([], ['createdAt' => 'DESC']);
 
         // Filtrer les exercices en fonction des paramètres de recherche
         if ($courseName) {
@@ -48,7 +48,7 @@ class ResearchController extends AbstractController
         $pagination = $paginator->paginate(
             $exercisesQuery,
             $request->query->getInt('page', 1),
-            5 // Nombre d'exercices par page
+            10 // Nombre d'exercices par page
         );
 
         // Récupérer toutes les classes, thématiques et matières

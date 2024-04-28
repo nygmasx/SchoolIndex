@@ -87,13 +87,8 @@
 										{% endfor %}
 									</div>
 
-									<div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer licence-class">
-										{% for classroom in classrooms %}
-											{% if classroom.name == 'Licence' %}
-												{{ classroom.name }}
-											{% endif %}
-										{% endfor %}
-									</div>
+									<div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer licence-class">Licence</div>
+
 
 								</div>
 								<input type="hidden" name="class" value=""/>
@@ -117,10 +112,7 @@
 									{% endfor %}
 								</div>
 							</div>
-							<input
-							type="hidden" name="thematic" value=""/>
-						<!-- Champ caché pour stocker la valeur sélectionnée -->
-
+							<input type="hidden" name="thematic" value=""/>
 						</div>
 
 						<div class="flex flex-col text-gray-500 md:w-[40%]  ">
@@ -164,8 +156,15 @@
 									<td class="px-6 py-4">{{ exercise.duration }}</td>
 									<td class="px-6 py-4">
 										<div class="flex gap-4 items-center">
-											<a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Exercice</a>
-											<a class="flex justify-center items-center gap-2" href="#"><img src="assets/Vector.png" alt="Cliquer pour télécharger l'exercice"/>Corrigé</a>
+											<a class="flex justify-center items-normal gap-2" href="#">
+												<svg width="16" height="19" viewbox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path d="M7.38596 6.50012H9.49122L6.6842 9.02643L3.87719 6.50012H5.98245V3.9738H7.38596V6.50012ZM8.78946 1.44748H1.77193V11.5527H11.5965V3.9738H8.78946V1.44748ZM0.368423 0.810853C0.368423 0.464747 0.682107 0.184326 1.06948 0.184326H9.49122L13 3.34222V12.1799C13.0006 12.2628 12.9831 12.3451 12.9485 12.4219C12.9138 12.4988 12.8626 12.5687 12.7979 12.6278C12.7332 12.6869 12.6562 12.7339 12.5713 12.7661C12.4864 12.7984 12.3953 12.8153 12.3031 12.8159H1.06526C0.880969 12.8147 0.704576 12.7484 0.57419 12.6312C0.443804 12.5139 0.369893 12.3552 0.368423 12.1894V0.810853Z" fill="#03053D"/>
+												</svg>
+												Exercice</a>
+											<a class="flex justify-center items-normal gap-2" href="#">
+												<svg width="16" height="19" viewbox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path d="M7.38596 6.50012H9.49122L6.6842 9.02643L3.87719 6.50012H5.98245V3.9738H7.38596V6.50012ZM8.78946 1.44748H1.77193V11.5527H11.5965V3.9738H8.78946V1.44748ZM0.368423 0.810853C0.368423 0.464747 0.682107 0.184326 1.06948 0.184326H9.49122L13 3.34222V12.1799C13.0006 12.2628 12.9831 12.3451 12.9485 12.4219C12.9138 12.4988 12.8626 12.5687 12.7979 12.6278C12.7332 12.6869 12.6562 12.7339 12.5713 12.7661C12.4864 12.7984 12.3953 12.8153 12.3031 12.8159H1.06526C0.880969 12.8147 0.704576 12.7484 0.57419 12.6312C0.443804 12.5139 0.369893 12.3552 0.368423 12.1894V0.810853Z" fill="#03053D"/>
+												</svg>Corrigé</a>
 										</div>
 									</td>
 								</tr>
@@ -179,165 +178,169 @@
 			</div>
 
 			<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const CoursesDropdownTrigger = document.getElementById('course-dropdown-trigger');
-    const CoursesdropdownList = document.querySelector('.course-dropdown-list');
-    const courseItems = document.querySelectorAll('.course-dropdown-list .select-item');
+				document.addEventListener('turbo:load', function () {
 
-    function toggleDropdown() {
-        CoursesdropdownList.classList.toggle('hidden');
-        CoursesDropdownTrigger.classList.toggle('open');
-    }
+const CoursesDropdownTrigger = document.getElementById('course-dropdown-trigger');
+const CoursesdropdownList = document.querySelector('.course-dropdown-list');
+const courseItems = document.querySelectorAll('.course-dropdown-list .select-item');
 
-    CoursesDropdownTrigger.addEventListener('click', function (event) {
-        toggleDropdown();
-        event.stopPropagation();
-    });
+function toggleDropdown() {
+CoursesdropdownList.classList.toggle('hidden');
+CoursesDropdownTrigger.classList.toggle('open');
+}
 
-    courseItems.forEach(function (item) {
-        item.addEventListener('click', function () {
-            const selectedCourse = item.textContent.trim();
-            CoursesDropdownTrigger.querySelector('span').textContent = selectedCourse;
-            toggleDropdown();
-            hideSelectedCourse(selectedCourse);
-            // Mettre à jour le champ caché avec la valeur sélectionnée
-            const hiddenCourseInput = document.querySelector('input[name="course"]');
-            hiddenCourseInput.value = selectedCourse;
-        });
-    });
-
-    document.addEventListener('click', function (event) {
-        const isClickInsideDropdown = CoursesDropdownTrigger.contains(event.target) || CoursesdropdownList.contains(event.target);
-        if (!isClickInsideDropdown) {
-            CoursesdropdownList.classList.add('hidden');
-            CoursesDropdownTrigger.classList.remove('open');
-        }
-    });
-
-    function hideSelectedCourse(selectedCourse) {
-        courseItems.forEach(function (item) {
-            const courseName = item.textContent.trim();
-            if (courseName === selectedCourse) {
-                item.style.display = 'none';
-            } else {
-                item.style.display = 'block';
-            }
-        });
-    }
-
-    // Liste pour les thématiques//
-    const dropdownTrigger = document.getElementById('dropdown-trigger');
-    const dropdownList = document.querySelector('.dropdown-list');
-    const thematicItems = document.querySelectorAll('.dropdown-list .select-item');
-
-    dropdownTrigger.addEventListener('click', function (event) {
-        dropdownList.classList.toggle('hidden');
-        dropdownTrigger.classList.toggle('open');
-        event.stopPropagation();
-    });
-
-    thematicItems.forEach(function (item) {
-        item.addEventListener('click', function () {
-            const selectedThematic = item.textContent.trim();
-            dropdownTrigger.querySelector('span').textContent = selectedThematic;
-            dropdownList.classList.add('hidden');
-            dropdownTrigger.classList.remove('open');
-            hideSelectedThematic(selectedThematic);
-            // Mettre à jour le champ caché avec la valeur sélectionnée
-            const hiddenThematicInput = document.querySelector('input[name="thematic"]');
-            hiddenThematicInput.value = selectedThematic;
-        });
-    });
-
-    document.addEventListener('click', function (event) {
-        const isClickInsideDropdown = dropdownTrigger.contains(event.target) || dropdownList.contains(event.target);
-        if (!isClickInsideDropdown) {
-            dropdownList.classList.add('hidden');
-            dropdownTrigger.classList.remove('open');
-        }
-    });
-
-    function hideSelectedThematic(selectedThematic) {
-        thematicItems.forEach(function (item) {
-            const thematicName = item.textContent.trim();
-            if (thematicName === selectedThematic) {
-                item.style.display = 'none';
-            } else {
-                item.style.display = 'block';
-            }
-        });
-    }
-
-    // liste pour les niveaux//
-    const dropdownTriggerLevel = document.getElementById('dropdown-trigger-level');
-    const dropdownLevel = document.querySelector('.dropdown-level');
-    const levelItems = document.querySelectorAll('.dropdown-level > div[data-level]');
-    const arrows = document.querySelectorAll('.dropdown-level .arrow-down');
-    const selectText = document.querySelector('#dropdown-trigger-level span');
-
-    function closeAllSubDropdowns(except) {
-        levelItems.forEach((item, index) => {
-            if (item !== except) {
-                const subDropdown = document.querySelector(`.dropdown-${item.dataset.level}`);
-                if (subDropdown && !subDropdown.classList.contains('hidden')) {
-                    subDropdown.classList.add('hidden');
-                    arrows[index].classList.remove('open');
-                    arrows[index].setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);');
-                }
-            }
-        });
-    }
-
-    dropdownTriggerLevel.addEventListener('click', function (event) {
-        dropdownLevel.classList.toggle('hidden');
-        dropdownTriggerLevel.classList.toggle('open');
-        arrows.forEach(arrow => arrow.classList.toggle('open'));
-        event.stopPropagation();
-    });
-
-    levelItems.forEach((item, index) => {
-        item.addEventListener('click', function (event) {
-            const subDropdown = document.querySelector(`.dropdown-${this.dataset.level}`);
-            if (subDropdown) {
-                subDropdown.classList.toggle('hidden');
-                arrows[index].classList.toggle('open');
-                if (!subDropdown.classList.contains('hidden')) {
-                    arrows[index].setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(180deg);');
-                    closeAllSubDropdowns(item);
-                } else {
-                    arrows[index].setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);');
-                }
-            }
-            event.stopPropagation();
-        });
-    });
-
-    document.querySelectorAll('.college-class, .lycee-class, .bts-class, .licence-class').forEach(item => {
-        item.addEventListener('click', function (event) {
-            selectText.textContent = item.textContent;
-            dropdownLevel.classList.add('hidden');
-            dropdownTriggerLevel.classList.remove('open');
-            arrows.forEach(arrow => arrow.classList.remove('open'));
-            arrows.forEach(arrow => arrow.setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);'));
-            closeAllSubDropdowns();
-            // Mettre à jour le champ caché avec la valeur sélectionnée
-            const hiddenLevelInput = document.querySelector('input[name="class"]');
-            hiddenLevelInput.value = item.textContent;
-            event.stopPropagation();
-        });
-    });
-
-    document.addEventListener('click', function (event) {
-        const isClickInsideDropdown = dropdownTriggerLevel.contains(event.target) || dropdownLevel.contains(event.target);
-        if (!isClickInsideDropdown) {
-            dropdownLevel.classList.add('hidden');
-            dropdownTriggerLevel.classList.remove('open');
-            arrows.forEach(arrow => arrow.classList.remove('open'));
-            arrows.forEach(arrow => arrow.setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);'));
-            closeAllSubDropdowns();
-        }
-    });
+CoursesDropdownTrigger.addEventListener('click', function (event) {
+toggleDropdown();
+event.stopPropagation();
 });
 
-</script>
-			{% endblock %}
+courseItems.forEach(function (item) {
+item.addEventListener('click', function () {
+const selectedCourse = item.textContent.trim();
+CoursesDropdownTrigger.querySelector('span').textContent = selectedCourse;
+toggleDropdown();
+hideSelectedCourse(selectedCourse);
+// Mettre à jour le champ caché avec la valeur sélectionnée
+const hiddenCourseInput = document.querySelector('input[name="course"]');
+hiddenCourseInput.value = selectedCourse;
+});
+});
+
+document.addEventListener('click', function (event) {
+const isClickInsideDropdown = CoursesDropdownTrigger.contains(event.target) || CoursesdropdownList.contains(event.target);
+if (! isClickInsideDropdown) {
+CoursesdropdownList.classList.add('hidden');
+CoursesDropdownTrigger.classList.remove('open');
+}
+});
+
+function hideSelectedCourse(selectedCourse) {
+courseItems.forEach(function (item) {
+const courseName = item.textContent.trim();
+if (courseName === selectedCourse) {
+item.style.display = 'none';
+} else {
+item.style.display = 'block';
+}
+});
+}
+
+// Liste pour les thématiques//
+const dropdownTrigger = document.getElementById('dropdown-trigger');
+const dropdownList = document.querySelector('.dropdown-list');
+const thematicItems = document.querySelectorAll('.dropdown-list .select-item');
+
+dropdownTrigger.addEventListener('click', function (event) {
+dropdownList.classList.toggle('hidden');
+dropdownTrigger.classList.toggle('open');
+event.stopPropagation();
+});
+
+thematicItems.forEach(function (item) {
+item.addEventListener('click', function () {
+const selectedThematic = item.textContent.trim();
+dropdownTrigger.querySelector('span').textContent = selectedThematic;
+dropdownList.classList.add('hidden');
+dropdownTrigger.classList.remove('open');
+hideSelectedThematic(selectedThematic);
+// Mettre à jour le champ caché avec la valeur sélectionnée
+const hiddenThematicInput = document.querySelector('input[name="thematic"]');
+hiddenThematicInput.value = selectedThematic;
+});
+});
+
+document.addEventListener('click', function (event) {
+const isClickInsideDropdown = dropdownTrigger.contains(event.target) || dropdownList.contains(event.target);
+if (! isClickInsideDropdown) {
+dropdownList.classList.add('hidden');
+dropdownTrigger.classList.remove('open');
+}
+});
+
+function hideSelectedThematic(selectedThematic) {
+thematicItems.forEach(function (item) {
+const thematicName = item.textContent.trim();
+if (thematicName === selectedThematic) {
+item.style.display = 'none';
+} else {
+item.style.display = 'block';
+}
+});
+}
+
+// liste pour les niveaux//
+const dropdownTriggerLevel = document.getElementById('dropdown-trigger-level');
+const dropdownLevel = document.querySelector('.dropdown-level');
+const levelItems = document.querySelectorAll('.dropdown-level > div[data-level]');
+const arrows = document.querySelectorAll('.dropdown-level .arrow-down');
+const selectText = document.querySelector('#dropdown-trigger-level span');
+
+function closeAllSubDropdowns(except) {
+levelItems.forEach((item, index) => {
+if (item !== except) {
+const subDropdown = document.querySelector (`.dropdown-${
+item.dataset.level
+}`);
+if (subDropdown && ! subDropdown.classList.contains('hidden')) {
+subDropdown.classList.add('hidden');
+arrows[index].classList.remove('open');
+arrows[index].setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);');
+}
+}
+});
+}
+
+dropdownTriggerLevel.addEventListener('click', function (event) {
+dropdownLevel.classList.toggle('hidden');
+dropdownTriggerLevel.classList.toggle('open');
+arrows.forEach(arrow => arrow.classList.toggle('open'));
+event.stopPropagation();
+});
+
+levelItems.forEach((item, index) => {
+item.addEventListener('click', function (event) {
+const subDropdown = document.querySelector (`.dropdown-${
+this.dataset.level
+}`);
+if (subDropdown) {
+subDropdown.classList.toggle('hidden');
+arrows[index].classList.toggle('open');
+if (! subDropdown.classList.contains('hidden')) {
+arrows[index].setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(180deg);');
+closeAllSubDropdowns(item);
+} else {
+arrows[index].setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);');
+}
+}
+event.stopPropagation();
+});
+});
+
+document.querySelectorAll('.college-class, .lycee-class, .bts-class, .licence-class').forEach(item => {
+item.addEventListener('click', function (event) {
+selectText.textContent = item.textContent;
+dropdownLevel.classList.add('hidden');
+dropdownTriggerLevel.classList.remove('open');
+arrows.forEach(arrow => arrow.classList.remove('open'));
+arrows.forEach(arrow => arrow.setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);'));
+closeAllSubDropdowns();
+// Mettre à jour le champ caché avec la valeur sélectionnée
+const hiddenLevelInput = document.querySelector('input[name="class"]');
+hiddenLevelInput.value = item.textContent;
+event.stopPropagation();
+});
+});
+
+document.addEventListener('click', function (event) {
+const isClickInsideDropdown = dropdownTriggerLevel.contains(event.target) || dropdownLevel.contains(event.target);
+if (! isClickInsideDropdown) {
+dropdownLevel.classList.add('hidden');
+dropdownTriggerLevel.classList.remove('open');
+arrows.forEach(arrow => arrow.classList.remove('open'));
+arrows.forEach(arrow => arrow.setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);'));
+closeAllSubDropdowns();
+}
+});
+});
+			</script>
+		{% endblock %}
