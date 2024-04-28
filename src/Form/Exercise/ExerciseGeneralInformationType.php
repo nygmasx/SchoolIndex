@@ -17,11 +17,14 @@ use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfonycasts\DynamicForms\DependentField;
+use Symfonycasts\DynamicForms\DynamicFormBuilder;
 
 class ExerciseGeneralInformationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $builder = new DynamicFormBuilder($builder);
         $builder
             ->add('name', TextType::class, [
                 "label" => "Nom de l'exercice",
@@ -37,6 +40,9 @@ class ExerciseGeneralInformationType extends AbstractType
                 'label' => 'Classe',
                 'choice_label' => 'name',
             ])
+            ->addDependent('thematic', 'course' , function (DependentField $field, ?Course $course) {
+
+            })
             ->add('thematic', EntityType::class, [
                 'class' => Thematic::class,
                 'label' => 'Thématique',
@@ -57,7 +63,7 @@ class ExerciseGeneralInformationType extends AbstractType
             ->add('difficulty', EnumType::class, [
                 'label' => 'Difficulté',
                 'class' => DifficultyLevelEnum::class,
-                'choice_label' => static fn (DifficultyLevelEnum $target): string => $target->value
+                'choice_label' => static fn(DifficultyLevelEnum $target): string => $target->value
             ])
             ->add('duration', TextType::class, [
                 'label' => 'Durée (en heure)'

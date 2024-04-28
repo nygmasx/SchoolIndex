@@ -6,6 +6,7 @@ use App\Repository\FileRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
+use Vich\UploaderBundle\Entity\File as VichFile;
 
 #[ORM\Entity(repositoryClass: FileRepository::class)]
 #[Uploadable]
@@ -29,7 +30,7 @@ class File
     private ?int $size = null;
 
     #[UploadableField(mapping: 'exercises', fileNameProperty: 'name', size: 'size', mimeType: 'extension', originalName: 'originalName')]
-    private ?\Vich\UploaderBundle\Entity\File $uploadedFile = null;
+    private ?VichFile $uploadedFile = null;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
@@ -107,12 +108,12 @@ class File
         return $this;
     }
 
-    public function getUploadedFile(): ?\Vich\UploaderBundle\Entity\File
+    public function getUploadedFile(): ?VichFile
     {
         return $this->uploadedFile;
     }
 
-    public function setUploadedFile(?\Vich\UploaderBundle\Entity\File $uploadedFile): void
+    public function setUploadedFile(?VichFile $uploadedFile): void
     {
         $this->uploadedFile = $uploadedFile;
 

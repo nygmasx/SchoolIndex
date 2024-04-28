@@ -18,13 +18,11 @@ class ExerciseFileType extends AbstractType
     {
         $builder
             ->add('exerciseFile', FileType::class, [
-                "label" => "Origine :",
-                'class' => File::class,
+                "label" => "Fiche exercice (PDF, word) * :",
                 'required' => true
             ])
             ->add('correctionFile', FileType::class, [
-                "label" => "Origine :",
-                'class' => File::class,
+                "label" => "Fiche corrigé (PDF, word) * :",
                 'required' => true
             ]);
     }

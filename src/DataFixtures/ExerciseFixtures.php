@@ -125,7 +125,7 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
                 ->setProposedByLastName('Guyard')
                 ->setExerciseFile($this->getReference($exerciseInfo['file']))
                 ->setCorrectionFile($this->getReference($exerciseInfo['correction_file']))
-                ->setCreatedBy($this->getReference($exerciseInfo['created_by']))
+                ->setCreatedBy($this->getReference(UserFixtures::REFERENCE_IDENTIFIER. $i))
                 ->setCreatedAt(\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', date('Y-m-d H:i:s')));
 
             $manager->persist($exercise);

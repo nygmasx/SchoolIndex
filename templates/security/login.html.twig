@@ -56,9 +56,14 @@
                         Connexion
                     </button>
 
-                    <a class="text-center text-gray-700 lg:ml-6 items-center" href="">Mot de passe oublié ?</a>
+                    <a class="text-center text-gray-700 lg:ml-6 items-center" href="{{ path('app_resetting_request') }}">Mot de passe oublié ?</a>
                 </div>
             </form>
         </div>
+        {% for message in app.flashes('success') %}
+            <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                <span class="font-medium">{{ message }}</span>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

@@ -68,6 +68,11 @@ public function getSearchQueryBuilder(string $searchTerm = ''): QueryBuilder
     return $qb; // Ajoutez cette ligne pour corriger l'erreur
 }
 
+    public function findOneByEmail(string $email): ?User
+    {
+        return $this->findOneBy(['email' => $email]);
+    }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

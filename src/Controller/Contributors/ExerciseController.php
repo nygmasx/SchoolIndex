@@ -40,8 +40,9 @@ final class ExerciseController extends AbstractController
     }
 
     #[Route('/exercise/{step}', name: 'app_submit_exercise')]
-    public function create(string $step, Request $request, #[CurrentUser] User $currentUser): Response
+    public function create(string $step, Request $request, #[CurrentUser] User $currentUser, EntityManagerInterface $entityManager): Response
     {
+        $exercise = new Exercise();
         $form = match ($step) {
             self::EXERCISE_CREATE_STEP_ONE => $this->renderExerciseCreateFormStepOne(),
             self::EXERCISE_CREATE_STEP_TWO => $this->renderExerciseCreateFormStepTwo(),
@@ -125,7 +126,8 @@ final class ExerciseController extends AbstractController
             createdBy: $user
         );
 
-        $this->exerciseRepository->save($exercise, true);
+        $this->entityManager->persist($exercise);
+        $this->entityManager->flush();
 
         $this->request->getSession()->set('exercise-form-step-one', null);
         $this->request->getSession()->set('exercise-form-step-two', null);
