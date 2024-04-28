@@ -13,10 +13,10 @@
         <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
             <a class="justify-center items-center flex text-white font-noto" href="{{path('app_exercice')}}">Exercices</a>
         </div>
-        <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[160px] h-[40px] flex justify-center">
+        <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-80">
             <a class="justify-center items-center flex text-white font-noto" href="{{path('app_course')}}">Matières</a>
         </div>
-        <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
+        <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[160px] h-[40px] flex justify-center opacity-[0.8]">
             <a class="justify-center items-center flex text-white font-noto" href="{{path('app_classroom')}}">Classes</a>
         </div>
         <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-80">
@@ -63,7 +63,7 @@
         {{ form_widget(form.name, { 
             'attr': {
                 'class': 'my-custom-class flex flex-column border border-borderGrey rounded-md p-2 mb-4 focus:outline-none focus:border-darkGrey w-full',
-                'placeholder': 'Saisissez le nom de la matière',
+                'placeholder': 'Saisissez le nom de la classe',
             } 
         }) }}
     </div>
@@ -85,6 +85,4 @@
 
     {{ form_end(form) }}
 </div>
-
 {% endblock %}
-

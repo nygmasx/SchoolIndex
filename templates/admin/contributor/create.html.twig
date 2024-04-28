@@ -17,13 +17,13 @@
             <a class="justify-center items-center flex text-white font-noto" href="{{path('app_course')}}">Matières</a>
         </div>
         <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
-            <a class="justify-center items-center flex text-white font-noto" href="">Classes</a>
+            <a class="justify-center items-center flex text-white font-noto" href="{{path('app_classroom')}}">Classes</a>
         </div>
         <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-80">
-            <a class="justify-center items-center flex text-white font-noto" href="">Thématiques</a>
+            <a class="justify-center items-center flex text-white font-noto" href="{{path('app_thematic')}}">Thématiques</a>
         </div>
         <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-80">
-            <a class="justify-center items-center flex text-white font-noto" href="">Compétences</a>
+            <a class="justify-center items-center flex text-white font-noto" href="{{path('app_skill')}}">Compétences</a>
         </div>
         <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-80">
             <a class="justify-center items-center flex text-white font-noto" href="">Origines</a>
@@ -53,6 +53,9 @@
     <div class="md:flex gap-12">
 
         <div class="sm:w-[35%]">
+
+        <div class="w-full md:w-[35%]">
+
         {{ form_label(form.lastName, 'Nom :', {
         'label_attr': {
             'class': 'noto text-color text-customGrey',
@@ -69,7 +72,11 @@
     </div>
 
 
+
         <div class="lg:w-[35%]">
+
+        <div class="w-full md:w-[35%]">
+
             {{ form_label(form.role, 'Rôle :', {
             'label_attr': {
                 'class': 'noto text-color text-customGrey',
@@ -137,13 +144,13 @@
 
     <div class="flex gap-7 pt-3 pb-8">
 
-    <a href="{{path('app_contributor')}}" class=" font-semibold h-[45px] items-center flex justify-center text-sm bg-borderGrey font-noto text-fontGrey py-2 px-4 rounded hover:bg-darkGrey focus:outline-none focus:shadow-outline">< Retour à la liste</a>
+    <a href="{{path('app_contributor')}}" class="font-semibold h-[45px] items-center flex justify-center text-sm bg-slate-100  font-noto text-fontGrey py-2 px-4 rounded hover:bg-slate-200 focus:outline-none focus:shadow-outline">< Retour à la liste</a>
 
         <div class="">
             {{ form_widget(form.submit, { 
                 'label': 'Enregistrer',
                 'attr': {
-                    'class': 'h-[45px] font-semibold items-center flex justify-center text-sm bg-borderGrey font-noto text-fontGrey py-2 px-4 rounded hover:bg-darkGrey focus:outline-none focus:shadow-outline',
+                    'class': 'h-[45px] font-semibold items-center flex justify-center text-sm bg-slate-100 font-noto text-fontGrey py-2 px-4 rounded hover:bg-slate-200 focus:outline-none focus:shadow-outline',
                 }
             }) }}
         </div>

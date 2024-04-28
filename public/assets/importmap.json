@@ -1,6 +1,6 @@
 {
     "app": {
-        "path": "\/assets\/app-695019cf6957016bc57930b319e9cfd4.js",
+        "path": "\/assets\/app-3d30598ade38770226f28004bd60c3f0.js",
         "type": "js"
     },
     "\/assets\/bootstrap.js": {
@@ -32,7 +32,11 @@
         "type": "js"
     },
     "\/assets\/styles\/app.css": {
+<<<<<<< HEAD
         "path": "\/assets\/styles\/app-6601878e524f3d91bc2a6d82a0838090.css",
+=======
+        "path": "\/assets\/styles\/app-ff33cf333f0cd31bb13d12aedf173938.css",
+>>>>>>> e4b28c7 (partie admin fini)
         "type": "css"
     },
     "\/assets\/vendor\/@domchristie\/turn\/dist\/turn.css": {

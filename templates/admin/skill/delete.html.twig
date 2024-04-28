@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Suppression d'un utilisateur :
+{% block title %}Suppression d'une thématique :
 {% endblock %}
 
 {% block body %}
@@ -8,7 +8,7 @@
 		<div class="w-[39%] mx-auto bg-white p-10 border border-gray-300 rounded-lg shadow">
 
 			<div class="flex gap-4	">
-        <a href="{{ path('app_contributor') }}" class="absolute top-4 right-4 cursor-pointer">
+        <a href="{{ path('app_skill') }}" class="absolute top-4 right-4 cursor-pointer">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0L16 16H0V0ZM16 0L0 16H16V0Z" fill="#4F4F4F"/>
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5858 5.17157L8 7.75735L5.41421 5.17157L4 6.58579L6.58579 9.17157L4 11.7574L5.41421 13.1716L8 10.5858L10.5858 13.1716L12 11.7574L9.41421 9.17157L12 6.58579L10.5858 5.17157Z" fill="white"/>
@@ -22,7 +22,7 @@
 				</div>
 				<div>
 					<h2 class="text-2xl font-bold text-gray-900 ">Confirmez la suppression</h2>
-					<p class="mt-2.5 text-[16px] text-gray-600 ">Êtes-vous certain de vouloir supprimer ce contributeur ?</p>
+					<p class="mt-2.5 text-[16px] text-gray-600 ">Êtes-vous certain de vouloir supprimer cette thématique ?</p>
 				</div>
 			</div>
 
@@ -30,7 +30,7 @@
 			<div class="flex items-center justify-center"></div>
 
 			<div class="flex justify-center gap-4">
-				<a href="{{ path('app_contributor') }}" class="w-1/2	flex justify-center px-6 py-3 bg-gray-200 border border-transparent rounded-md font-semibold text-gray-700 hover:bg-gray-300 focus:outline-none focus:border-gray-300 focus:ring focus:ring-gray-200 transition ease-in-out duration-150">Annuler</a>
+				<a href="{{ path('app_skill') }}" class="w-1/2	flex justify-center px-6 py-3 bg-gray-200 border border-transparent rounded-md font-semibold text-gray-700 hover:bg-gray-300 focus:outline-none focus:border-gray-300 focus:ring focus:ring-gray-200 transition ease-in-out duration-150">Annuler</a>
 				<button type="submit" class="w-1/2	 px-6 py-3 bg-zinc-600		 border border-transparent rounded-md font-semibold text-white hover:bg-zinc-700 focus:outline-none focus:border-red-700 focus:ring focus:ring-red-200 transition ease-in-out duration-150">Confirmer</button>
 			</div>
 			{{ form_end(confirmationForm) }}

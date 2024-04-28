@@ -14,6 +14,8 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use App\Entity\Course;
 use App\Form\CourseType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 
 class CourseController extends AbstractController
 {
@@ -84,6 +86,11 @@ class CourseController extends AbstractController
         }
 
         $form = $this->createForm(CourseType::class, $course);
+
+        // Création du formulaire de confirmation
+        $form = $this->createFormBuilder()
+            ->getForm();
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -111,7 +118,6 @@ class CourseController extends AbstractController
         }
         
         $form = $this->createForm(CourseType::class, $course, [
-            'require_password' => false,
         ]);
         $form->handleRequest($request);
 
@@ -128,5 +134,3 @@ class CourseController extends AbstractController
         ]);
     }
 }
-
-

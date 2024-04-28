@@ -7,13 +7,13 @@
     <h1 class="text-[28px] ml-12 text-customBlue font-epilogue md:mt-8 font-medium">Administration</h1>
 
     <div class="flex gap-3 min-md:ml-10 max-sm:ml-1 ml-8 mt-4 max-sm:hidden">
-        <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
+        <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[220px] h-[40px] flex justify-center">
             <a class="justify-center items-center flex text-white font-noto" href="{{path('app_contributor')}}">Contributeurs</a>
         </div>
         <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
             <a class="justify-center items-center flex text-white font-noto" href="{{path('app_exercice')}}">Exercices</a>
         </div>
-        <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[160px] h-[40px] flex justify-center">
+        <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
             <a class="justify-center items-center flex text-white font-noto" href="{{path('app_course')}}">Matières</a>
         </div>
         <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
@@ -42,7 +42,7 @@
                 <option value="origines">Origines</option>
             </select>
         </div>
-        <h1 class="ml-7 text-[20px] font-semibold font-noto md:pt-6 max-sm:mt-[5px]">Ajouter une matière</h1>
+        <h1 class="ml-7 text-[20px] font-semibold font-noto md:pt-6 max-sm:mt-[5px]">Ajouter une thématique</h1>
 
         <div class="w-[95%] md:ml-[30px] min-md:w-[100%] min-md:ml-10 rounded-lg  sm:flex sm:flex-col justify-center  bg-white max-sm:w-[100%] ">
             <div class="flex max-sm:pt-2 w-full">
@@ -50,9 +50,9 @@
 <div class="mx-7 mt-6 w-full">
     {{ form_start(form) }}
 
-    <div class="gap-12">
+    <div class="md:flex gap-12">
 
-        <div class="sm:w-[35%]">
+        <div class="w-full md:w-[35%]">
         {{ form_label(form.name, 'Nom :', {
         'label_attr': {
             'class': 'noto text-color text-customGrey',
@@ -63,20 +63,37 @@
         {{ form_widget(form.name, { 
             'attr': {
                 'class': 'my-custom-class flex flex-column border border-borderGrey rounded-md p-2 mb-4 focus:outline-none focus:border-darkGrey w-full',
-                'placeholder': 'Saisissez le nom de la matière',
+                'placeholder': 'Saisissez le nom du contributeur',
             } 
         }) }}
     </div>
 
+
+        <div class="w-full md:w-[35%]">
+            {{ form_label(form.course, 'Matière :', {
+            'label_attr': {
+                'class': 'noto text-color text-customGrey',
+                'data-toggle': 'tooltip',
+            } 
+            }) }}
+            {{ form_errors(form.course) }}
+            {{ form_widget(form.course, { 
+                'attr': {
+                    'class': 'my-custom-class flex flex-column text-customGrey border border-borderGrey rounded-md p-2 mb-4 focus:outline-none focus:border-darkGrey w-full', 
+                } 
+            }) }}
+        </div>
+    </div>
+
     <div class="flex gap-7 pt-3 pb-8">
 
-    <a href="{{path('app_course')}}" class=" font-semibold h-[45px] items-center flex justify-center text-sm bg-borderGrey font-noto text-fontGrey py-2 px-4 rounded hover:bg-darkGrey focus:outline-none focus:shadow-outline">< Retour à la liste</a>
+    <a href="{{path('app_thematic')}}" class="font-semibold h-[45px] items-center flex justify-center text-sm bg-slate-100  font-noto text-fontGrey py-2 px-4 rounded hover:bg-slate-200 focus:outline-none focus:shadow-outline">< Retour à la liste</a>
 
         <div class="">
             {{ form_widget(form.submit, { 
                 'label': 'Enregistrer',
                 'attr': {
-                    'class': 'h-[45px] font-semibold items-center flex justify-center text-sm bg-borderGrey font-noto text-fontGrey py-2 px-4 rounded hover:bg-darkGrey focus:outline-none focus:shadow-outline',
+                    'class': 'h-[45px] font-semibold items-center flex justify-center text-sm bg-slate-100 font-noto text-fontGrey py-2 px-4 rounded hover:bg-slate-200 focus:outline-none focus:shadow-outline',
                 }
             }) }}
         </div>
@@ -85,6 +102,4 @@
 
     {{ form_end(form) }}
 </div>
-
 {% endblock %}
-

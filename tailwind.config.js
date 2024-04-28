@@ -20,8 +20,12 @@ module.exports = {
         borderGrey: '#F6F6F6',
         darkGrey: '#DADADA',
         fontGrey:'#757575',
+<<<<<<< HEAD
         
         
+=======
+
+>>>>>>> e4b28c7 (partie admin fini)
       },
     },
   },

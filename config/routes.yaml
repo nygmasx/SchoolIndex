@@ -8,5 +8,9 @@ admin:
         path: ../src/Controller/Admin/
         namespace: App\Controller\Admin
     type: attribute
+<<<<<<< HEAD
     prefix: /admin
 
+=======
+    prefix: /admin
+>>>>>>> e4b28c7 (partie admin fini)
