@@ -4,34 +4,34 @@
 {% endblock %}
 
 {% block main %}
-	<div class="bg-slate-200 flex flex-col min-h-[95vh]">
-		<h1 class="text-[28px] ml-12 text-customBlue font-epilogue md:mt-8 font-medium">Administration</h1>
+	<div class="bg-slate-200 flex flex-col  min-h-screen font-['Epilogue'] pb-5">
+		<h1 class="text-2xl	 md:text-4xl font-medium text-center lg:text-start text-blue-900 pt-12 px-6 pb-4">Administration</h1>
 
-		<div class="flex gap-3 min-md:ml-10 max-sm:ml-1 ml-8 mt-4 max-sm:hidden">
-			<a href="#" class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[220px] h-[40px] flex justify-center opacity-[0.8]">
+		<div class="flex gap-3 min-md:ml-10 max-sm:ml-1 ml-[18px] mt-4 max-sm:hidden">
+			<a href="{{ path('app_contributors') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex justify-center opacity-[0.8] transition duration-200 hover:opacity-100">
 				<span class="justify-center items-center flex text-white font-noto">Contributeurs</span>
 			</a>
-			<a href="#" class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
+			<a href="#" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex justify-center opacity-[0.8] transition duration-200 hover:opacity-100">
 				<span class="justify-center items-center flex text-white font-noto">Exercices</span>
 			</a>
-			<a href="#" class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
+			<a href="#" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex justify-center opacity-[0.8] transition duration-200 hover:opacity-100">
 				<span class="justify-center items-center flex text-white font-noto">Matières</span>
 			</a>
-			<a href="{{ path('app_classroom') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center">
+			<a href="{{ path('app_classroom') }}" class="bg-customBlue rounded-tl-xl px-14 py-2.5 rounded-tr-xl flex justify-center transition duration-200 hover:opacity-100">
 				<span class="justify-center items-center flex text-white font-noto">Classes</span>
 			</a>
-			<a href="#" class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-80">
+			<a href="#" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex justify-center opacity-80 transition duration-200 hover:opacity-100">
 				<span class="justify-center items-center flex text-white font-noto">Thématiques</span>
 			</a>
-			<a href="#" class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-80">
+			<a href="#" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex justify-center opacity-80 transition duration-200 hover:opacity-100">
 				<span class="justify-center items-center flex text-white font-noto" href="">Compétences</span>
 			</a>
-			<a href="#" class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-80">
+			<a href="{{ path('app_origine') }}" class="bg-customBlue rounded-tl-xl px-5 py-2.5 rounded-tr-xl flex justify-center opacity-80 transition duration-200 hover:opacity-100">
 				<span class="justify-center items-center flex text-white font-noto">Origines</span>
 			</a>
 		</div>
 
-		<div class="w-[95%] md:ml-[30px] min-md:w-[100%] min-md:ml-10 rounded-lg  sm:flex sm:flex-col justify-center  bg-white max-sm:w-[100%] ">
+		<div class="bg-white rounded-md w-[95%]  md:w-[97%] p-3 md:p-7 min-h-[85vh] m-auto rounded-tl-none	">
 			<div class="flex justify-center max-sm:pt-2 ">
 				<select id="pageSelect" class="md:hidden ">
 					<option value="contributeurs">Contributeurs</option>
@@ -44,28 +44,30 @@
 				</select>
 			</div>
 
-			<h1 class="ml-7 text-[20px] font-semibold font-noto md:pt-6 max-sm:mt-[5px]">Gestion des classes</h1>
-			<div class="mx-7	">
+			<h1 class="text-[20px] font-semibold font-noto mt-2.5	">Gestion des classes</h1>
+			<div>
 				<p class="font-noto text-customGrey pt-3">Rechercher par le nom d'une classe</p>
-				<form method="GET" action="{{ path('app_contributors') }}">
-					<input id="searchInput" name="search" type="text" value="" class="mt-5 w-[45%] h-[50px] border border-slate-200 rounded-lg ">
-					<button type="submit" class="bg-slate-100 h-[50px] rounded-md ml-6 w-[15%] font-noto text-customGrey text-[16px] max-md:hidden transition duration-200 hover:bg-slate-200">Rechercher</button>
-					<a href="{{ path("add_user")}}">
-						<button type="button" class="bg-customGreen h-[52px] rounded-md ml-16 w-[15%] font-noto text-white text-[16px] transition duration-200 hover:bg-darkGreen max-md:w-[80px] max-md:h-[40px] max-md:ml-[30px]">Ajouter +</button>
+				<form class="flex items-center pt-2.5 gap-7	max-sm:flex-col">
+    <input type="text" name="search" class="text-gray-500 rounded-md border-gray-300 border border-solid h-11 p-2 outline-none w-[45%] max-sm:w-[80%]">
+    <button type="submit" class="bg-slate-100 h-11 rounded-md w-[15%] max-[768px]:w-[25%] max-[640px]:w-[40%] font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200">Rechercher</button>
+					<a href="#" class="flex justify-center items-center bg-customGreen font-medium font-noto text-white text-[16px] w-[15%] max-[768px]:w-[25%] max-[640px]:w-[40%]  rounded-md border-gray-300 border border-solid h-11 transition duration-200 hover:bg-darkGreen ">
+						<button type="submit">Ajouter +</button>
 					</a>
 				</form>
 				<div class="overflow-x-auto relative mt-5 rounded-xl border border-solid border-gray-200">
-					<table id="contribTable" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-						<thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+					<table class="w-full">
+						<thead class="text-left h-12 bg-gray-100">
 							<tr>
-								<th scope="col" class="py-3 px-6">Nom</th>
-								<th scope="col" class="py-3 px-6">Actions</th>
+								<th class=" font-medium px-6 py-3 rounded-tl-xl w-[40%]">Nom</th>
+								<th class=" font-medium pr-6 py-3 w-[40%]">Nombre d'exercices liés</th>
+								<th class=" font-medium px-6 py-3 rounded-tr-xl	 ">Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							{% for classroom in classrooms %}
+							{% for data in classrooms %}
 								<tr class="bg-white  dark:bg-gray-800 dark:border-gray-700 border-solid border-t border-gray-200">
-									<td class="py-4 px-6">{{ classroom.name }}</td>
+									<td class="py-4 px-6">{{ data.classroom.name }}</td>
+									<td class="py-4 px-[7%]">{{ data.exerciseCount }}</td>
 									<td class="py-4 px-6 md:flex md:justify-center md:items-center md:gap-3 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center max-sm:gap-3">
 										<a href="#" class="flex items-center gap-2.5	 font-medium  hover:underline">
 											<svg width="16" height="16" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -93,5 +95,4 @@
 			</div>
 		</div>
 	</div>
-
 {% endblock %}

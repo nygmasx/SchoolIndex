@@ -192,3 +192,17 @@ html.turn-exit [data-turn-exit] {
     fill: rgb(23, 37, 84); /* Style actif pour le remplissage du SVG */
   }
   
+  .nav-link {
+    background-color: #1E3A8A; /* Couleur de fond */
+    padding: 0.625rem 1.25rem; /* Padding */
+    border-radius: 0.5rem; /* Bord arrondi */
+    display: inline-flex; /* Utilisation de flexbox */
+    align-items: center; /* Aligner le contenu au centre */
+    justify-content: center; /* Centrer le contenu horizontalement */
+    transition: flex-grow 0.3s ease; /* Transition de la croissance flex */
+    white-space: nowrap; /* Empêcher le texte de se couper */
+}
+
+.nav-link:hover {
+    flex-grow: 1; /* Augmenter la croissance flex au survol */
+}

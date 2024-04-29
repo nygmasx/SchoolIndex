@@ -21,6 +21,15 @@ class OriginRepository extends ServiceEntityRepository
         parent::__construct($registry, Origin::class);
     }
 
+    public function findBySearchTerm(string $searchTerm): array
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.name LIKE :searchTerm')
+            ->setParameter('searchTerm', '%' . $searchTerm . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Origin[] Returns an array of Origin objects
 //     */
