@@ -42,7 +42,7 @@ class ExerciseGeneralInformationType extends AbstractType
             ])
             ->add('thematic', EntityType::class, [
                 'class' => Thematic::class,
-                'label' => 'Thématique',
+                'label' => 'Thématique :',
                 'choice_label' => 'name',
                 'disabled' => 'true',
                 'placeholder' => 'Veuillez séléctionner une matière'

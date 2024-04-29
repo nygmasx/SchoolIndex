@@ -30,13 +30,20 @@ class File
     private ?int $size = null;
 
     #[UploadableField(mapping: 'exercises', fileNameProperty: 'name', size: 'size', mimeType: 'extension', originalName: 'originalName')]
-    private ?VichFile $uploadedFile = null;
+    private ?VichFile $vichFile = null;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToOne(mappedBy: 'exerciseFile', cascade: ['persist', 'remove'])]
     private ?Exercise $exercise = null;
+
+    public function __construct()
+    {
+        if(!empty($file)){
+            $this->setVichFile($file);
+        }
+    }
 
     public function getId(): ?int
     {
@@ -60,7 +67,7 @@ class File
         return $this->originalName;
     }
 
-    public function setOriginalName(string $originalName): static
+    public function setOriginalName(?string $originalName): static
     {
         $this->originalName = $originalName;
 
@@ -72,7 +79,7 @@ class File
         return $this->extension;
     }
 
-    public function setExtension(string $extension): static
+    public function setExtension(?string $extension): static
     {
         $this->extension = $extension;
 
@@ -84,7 +91,7 @@ class File
         return $this->size;
     }
 
-    public function setSize(int $size): static
+    public function setSize(?int $size): static
     {
         $this->size = $size;
 
@@ -108,16 +115,17 @@ class File
         return $this;
     }
 
-    public function getUploadedFile(): ?VichFile
+    public function getVichFile(): ?VichFile
     {
-        return $this->uploadedFile;
+        return $this->vichFile;
     }
 
-    public function setUploadedFile(?VichFile $uploadedFile): void
+    public function setVichFile(?VichFile $vichFile = null): void
     {
-        $this->uploadedFile = $uploadedFile;
+        $this->vichFile = $vichFile;
 
-        if (null !== $uploadedFile) {
+        if ($vichFile) {
+            // It's required by VichUploader to properly handle the file upload and update
             $this->updatedAt = new \DateTimeImmutable();
         }
     }

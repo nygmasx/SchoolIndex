@@ -6,7 +6,6 @@
     <script type="text/javascript">
         function updateThematicField() {
             var courseId = $('#exercise_general_information_course').val();  // Get the selected course ID
-            console.log(courseId)
             $.ajax({
                 url: "{{ path('update_thematic_field') }}",  // Symfony route that returns the thematic field
                 type: "POST",
@@ -18,6 +17,23 @@
                 },
                 error: function () {
                     alert('Error updating thematic field');
+                }
+            });
+        }
+
+        function updateSkillsField() {
+            var courseId = $('#exercise_general_information_course').val();  // Get the selected course ID
+            $.ajax({
+                url: "{{ path('update_skills_field') }}",  // Symfony route that returns the thematic field
+                type: "POST",
+                data: {
+                    course_id: courseId
+                },
+                success: function (data) {
+                    $('#skills-field-container').html(data);  // Update the thematic field container
+                },
+                error: function () {
+                    alert('Error updating skills field');
                 }
             });
         }
@@ -68,7 +84,7 @@
 
                     <div class="mb-5">
                         {{ form_label(form.course, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                        {{ form_widget(form.course, {'attr': {'id': 'course-select','onChange': 'updateThematicField()','class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                        {{ form_widget(form.course, {'attr': {'id': 'course-select','onChange': 'updateThematicField(), updateSkillsField()','class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
                     </div>
 
                     <div class="mb-5">
@@ -78,7 +94,7 @@
 
                     <div class="mb-5" id="thematic-field-container">
                         {{ form_label(form.thematic, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                        {{ form_widget(form.thematic, {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'thematic-field'}) }}
+                        {{ form_widget(form.thematic, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
                     </div>
 
                     <div class="mb-5">
@@ -94,9 +110,9 @@
                 </div>
 
                 <div class="w-1/2">
-                    <div class="mb-5">
+                    <div class="mb-5" id="skills-field-container">
                         {{ form_label(form.skills, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                        {{ form_widget(form.skills, {'attr': {'class': ' '}}) }}
+                        {{ form_widget(form.skills, {'attr': {'class': ''}}) }}
                     </div>
 
                     <div class="mb-5">

@@ -6,6 +6,7 @@ use App\DataTransferObject\ExerciseFileDto;
 use App\DataTransferObject\ExerciseGeneralDto;
 use App\DataTransferObject\ExerciseSourceDto;
 use App\Entity\Exercise;
+use App\Entity\Skill;
 use App\Entity\Thematic;
 use App\Entity\User;
 use App\Factory\ExerciseFactory;
@@ -13,6 +14,7 @@ use App\Form\Exercise\ExerciseFileType;
 use App\Form\Exercise\ExerciseGeneralInformationType;
 use App\Form\Exercise\ExerciseSourceType;
 use App\Repository\ExerciseRepository;
+use App\Repository\SkillRepository;
 use App\Repository\ThematicRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\Self_;
@@ -154,6 +156,27 @@ final class ExerciseController extends AbstractController
             ->getForm();
 
         return $this->render('contributors/exercise/forms/thematic.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+    #[Route('/update-skills-field', name: 'update_skills_field', methods: ['POST'])]
+    public function updateSkillsField(Request $request, SkillRepository $skillRepository): Response
+    {
+        $courseId = $request->request->get('course_id');
+        // Assuming you have a method to get thematics by course
+        $skills = $skillRepository->findBy(['course' => $courseId]);
+
+        $form = $this->createFormBuilder()
+            ->add('skills', EntityType::class, [
+                'class' => Skill::class,
+                'choices' => $skills,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true
+            ])
+            ->getForm();
+
+        return $this->render('contributors/exercise/forms/skills.html.twig', [
             'form' => $form->createView()
         ]);
     }

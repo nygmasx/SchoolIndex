@@ -6,10 +6,12 @@ use App\DataTransferObject\ExerciseFileDto;
 use App\DataTransferObject\ExerciseSourceDto;
 use App\Entity\Exercise;
 use App\Entity\File;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class ExerciseFileType extends AbstractType
 {

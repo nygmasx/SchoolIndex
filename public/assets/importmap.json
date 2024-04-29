@@ -1,6 +1,6 @@
 {
     "app": {
-        "path": "\/assets\/app-2672291f030d43ffd18692b6e0f6bddf.js",
+        "path": "\/assets\/app-6d7c2c4836e934c6a00bcfedbefc977b.js",
         "type": "js"
     },
     "\/assets\/bootstrap.js": {
@@ -8,12 +8,20 @@
         "type": "js"
     },
     "\/assets\/@symfony\/stimulus-bundle\/controllers.js": {
-        "path": "\/assets\/@symfony\/stimulus-bundle\/controllers-947be02b16ad145904b034cd3b8c273c.js",
+        "path": "\/assets\/@symfony\/stimulus-bundle\/controllers-863d935213ef3e1b5c866456cd1d81b6.js",
         "type": "js"
     },
     "\/assets\/@symfony\/ux-autocomplete\/controller.js": {
         "path": "\/assets\/@symfony\/ux-autocomplete\/controller-d18de807e29352151ef094b16fb98bb5.js",
         "type": "js"
+    },
+    "\/assets\/@symfony\/ux-live-component\/live_controller.js": {
+        "path": "\/assets\/@symfony\/ux-live-component\/live_controller-fd9380642323cc211d12f22a34ea9052.js",
+        "type": "js"
+    },
+    "\/assets\/@symfony\/ux-live-component\/live.min.css": {
+        "path": "\/assets\/@symfony\/ux-live-component\/live.min-5108f988fb2a3dbb292d6feebc9db7e8.css",
+        "type": "css"
     },
     "\/assets\/@symfony\/ux-swup\/controller.js": {
         "path": "\/assets\/@symfony\/ux-swup\/controller-1fed7c787b6e59d377334dede91f3823.js",
@@ -36,7 +44,7 @@
         "type": "js"
     },
     "\/assets\/styles\/app.css": {
-        "path": "\/assets\/styles\/app-b3233ce94aaab207445b831dff1d2e62.css",
+        "path": "\/assets\/styles\/app-a4ff395aec6f4b2a3a1eb2e1bf9b24f6.css",
         "type": "css"
     },
     "\/assets\/vendor\/@domchristie\/turn\/dist\/turn.css": {
@@ -94,5 +102,9 @@
     "tom-select\/dist\/css\/tom-select.default.css": {
         "path": "\/assets\/vendor\/tom-select\/dist\/css\/tom-select.default-92c31c033a23be0cfebdda3d089d8b11.css",
         "type": "css"
+    },
+    "@symfony\/ux-live-component": {
+        "path": "\/assets\/@symfony\/ux-live-component\/live_controller-fd9380642323cc211d12f22a34ea9052.js",
+        "type": "js"
     }
 }

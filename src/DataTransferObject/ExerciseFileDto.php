@@ -5,6 +5,7 @@ namespace App\DataTransferObject;
 use App\Entity\File;
 use Carbon\CarbonImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 
 class ExerciseFileDto
 {
