@@ -40,13 +40,12 @@ class ExerciseGeneralInformationType extends AbstractType
                 'label' => 'Classe',
                 'choice_label' => 'name',
             ])
-            ->addDependent('thematic', 'course' , function (DependentField $field, ?Course $course) {
-
-            })
             ->add('thematic', EntityType::class, [
                 'class' => Thematic::class,
                 'label' => 'Thématique',
                 'choice_label' => 'name',
+                'disabled' => 'true',
+                'placeholder' => 'Veuillez séléctionner une matière'
             ])
             ->add('chapter', TextType::class, [
                 'label' => 'Chapitre'

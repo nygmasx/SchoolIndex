@@ -2,24 +2,49 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
+
+    <script type="text/javascript">
+        function updateThematicField() {
+            var courseId = $('#exercise_general_information_course').val();  // Get the selected course ID
+            console.log(courseId)
+            $.ajax({
+                url: "{{ path('update_thematic_field') }}",  // Symfony route that returns the thematic field
+                type: "POST",
+                data: {
+                    course_id: courseId
+                },
+                success: function (data) {
+                    $('#thematic-field-container').html(data);  // Update the thematic field container
+                },
+                error: function () {
+                    alert('Error updating thematic field');
+                }
+            });
+        }
+    </script>
+
+
+
     <div class="bg-slate-200 flex flex-col min-h-[95vh]">
         <h1 class="text-[28px] ml-12 text-customBlue font-epilogue md:mt-8 font-medium">Administration</h1>
 
         <div class="flex gap-3 min-md:ml-10 max-sm:ml-1 ml-8 mt-4 max-sm:hidden">
             <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[220px] h-[40px] flex justify-center">
-                <a class="justify-center items-center flex text-white font-noto" href="{{ path('app_submit_exercise', {step: 'general'}) }}">Informations générales</a>
+                <a class="justify-center items-center flex text-white font-noto"
+                   href="{{ path('app_submit_exercise', {step: 'general'}) }}">Informations générales</a>
             </div>
             <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
-                <a class="justify-center items-center flex text-white font-noto" href="{{ path('app_submit_exercise', {step: 'sources'}) }}">Sources</a>
+                <a class="justify-center items-center flex text-white font-noto"
+                   href="{{ path('app_submit_exercise', {step: 'sources'}) }}">Sources</a>
             </div>
             <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
-                <a class="justify-center items-center flex text-white font-noto" href="">Fichiers</a>
+                <a class="justify-center items-center flex text-white font-noto" href="{{ path('app_submit_exercise', {step: 'files'}) }}">Fichiers</a>
             </div>
         </div>
 
         <div class="w-[95%] md:ml-[30px] min-md:w-[100%] min-md:ml-10 rounded-lg  sm:flex sm:flex-col justify-center  bg-white max-sm:w-[100%] p-4 ">
-            <div class="flex justify-center max-sm:pt-2 ">
-                <select id="pageSelect" class="md:hidden ">
+            <div class="flex justify-center max-sm:pt-2">
+                <select id="pageSelect" class="md:hidden">
                     <option value="contributeurs">Contributeurs</option>
                     <option value="exercices">Exercices</option>
                     <option value="matieres">Matières</option>
@@ -43,7 +68,7 @@
 
                     <div class="mb-5">
                         {{ form_label(form.course, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                        {{ form_widget(form.course, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'countries-course'}}) }}
+                        {{ form_widget(form.course, {'attr': {'id': 'course-select','onChange': 'updateThematicField()','class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
                     </div>
 
                     <div class="mb-5">
@@ -51,14 +76,20 @@
                         {{ form_widget(form.classroom, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'countries-course'}}) }}
                     </div>
 
-                    <div class="mb-5">
+                    <div class="mb-5" id="thematic-field-container">
                         {{ form_label(form.thematic, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                        {{ form_widget(form.thematic, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'countries-course'}}) }}
+                        {{ form_widget(form.thematic, {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'thematic-field'}) }}
                     </div>
 
                     <div class="mb-5">
                         {{ form_label(form.chapter, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                        {{ form_widget(form.chapter, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'countries-course'}}) }}
+                        {{ form_widget(form.chapter, {
+                            'attr': {
+                                'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+                                'id': 'countries-course'
+                            }
+                        }) }}
+
                     </div>
                 </div>
 

@@ -6,15 +6,18 @@ use App\DataTransferObject\ExerciseFileDto;
 use App\DataTransferObject\ExerciseGeneralDto;
 use App\DataTransferObject\ExerciseSourceDto;
 use App\Entity\Exercise;
+use App\Entity\Thematic;
 use App\Entity\User;
 use App\Factory\ExerciseFactory;
 use App\Form\Exercise\ExerciseFileType;
 use App\Form\Exercise\ExerciseGeneralInformationType;
 use App\Form\Exercise\ExerciseSourceType;
 use App\Repository\ExerciseRepository;
+use App\Repository\ThematicRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\Self_;
 use phpDocumentor\Reflection\Types\True_;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -134,4 +137,25 @@ final class ExerciseController extends AbstractController
 
         return $this->redirectToRoute('app_submit_exercise', ['id' => $exercise->getId()]);
     }
+    #[Route('/update-thematic-field', name: 'update_thematic_field', methods: ['POST'])]
+    public function updateThematicField(Request $request, ThematicRepository $thematicRepository): Response
+    {
+        $courseId = $request->request->get('course_id');
+        // Assuming you have a method to get thematics by course
+        $thematics = $thematicRepository->findBy(['course' => $courseId]);
+
+        $form = $this->createFormBuilder()
+            ->add('thematic', EntityType::class, [
+                'class' => Thematic::class,
+                'choices' => $thematics,
+                'choice_label' => 'name',
+                'label' => 'Thematique :',
+            ])
+            ->getForm();
+
+        return $this->render('contributors/exercise/forms/thematic.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
 }
