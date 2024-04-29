@@ -2,8 +2,6 @@
 
 namespace App\Form\Exercise;
 
-use App\DataTransferObject\ExerciseFileDto;
-use App\DataTransferObject\ExerciseSourceDto;
 use App\Entity\Exercise;
 use App\Entity\File;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -13,6 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 
+
 class ExerciseFileType extends AbstractType
 {
 
@@ -21,10 +20,22 @@ class ExerciseFileType extends AbstractType
         $builder
             ->add('exerciseFile', FileType::class, [
                 "label" => "Fiche exercice (PDF, word) * :",
-                'required' => true
+                'mapped' => false,
+                'required' => true,
+                'constraints' => [
+                    new \Symfony\Component\Validator\Constraints\File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'application/pdf',
+                            'application/x-pdf',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid PDF',
+                    ])
+                ],
             ])
             ->add('correctionFile', FileType::class, [
                 "label" => "Fiche corrigé (PDF, word) * :",
+                'mapped' => false,
                 'required' => true
             ]);
     }
@@ -32,7 +43,7 @@ class ExerciseFileType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ExerciseFileDto::class,
+            'data_class' => Exercise::class,
         ]);
     }
 

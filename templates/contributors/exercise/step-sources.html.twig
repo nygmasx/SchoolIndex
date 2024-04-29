@@ -7,13 +7,15 @@
 
         <div class="flex gap-3 min-md:ml-10 max-sm:ml-1 ml-8 mt-4 max-sm:hidden">
             <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[220px] h-[40px] flex justify-center">
-                <a class="justify-center items-center flex text-white font-noto" href="{{ path('app_submit_exercise', {step: 'general'}) }}">Informations générales</a>
+                <a class="justify-center items-center flex text-white font-noto"
+                   href="{{ path('exercise_create_general') }}">Informations générales</a>
             </div>
             <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
-                <a class="justify-center items-center flex text-white font-noto" href="{{ path('app_submit_exercise', {step: 'sources'}) }}">Sources</a>
+                <a class="justify-center items-center flex text-white font-noto"
+                   href="{{ path('exercise_create_sources') }}">Sources</a>
             </div>
             <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
-                <a class="justify-center items-center flex text-white font-noto" href="{{ path('app_submit_exercise', {step: 'files'}) }}">Fichiers</a>
+                <a class="justify-center items-center flex text-white font-noto" href="{{ path('exercise_create_files') }}">Fichiers</a>
             </div>
         </div>
 

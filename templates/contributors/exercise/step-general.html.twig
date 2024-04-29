@@ -14,6 +14,7 @@
                 },
                 success: function (data) {
                     $('#thematic-field-container').html(data);  // Update the thematic field container
+                    console.log($('select[name="form[thematic]"]').val(sessionStorage.getItem('selectedThematic')));
                 },
                 error: function () {
                     alert('Error updating thematic field');
@@ -24,19 +25,25 @@
         function updateSkillsField() {
             var courseId = $('#exercise_general_information_course').val();  // Get the selected course ID
             $.ajax({
-                url: "{{ path('update_skills_field') }}",  // Symfony route that returns the thematic field
+                url: "{{ path('update_skills_field') }}",  // Symfony route that returns the skills field
                 type: "POST",
                 data: {
                     course_id: courseId
                 },
                 success: function (data) {
-                    $('#skills-field-container').html(data);  // Update the thematic field container
+                    $('#skills-field-container').html(data);  // Update the skills field container
+                    $('input[type=checkbox][name="form[skills][]"]').each(function () {
+                        if (sessionStorage.getItem('selectedSkills').includes($(this).val())) {
+                            $(this).prop('checked', true);
+                        }
+                    });
                 },
                 error: function () {
                     alert('Error updating skills field');
                 }
             });
         }
+
     </script>
 
 
@@ -47,14 +54,15 @@
         <div class="flex gap-3 min-md:ml-10 max-sm:ml-1 ml-8 mt-4 max-sm:hidden">
             <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[220px] h-[40px] flex justify-center">
                 <a class="justify-center items-center flex text-white font-noto"
-                   href="{{ path('app_submit_exercise', {step: 'general'}) }}">Informations générales</a>
+                   href="{{ path('exercise_create_general') }}">Informations générales</a>
             </div>
             <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
                 <a class="justify-center items-center flex text-white font-noto"
-                   href="{{ path('app_submit_exercise', {step: 'sources'}) }}">Sources</a>
+                   href="{{ path('exercise_create_sources') }}">Sources</a>
             </div>
             <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
-                <a class="justify-center items-center flex text-white font-noto" href="{{ path('app_submit_exercise', {step: 'files'}) }}">Fichiers</a>
+                <a class="justify-center items-center flex text-white font-noto"
+                   href="{{ path('exercise_create_files') }}">Fichiers</a>
             </div>
         </div>
 

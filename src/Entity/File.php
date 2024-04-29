@@ -4,12 +4,11 @@ namespace App\Entity;
 
 use App\Repository\FileRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
-use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
-use Vich\UploaderBundle\Entity\File as VichFile;
+use Symfony\Component\HttpFoundation\File\File as SymfonyFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: FileRepository::class)]
-#[Uploadable]
+#[Vich\Uploadable]
 class File
 {
     #[ORM\Id]
@@ -20,6 +19,9 @@ class File
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[Vich\UploadableField(mapping: 'exercises', fileNameProperty: 'name', size: 'size', mimeType: 'extension', originalName: 'originalName')]
+    private ?SymfonyFile $imageFile = null;
+
     #[ORM\Column(length: 255)]
     private ?string $originalName = null;
 
@@ -29,19 +31,10 @@ class File
     #[ORM\Column]
     private ?int $size = null;
 
-    #[UploadableField(mapping: 'exercises', fileNameProperty: 'name', size: 'size', mimeType: 'extension', originalName: 'originalName')]
-    private ?VichFile $vichFile = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $updatedAt = null;
-
-    #[ORM\OneToOne(mappedBy: 'exerciseFile', cascade: ['persist', 'remove'])]
-    private ?Exercise $exercise = null;
-
-    public function __construct()
+    public function __construct(?SymfonyFile $file = null)
     {
-        if(!empty($file)){
-            $this->setVichFile($file);
+        if (!empty($file)) {
+            $this->setImageFile($file);
         }
     }
 
@@ -55,7 +48,7 @@ class File
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(?string $name): static
     {
         $this->name = $name;
 
@@ -98,46 +91,28 @@ class File
         return $this;
     }
 
-    public function getExercise(): ?Exercise
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param SymfonyFile|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+     */
+    public function setImageFile(?SymfonyFile $imageFile = null): void
     {
-        return $this->exercise;
+        $this->imageFile = $imageFile;
+
+        // if (null !== $imageFile) {
+        //     // It is required that at least one field changes if you are using doctrine
+        //     // otherwise the event listeners won't be called and the file is lost
+        //     $this->updatedAt = new \DateTimeImmutable();
+        // }
     }
 
-    public function setExercise(Exercise $exercise): static
+    public function getImageFile(): ?SymfonyFile
     {
-        // set the owning side of the relation if necessary
-        if ($exercise->getExerciseFile() !== $this) {
-            $exercise->setExerciseFile($this);
-        }
-
-        $this->exercise = $exercise;
-
-        return $this;
-    }
-
-    public function getVichFile(): ?VichFile
-    {
-        return $this->vichFile;
-    }
-
-    public function setVichFile(?VichFile $vichFile = null): void
-    {
-        $this->vichFile = $vichFile;
-
-        if ($vichFile) {
-            // It's required by VichUploader to properly handle the file upload and update
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
-    {
-        $this->updatedAt = $updatedAt;
-        return $this;
+        return $this->imageFile;
     }
 }
