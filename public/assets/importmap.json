@@ -1,6 +1,6 @@
 {
     "app": {
-        "path": "\/assets\/app-310f073637c884940380428141a558d0.js",
+        "path": "\/assets\/app-aa80a8bf28bd7fcc549f9fe2bedd6cc6.js",
         "type": "js"
     },
     "\/assets\/bootstrap.js": {
@@ -40,7 +40,7 @@
         "type": "js"
     },
     "\/assets\/styles\/app.css": {
-        "path": "\/assets\/styles\/app-af94609ad8155df844c7fdf856e53094.css",
+        "path": "\/assets\/styles\/app-f411d4c17168a8363275be5148a449c8.css",
         "type": "css"
     },
     "\/assets\/vendor\/@domchristie\/turn\/dist\/turn.css": {

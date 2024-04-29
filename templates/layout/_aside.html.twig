@@ -12,7 +12,7 @@
 		</a>
 		<div class="flex flex-col ml-8  h-full ">
 			<nav class=" flex flex-col justify-between h-full">
-				<div class="flex-col flex gap-4 mt-12">
+				<div class="flex-col flex gap-4 mt-12 overflow-auto	h-[65vh]">
 					{% set activeRoute = app.request.attributes.get('_route') %}
 					<a href="{{ path('app_home') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 text-gray-500 {{ activeRoute == 'app_home' ? 'active' : '' }} hover:font-bold hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
 						<svg class="icon {{ activeRoute == 'app_home' ? 'active-svg' : '' }}" width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -29,15 +29,38 @@
 						</svg>
 						Rechercher
 					</a>
-
-					<a href="{{ path('app_mathematiques') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 text-gray-500 {{ activeRoute == 'app_mathematiques' ? 'active' : '' }} hover:font-bold hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
-						<svg class="icon {{ activeRoute == 'app_mathematiques' ? 'active-svg' : '' }}" width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<div id="subjectDropdownToggle" class="hoverr-element select-none lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 text-gray-500 hover:font-bold hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+						<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M19.5894 3.0401H5.58942C4.48485 3.0401 3.58942 3.93553 3.58942 5.0401V19.0401C3.58942 20.1447 4.48485 21.0401 5.58942 21.0401H19.5894C20.694 21.0401 21.5894 20.1447 21.5894 19.0401V5.0401C21.5894 3.93553 20.694 3.0401 19.5894 3.0401Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M9.58942 17.0401C11.5894 17.0401 12.3894 16.0401 12.3894 14.2401V10.0401C12.3894 8.04009 13.3894 6.74009 15.5894 7.04009" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M9.58942 11.2401H15.2894" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
-						Mathématiques
-					</a>
+						Matière
+						<svg id="toggleArrow" width="13" height="8" viewbox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M1.66 7.41L6.25 2.83L10.84 7.41L12.25 6L6.25 0L0.25 6L1.66 7.41Z" fill="#757575"/>
+						</svg>
+					</div>
+					<div id="subjectDropdown" class="hidden pl-12">
+						<a href="{{ path('app_mathematiques') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 text-gray-500  hover:font-bold hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+							Mathématiques
+						</a>
+						<a href="#" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 text-gray-500  hover:font-bold hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+							Français
+						</a>
+					</div>
+
+					<script>
+						var subjectDropdownToggle = document.getElementById("subjectDropdownToggle");
+						var subjectDropdown = document.getElementById("subjectDropdown");
+						var toggleArrow = document.getElementById("toggleArrow");
+
+						subjectDropdownToggle.addEventListener("click", function () {
+						subjectDropdown.classList.toggle("hidden");
+						toggleArrow.style.transition = "transform 0.3s ease";
+						toggleArrow.style.transform = subjectDropdown.classList.contains("hidden") ? "rotate(0deg)" : "rotate(180deg)";
+						});
+					</script>
+
 
 					{% if app.user %}
 						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_TEACHER') %}
@@ -57,7 +80,7 @@
 							Soumettre
 						</a>
 						{% if is_granted('ROLE_ADMIN') %}
-							<a href="{{ path('app_contributors') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 {{ activeRoute == 'app_contributors' ? 'active' : '' }} hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+							<a href="{{ path('app_contributors') }}" data-turbo-action="visit" class="hoverr-element lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 {{ activeRoute == 'app_contributors' ? 'active' : '' }} hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="25px" viewbox="0 0 24 24" fill="none">
 
 									<g id="SVGRepo_bgCarrier" stroke-width="0"/>
@@ -149,11 +172,11 @@
 		<ul class="hidden bg-white absolute bottom-14 left-0 w-[30%] p-2 rounded-lg shadow-lg" id="options-list">
 			<li>
 				<a href="{{ path('app_my_exercices') }}" data-turbo-action="visit" class="hover-element flex gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
-								<svg width="19" height="18" viewbox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M6.08942 1.81165H18.0894V2.81165H6.08942V1.81165ZM1.08942 1.31165H3.08942V3.31165H1.08942V1.31165ZM1.08942 8.31165H3.08942V10.3116H1.08942V8.31165ZM1.08942 15.3116H3.08942V17.3116H1.08942V15.3116ZM6.08942 8.81165H18.0894V9.81165H6.08942V8.81165ZM6.08942 15.8116H18.0894V16.8116H6.08942V15.8116Z" fill="#757575" stroke="#757575"/>
-								</svg>
-								Mes exercices
-							</a>
+					<svg width="19" height="18" viewbox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M6.08942 1.81165H18.0894V2.81165H6.08942V1.81165ZM1.08942 1.31165H3.08942V3.31165H1.08942V1.31165ZM1.08942 8.31165H3.08942V10.3116H1.08942V8.31165ZM1.08942 15.3116H3.08942V17.3116H1.08942V15.3116ZM6.08942 8.81165H18.0894V9.81165H6.08942V8.81165ZM6.08942 15.8116H18.0894V16.8116H6.08942V15.8116Z" fill="#757575" stroke="#757575"/>
+					</svg>
+					Mes exercices
+				</a>
 			</li>
 			<li>
 				<a href="{{ path('app_submit_exercise') }}" data-turbo-action="visit" class="flex gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
