@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'administration
+{% endblock %}
+
+{% block main %}
+<div class="bg-slate-200 flex flex-col min-h-[95vh]">
+	<h1 class="text-2xl	 md:text-4xl font-medium text-center max-sm:pt-4 lg:text-start text-blue-900 pt-12 px-6 pb-4">Administration</h1>
+
+	<div class="flex gap-3 min-md:ml-10 max-sm:ml-1 ml-[18px] mt-4 max-sm:hidden">
+		<a href="{{ path('app_contributor') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-14 py-2.5 flex justify-center transition duration-200 hover:opacity-100">
+			<span class="justify-center items-center flex text-white font-noto">Contributeurs</span>
+		</a>
+		<a href="#" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex justify-center opacity-[0.8] transition duration-200 hover:opacity-100">
+			<span class="justify-center items-center flex text-white font-noto">Exercices</span>
+		</a>
+		<a href="{{ path('app_course') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex justify-center opacity-[0.8] transition duration-200 hover:opacity-100">
+			<span class="justify-center items-center flex text-white font-noto">Matières</span>
+		</a>
+		<a href="{{ path('app_classroom') }}" class="bg-customBlue rounded-tl-xl px-5 py-2.5 rounded-tr-xl flex justify-center opacity-[0.8] transition duration-200 hover:opacity-100">
+			<span class="justify-center items-center flex text-white font-noto">Classes</span>
+		</a>
+		<a href="{{ path('app_thematic') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex justify-center opacity-80 transition duration-200 hover:opacity-100">
+			<span class="justify-center items-center flex text-white font-noto">Thématiques</span>
+		</a>
+		<a href="{{ path('app_skill') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex justify-center opacity-80 transition duration-200 hover:opacity-100">
+			<span class="justify-center items-center flex text-white font-noto" href="">Compétences</span>
+		</a>
+		<a href="{{ path('app_origin') }}" class="bg-customBlue rounded-tl-xl px-5 py-2.5 rounded-tr-xl flex justify-center opacity-80 transition duration-200 hover:opacity-100">
+			<span class="justify-center items-center flex text-white font-noto">Origines</span>
+		</a>
+	</div>
+
+		<div class="bg-white rounded-md w-[95%]  md:w-[97%] p-3 md:p-7  mx-auto rounded-tl-none	">
+			<h1 class="text-[20px] font-semibold font-noto mt-2.5">Modifier un contributeur</h1>
+
+		{{ form_start(form) }}
+        <div class="max-sm:block flex gap-12 my-4">
+            <div class="w-[40%] max-sm:w-full">
+            {{ form_label(form.lastName, 'Nom :', {
+                                'label_attr': {
+                    'class': 'text-base text-color text-customGrey',
+                                    'data-toggle': 'tooltip',
+                                }
+                                }) }}
+            {{ form_errors(form.lastName) }}
+            {{ form_widget(form.lastName, { 
+                                    'attr': {
+                    'class': 'h-[50px] mb-4 mt-1 p-2 block  text-base border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500',
+                                        'placeholder': 'Saisissez le nom du contributeur',
+                                    } 
+                                }) }}
+
+
+            {{ form_label(form.firstName, 'Prénom :',{
+                                'label_attr': {
+                    'class': 'text-base text-color text-customGrey',
+                                    'data-toggle': 'tooltip',
+                                }}
+            ) }}
+            {{ form_errors(form.firstName) }}
+            {{ form_widget(form.firstName, { 
+                                'attr': {
+                    'class': 'h-[50px] mb-4 mt-1 p-2 block  text-base border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500',
+                                    'placeholder': 'Saisissez le prénom',
+                                } 
+                            }) }}
+
+            {{ form_label(form.email, 'Email :',
+                            {
+                                'label_attr': {
+                    'class': 'text-base text-color text-customGrey',
+                                    'data-toggle': 'tooltip',
+                                }  
+
+                            }) }}
+            {{ form_errors(form.email) }}
+            {{ form_widget(form.email, { 
+                                'attr': {
+                    'class': 'h-[50px] mb-4 mt-1 p-2 block  text-base border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500',
+                                    'placeholder': 'Saisissez l\'email',
+                                } 
+                            }) }}
+
+                            {{ form_label(form.password, 'Mot de passe :',
+                            {
+                                'label_attr': {
+                    'class': 'text-base text-color text-customGrey',
+                                    'data-toggle': 'tooltip',
+                                } 
+                            }) }}
+                            {{ form_errors(form.password) }}
+                            {{ form_widget(form.password, { 
+                                'attr': {
+                    'class': 'h-[50px] mb-4 mt-1 p-2 block  text-base border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500',
+                                    'placeholder': 'Saisissez le mot de passe',
+                                } 
+                            }) }}
+                </div>
+            <div class="w-[40%] max-sm:w-full">
+                        		{{ form_label(form.role, 'Rôle :', {
+                            'label_attr': {
+                'class': 'text-base text-color text-customGrey',
+                                'data-toggle': 'tooltip',
+                            } 
+                            }) }}
+		{{ form_errors(form.role) }}
+		{{ form_widget(form.role, { 
+                                'attr': {
+                    'class': 'my-custom-class h-[50px] text-base flex flex-column  text-customGrey border border-gray-300 rounded-md p-2 mb-4 focus:outline-none focus:border-darkGrey w-full', 
+                                } 
+                            }) }}
+            </div>
+        </div>
+
+    <div class="max-sm:flex-col flex gap-5">
+        <a href="{{path('app_contributor')}}" class="font-semibold flex justify-center items-center bg-slate-100 h-11 px-5 rounded-md font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200">< Retour à la liste</a>
+        <div class="">
+                            {{ form_widget(form.submit, { 
+                                'label': 'Enregistrer',
+                                'attr': {
+                                    'class': 'max-sm:w-full font-semibold bg-slate-100 h-11 px-5 rounded-md font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200e',
+                                }
+                            }) }}
+        </div>
+
+                    {{ form_end(form) }}
+    </div>
+</div>
+
+{% endblock %}

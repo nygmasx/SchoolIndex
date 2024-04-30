@@ -53,8 +53,8 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
 
         // Vérifier si l'utilisateur a le rôle d'administrateur
         if (in_array('ROLE_ADMIN', $roles, true)) {
-            // Si l'utilisateur est un administrateur, rediriger vers app_contributors
-            return new RedirectResponse($this->urlGenerator->generate('app_contributors'));
+            // Si l'utilisateur est un administrateur, rediriger vers app_contributor
+            return new RedirectResponse($this->urlGenerator->generate('app_contributor'));
         }
     }
     

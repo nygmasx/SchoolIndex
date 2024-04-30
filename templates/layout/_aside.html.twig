@@ -80,7 +80,7 @@
 							Soumettre
 						</a>
 						{% if is_granted('ROLE_ADMIN') %}
-							<a href="{{ path('app_contributors') }}" data-turbo-action="visit" class="hoverr-element lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 {{ activeRoute == 'app_contributors' ? 'active' : '' }} hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+							<a href="{{ path('app_contributor') }}" data-turbo-action="visit" class="hoverr-element lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 {{ activeRoute == 'app_contributor' ? 'active' : '' }} hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="25px" viewbox="0 0 24 24" fill="none">
 
 									<g id="SVGRepo_bgCarrier" stroke-width="0"/>
@@ -189,7 +189,7 @@
 			</li>
 			{% if is_granted('ROLE_ADMIN') %}
 				<li>
-					<a href="{{ path('app_contributors') }}" data-turbo-action="visit" class="flex gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+					<a href="{{ path('app_contributor') }}" data-turbo-action="visit" class="flex gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
 						<svg width="25px" height="25px" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
