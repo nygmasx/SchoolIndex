@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: ExerciseRepository::class)]
 #[Vich\Uploadable]
@@ -30,7 +31,7 @@ class Exercise
     #[ORM\JoinColumn(nullable: false)]
     private ?Classroom $classroom = null;
 
-    #[ORM\ManyToOne(inversedBy: 'exercises')]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'exercises')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Thematic $thematic = null;
 
@@ -63,7 +64,7 @@ class Exercise
     private ?string $proposedByFirstName = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $proposedByLasName = null;
+    private ?string $proposedByLastName = null;
 
     /**
      * @var string A "Y-m-d H:i:s" formatted value
@@ -71,27 +72,39 @@ class Exercise
     #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
     private \DateTimeImmutable $createdAt;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?File $exerciseFile = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $exerciseFile = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $correctionFile = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?File $correctionFile = null;
+    #[Vich\UploadableField(mapping: 'exercises', fileNameProperty: 'exerciseFile', size: 'fileSize', mimeType: 'fileExtension', originalName: 'originalFileName')]
+    private ?File $firstFile = null;
+    #[Vich\UploadableField(mapping: 'exercises', fileNameProperty: 'correctionFile', size: 'fileSize', mimeType: 'fileExtension', originalName: 'originalFileName')]
+    private ?File $secondFile = null;
 
     #[ORM\ManyToOne(inversedBy: 'exercises')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $createdBy = null;
 
-    #[ORM\ManyToMany(targetEntity: Skill::class, inversedBy: 'exercises')]
+    #[ORM\ManyToMany(targetEntity: Skill::class, inversedBy: 'exercises', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private Collection $skills;
+
+    #[ORM\Column(length: 255)]
+    private ?string $originalFileName = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $fileExtension = null;
+
+    #[ORM\Column]
+    private ?int $fileSize = null;
 
     public function __construct()
     {
         $this->createdAt = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', date('Y-m-d H:i:s'));
         $this->skills = new ArrayCollection();
         $this->course = new Course();
+
     }
 
     public function getId(): ?int
@@ -257,34 +270,34 @@ class Exercise
 
     public function getProposedByLastName(): ?string
     {
-        return $this->proposedByLasName;
+        return $this->proposedByLastName;
     }
 
-    public function setProposedByLastName(?string $proposedByLasName): static
+    public function setProposedByLastName(?string $proposedByLastName): static
     {
-        $this->proposedByLasName = $proposedByLasName;
+        $this->proposedByLastName = $proposedByLastName;
 
         return $this;
     }
 
-    public function getExerciseFile(): ?File
+    public function getExerciseFile(): ?string
     {
         return $this->exerciseFile;
     }
 
-    public function setExerciseFile(?File $exerciseFile): static
+    public function setExerciseFile(?string $exerciseFile): static
     {
         $this->exerciseFile = $exerciseFile;
 
         return $this;
     }
 
-    public function getCorrectionFile(): ?File
+    public function getCorrectionFile(): ?string
     {
         return $this->correctionFile;
     }
 
-    public function setCorrectionFile(file $correctionFile): static
+    public function setCorrectionFile(?string $correctionFile): static
     {
         $this->correctionFile = $correctionFile;
 
@@ -346,4 +359,62 @@ class Exercise
 
         return $this;
     }
+
+    public function getOriginalFileName(): ?string
+    {
+        return $this->originalFileName;
+    }
+
+    public function setOriginalFileName(string $originalFileName): static
+    {
+        $this->originalFileName = $originalFileName;
+
+        return $this;
+    }
+
+    public function getFileExtension(): ?string
+    {
+        return $this->fileExtension;
+    }
+
+    public function setFileExtension(string $fileExtension): static
+    {
+        $this->fileExtension = $fileExtension;
+
+        return $this;
+    }
+
+    public function getFileSize(): ?int
+    {
+        return $this->fileSize;
+    }
+
+    public function setFileSize(int $fileSize): static
+    {
+        $this->fileSize = $fileSize;
+
+        return $this;
+    }
+
+    public function getFirstFile(): ?File
+    {
+        return $this->firstFile;
+    }
+
+    public function setFirstFile(?File $firstFile = null): void
+    {
+        $this->firstFile = $firstFile;
+    }
+
+    public function setSecondFile(?File $secondFile = null): void
+    {
+        $this->secondFile = $secondFile;
+    }
+
+    public function getSecondFile(): ?File
+    {
+        return $this->secondFile;
+    }
+
+
 }

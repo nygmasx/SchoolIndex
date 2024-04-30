@@ -4,45 +4,67 @@
 {% block main %}
 
     <script type="text/javascript">
+        console.log($('#general-form').serialize());
+        var ajaxRequestCounter = 0;  // Initialize counter to track AJAX requests
+
         function updateThematicField() {
-            var courseId = $('#exercise_general_information_course').val();  // Get the selected course ID
+            ajaxRequestCounter++;  // Increment for the new AJAX request
+            var courseId = $('#exercise_general_information_course').val();
             $.ajax({
-                url: "{{ path('update_thematic_field') }}",  // Symfony route that returns the thematic field
+                url: "{{ path('update_thematic_field') }}",
                 type: "POST",
-                data: {
-                    course_id: courseId
-                },
+                data: { course_id: courseId },
                 success: function (data) {
-                    $('#thematic-field-container').html(data);  // Update the thematic field container
-                    console.log($('select[name="form[thematic]"]').val(sessionStorage.getItem('selectedThematic')));
+                    $('#thematic-field-container').html(data);
+                    // Other logic to handle the response
+                    ajaxRequestCounter--;  // Decrement the counter on success
+                    if (ajaxRequestCounter === 0) {
+                        $(document).trigger('ajaxCompleted');
+                    }
                 },
                 error: function () {
                     alert('Error updating thematic field');
+                    ajaxRequestCounter--;  // Decrement the counter on error
                 }
             });
         }
 
         function updateSkillsField() {
-            var courseId = $('#exercise_general_information_course').val();  // Get the selected course ID
+            ajaxRequestCounter++;  // Increment for the new AJAX request
+            var courseId = $('#exercise_general_information_course').val();
             $.ajax({
-                url: "{{ path('update_skills_field') }}",  // Symfony route that returns the skills field
+                url: "{{ path('update_skills_field') }}",
                 type: "POST",
-                data: {
-                    course_id: courseId
-                },
+                data: { course_id: courseId },
                 success: function (data) {
-                    $('#skills-field-container').html(data);  // Update the skills field container
-                    $('input[type=checkbox][name="form[skills][]"]').each(function () {
-                        if (sessionStorage.getItem('selectedSkills').includes($(this).val())) {
-                            $(this).prop('checked', true);
-                        }
-                    });
+                    $('#skills-field-container').html(data);
+                    // Other logic to handle the response
+                    ajaxRequestCounter--;  // Decrement the counter on success
+                    if (ajaxRequestCounter === 0) {
+                        $(document).trigger('ajaxCompleted');
+                    }
                 },
                 error: function () {
                     alert('Error updating skills field');
+                    ajaxRequestCounter--;  // Decrement the counter on error
                 }
             });
         }
+
+        // Handling form submission
+        $('#general-form').on('submit', function(e) {
+            e.preventDefault();
+            console.log($(this).serialize());  // Check what's being submitted
+
+            if (ajaxRequestCounter === 0) {
+                this.submit();
+            } else {
+                $(document).one('ajaxCompleted', () => {
+                    this.submit();
+                });
+            }
+        });
+
 
     </script>
 
@@ -82,7 +104,7 @@
                 contributeur</h1>
 
             <div class="flex w-[90%] justify-center items-start gap-8">
-                {{ form_start(form, {'attr': {'class': 'mx-auto flex w-full justify-center items-start gap-8'}}) }}
+                {{ form_start(form, {'attr': {'class': 'mx-auto flex w-full justify-center items-start gap-8', 'id': 'general-form' }}) }}
 
                 <div class="w-1/2">
                     <div class="mb-5">
@@ -125,7 +147,7 @@
 
                     <div class="mb-5">
                         {{ form_label(form.keywords, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                        {{ form_widget(form.keywords) }}
+                        {{ form_widget(form.keywords, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
 
                         <div class="mb-5">
                             {{ form_label(form.difficulty, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
