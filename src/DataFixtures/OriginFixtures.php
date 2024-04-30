@@ -18,7 +18,6 @@ final class OriginFixtures extends Fixture
         'Site Web',
         'Vidéo',
         'Cours',
-
     ];
 
     public function load(ObjectManager $manager): void

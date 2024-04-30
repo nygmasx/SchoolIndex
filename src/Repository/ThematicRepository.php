@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Thematic;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @extends ServiceEntityRepository<Thematic>
@@ -19,6 +20,28 @@ class ThematicRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Thematic::class);
+    }
+
+    public function findBySearchTerm(string $searchTerm): array
+        {
+        
+            return $this->createQueryBuilder('u')
+            ->andWhere('u.name LIKE :searchTerm OR u.surname LIKE :searchTerm OR u.email LIKE :searchTerm')
+            ->setParameter('searchTerm', '%' . $searchTerm . '%')
+            ->getQuery()
+            ->getResult();
+        }
+
+    public function getSearchQueryBuilder(string $searchTerm = ''): QueryBuilder
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        if ($searchTerm) {
+            $qb->andWhere('u.name LIKE :searchTerm')
+                ->setParameter('searchTerm', '%' . $searchTerm . '%');
+        }
+
+        return $qb; // Ajoutez cette ligne pour corriger l'erreur
     }
 
 //    /**

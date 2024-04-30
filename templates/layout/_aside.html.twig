@@ -1,19 +1,21 @@
 {# _layout.html.twig #}
 <div class="flex flex-col w-72 shadow-right z-10 fixed bg-white h-screen max-lg:hidden">
 	<div class="flex flex-col h-[90%] justify-center">
-		<div class="flex items-center ml-6 mt-6 gap-4">
-			<img src="{{asset("assets/logo.png")}}" alt="Logo du lycée Saint-Vincent" class="w-[40px]">
-			<div>
-				<h1 class="text-2xl font-epilogue font-medium text-[#1B3168]">School Index</h1>
-				<h2 class="text-gray-500 font-epilogue text-sm">Lycée Saint Vincent - Senlis</h2>
+		<a href="{{ path('app_home') }}" data-turbo-action="visit">
+			<div class="flex items-center ml-6 mt-6 gap-4">
+				<img src="{{asset("assets/logo.png")}}" alt="Logo du lycée Saint-Vincent" class="w-[40px]">
+				<div>
+					<h1 class="text-2xl font-epilogue font-medium text-[#1B3168]">School Index</h1>
+					<h2 class="text-gray-500 font-epilogue text-sm">Lycée Saint Vincent - Senlis</h2>
+				</div>
 			</div>
-		</div>
-		<div class="flex flex-col ml-8 mt-10  h-full ">
+		</a>
+		<div class="flex flex-col ml-8  h-full ">
 			<nav class=" flex flex-col justify-between h-full">
-				<div class="flex-col flex gap-4 mt-12 ">
+				<div class="flex-col flex gap-4 mt-12 overflow-auto	h-[65vh]">
 					{% set activeRoute = app.request.attributes.get('_route') %}
 					<a href="{{ path('app_home') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 text-gray-500 {{ activeRoute == 'app_home' ? 'active' : '' }} hover:font-bold hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
-						<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="{{ activeRoute == 'app_home' ? 'active-svg' : '' }}">
+						<svg class="icon {{ activeRoute == 'app_home' ? 'active-svg' : '' }}" width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M3.58948 9.49689L12.5895 2.49689L21.5895 9.49689V20.4969C21.5895 21.0273 21.3788 21.536 21.0037 21.9111C20.6286 22.2862 20.1199 22.4969 19.5895 22.4969H5.58948C5.05904 22.4969 4.55034 22.2862 4.17526 21.9111C3.80019 21.536 3.58948 21.0273 3.58948 20.4969V9.49689Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M9.58948 22.4969V12.4969H15.5895V22.4969" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
@@ -21,30 +23,54 @@
 					</a>
 
 					<a href="{{ path('app_research') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 text-gray-500 {{ activeRoute == 'app_research' ? 'active' : '' }} hover:font-bold hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
-						<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="{{ activeRoute == 'app_research' ? 'active-svg' : '' }}">
+						<svg class="icon {{ activeRoute == 'app_research' ? 'active-svg' : '' }}" width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M11.5894 19.7685C16.0077 19.7685 19.5894 16.1868 19.5894 11.7685C19.5894 7.35022 16.0077 3.76849 11.5894 3.76849C7.17114 3.76849 3.58942 7.35022 3.58942 11.7685C3.58942 16.1868 7.17114 19.7685 11.5894 19.7685Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M21.5894 21.7685L17.2894 17.4685" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
 						Rechercher
 					</a>
-
-					<a href="{{ path('app_research') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+					<div id="subjectDropdownToggle" class="hoverr-element select-none lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 text-gray-500 hover:font-bold hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
 						<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M19.5894 3.0401H5.58942C4.48485 3.0401 3.58942 3.93553 3.58942 5.0401V19.0401C3.58942 20.1447 4.48485 21.0401 5.58942 21.0401H19.5894C20.694 21.0401 21.5894 20.1447 21.5894 19.0401V5.0401C21.5894 3.93553 20.694 3.0401 19.5894 3.0401Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M9.58942 17.0401C11.5894 17.0401 12.3894 16.0401 12.3894 14.2401V10.0401C12.3894 8.04009 13.3894 6.74009 15.5894 7.04009" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M9.58942 11.2401H15.2894" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
-						Mathématiques
-					</a>
+						Matière
+						<svg id="toggleArrow" width="13" height="8" viewbox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M1.66 7.41L6.25 2.83L10.84 7.41L12.25 6L6.25 0L0.25 6L1.66 7.41Z" fill="#757575"/>
+						</svg>
+					</div>
+					<div id="subjectDropdown" class="hidden pl-12">
+						<a href="{{ path('app_mathematiques') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 text-gray-500  hover:font-bold hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+							Mathématiques
+						</a>
+						<a href="#" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 text-gray-500  hover:font-bold hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+							Français
+						</a>
+					</div>
+
+					<script>
+						var subjectDropdownToggle = document.getElementById("subjectDropdownToggle");
+						var subjectDropdown = document.getElementById("subjectDropdown");
+						var toggleArrow = document.getElementById("toggleArrow");
+
+						subjectDropdownToggle.addEventListener("click", function () {
+						subjectDropdown.classList.toggle("hidden");
+						toggleArrow.style.transition = "transform 0.3s ease";
+						toggleArrow.style.transform = subjectDropdown.classList.contains("hidden") ? "rotate(0deg)" : "rotate(180deg)";
+						});
+					</script>
+
 
 					{% if app.user %}
-						<a href="{{ path('app_research') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
-							<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8.58942 4.31165H21.5894V6.31165H8.58942V4.31165ZM3.58942 3.81165H6.58942V6.81165H3.58942V3.81165ZM3.58942 10.8116H6.58942V13.8116H3.58942V10.8116ZM3.58942 17.8116H6.58942V20.8116H3.58942V17.8116ZM8.58942 11.3116H21.5894V13.3116H8.58942V11.3116ZM8.58942 18.3116H21.5894V20.3116H8.58942V18.3116Z" fill="#757575"/>
-							</svg>
-							Mes exercices
-						</a>
-
+						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_TEACHER') %}
+							<a href="{{ path('app_my_exercices') }}" data-turbo-action="visit" class="hover-element lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 {{ activeRoute == 'app_my_exercices' ? 'active' : '' }} hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+								<svg width="19" height="18" viewbox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M6.08942 1.81165H18.0894V2.81165H6.08942V1.81165ZM1.08942 1.31165H3.08942V3.31165H1.08942V1.31165ZM1.08942 8.31165H3.08942V10.3116H1.08942V8.31165ZM1.08942 15.3116H3.08942V17.3116H1.08942V15.3116ZM6.08942 8.81165H18.0894V9.81165H6.08942V8.81165ZM6.08942 15.8116H18.0894V16.8116H6.08942V15.8116Z" fill="#757575" stroke="#757575"/>
+								</svg>
+								Mes exercices
+							</a>
+						{% endif %}
 
 						<a href="{{ path('app_submit_exercise') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
 							<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -53,8 +79,23 @@
 							</svg>
 							Soumettre
 						</a>
-					{% endif %}
+						{% if is_granted('ROLE_ADMIN') %}
+							<a href="{{ path('app_contributor') }}" data-turbo-action="visit" class="hoverr-element lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 {{ activeRoute == 'app_contributor' ? 'active' : '' }} hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="25px" viewbox="0 0 24 24" fill="none">
 
+									<g id="SVGRepo_bgCarrier" stroke-width="0"/>
+
+									<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+
+									<g id="SVGRepo_iconCarrier">
+										<path d="M4 10V6C4 4.89543 4.89543 4 6 4H18C19.1046 4 20 4.89543 20 6V10M4 10V15M4 10H9M20 10V15M20 10H15M4 15V18C4 19.1046 4.89543 20 6 20H9M4 15H9M20 15V18C20 19.1046 19.1046 20 18 20H15M20 15H15M9 15H15M9 15V10M9 15V20M15 15V10M15 15V20M9 10H15M9 20H15M10 7H14" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+									</g>
+
+								</svg>
+								Dashboard
+							</a>
+						{% endif %}
+					{% endif %}
 
 				</div>
 
@@ -80,22 +121,22 @@
 
 <nav class="flex justify-center w-full fixed bottom-0 bg-slate-200 lg:hidden z-10">
 	<div class="flex gap-5 md:gap-16 max-md:gap-8">
-		<a href="{{ path('app_home') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300  {{ activeRoute == 'app_home' ? 'active' : '' }} hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+		<a href="{{ path('app_home') }}" data-turbo-action="visit" class="transition duration-300  {{ activeRoute == 'app_home' ? 'active' : '' }} hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
 			<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="{{ activeRoute == 'app_home' ? 'active-svg' : '' }}">
 				<path d="M3.58948 9.49689L12.5895 2.49689L21.5895 9.49689V20.4969C21.5895 21.0273 21.3788 21.536 21.0037 21.9111C20.6286 22.2862 20.1199 22.4969 19.5895 22.4969H5.58948C5.05904 22.4969 4.55034 22.2862 4.17526 21.9111C3.80019 21.536 3.58948 21.0273 3.58948 20.4969V9.49689Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				<path d="M9.58948 22.4969V12.4969H15.5895V22.4969" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 			</svg>
 		</a>
 
-		<a href="{{ path('app_research') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] font-normal transition duration-300 text-gray-500  {{ activeRoute == 'app_research' ? 'active' : '' }} hover:font-bold hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+		<a href="{{ path('app_research') }}" data-turbo-action="visit" class=" font-normal transition duration-300 text-gray-500  {{ activeRoute == 'app_research' ? 'active' : '' }} hover:font-bold hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
 			<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="{{ activeRoute == 'app_research' ? 'active-svg' : '' }}">
 				<path d="M11.5894 19.7685C16.0077 19.7685 19.5894 16.1868 19.5894 11.7685C19.5894 7.35022 16.0077 3.76849 11.5894 3.76849C7.17114 3.76849 3.58942 7.35022 3.58942 11.7685C3.58942 16.1868 7.17114 19.7685 11.5894 19.7685Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				<path d="M21.5894 21.7685L17.2894 17.4685" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 			</svg>
 		</a>
 
-		<a href="{{ path('app_research') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] transition duration-300 font-normal hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
-			<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<a href="{{ path('app_mathematiques') }}" data-turbo-action="visit" class=" font-normal transition duration-300 text-gray-500  {{ activeRoute == 'app_mathematiques' ? 'active' : '' }} hover:font-bold hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+			<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="{{ activeRoute == 'app_mathematiques' ? 'active-svg' : '' }}">
 				<path d="M19.5894 3.0401H5.58942C4.48485 3.0401 3.58942 3.93553 3.58942 5.0401V19.0401C3.58942 20.1447 4.48485 21.0401 5.58942 21.0401H19.5894C20.694 21.0401 21.5894 20.1447 21.5894 19.0401V5.0401C21.5894 3.93553 20.694 3.0401 19.5894 3.0401Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				<path d="M9.58942 17.0401C11.5894 17.0401 12.3894 16.0401 12.3894 14.2401V10.0401C12.3894 8.04009 13.3894 6.74009 15.5894 7.04009" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				<path d="M9.58942 11.2401H15.2894" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -103,42 +144,69 @@
 		</a>
 
 		{% if app.user %}
-			<img src="images/pp.png" alt="photo de profil" class="bg-sky-200 rounded-full cursor-pointer" id="profile-img">
-			<ul class="hidden bg-white absolute bottom-14 left-0 w-[30%] p-2 rounded-lg shadow-lg" id="options-list">
-				<li>
-					<a href="{{ path('app_research') }}" data-turbo-action="visit" class="flex gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
-						<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M8.58942 4.31165H21.5894V6.31165H8.58942V4.31165ZM3.58942 3.81165H6.58942V6.81165H3.58942V3.81165ZM3.58942 10.8116H6.58942V13.8116H3.58942V10.8116ZM3.58942 17.8116H6.58942V20.8116H3.58942V17.8116ZM8.58942 11.3116H21.5894V13.3116H8.58942V11.3116ZM8.58942 18.3116H21.5894V20.3116H8.58942V18.3116Z" fill="#757575"/>
-						</svg>
-						Mes exercices
-					</a>
-				</li>
-				<li>
-					<a href="{{ path('app_research') }}" data-turbo-action="visit" class="flex gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
-						<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M22.5895 2.58325L15.5895 22.5833L11.5895 13.5833L2.58948 9.58325L22.5895 2.58325Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M22.5895 2.58325L11.5895 13.5833" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-						Soumettre
-					</a>
-				</li>
-				<li>
-					<a href="{{ path('app_logout') }}" data-turbo-action="visit" class="flex gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
-						<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M9.58942 21.8538H5.58942C5.05898 21.8538 4.55028 21.6431 4.1752 21.268C3.80013 20.8929 3.58942 20.3842 3.58942 19.8538V5.85379C3.58942 5.32336 3.80013 4.81465 4.1752 4.43958C4.55028 4.0645 5.05898 3.85379 5.58942 3.85379H9.58942" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M16.5894 17.8538L21.5894 12.8538L16.5894 7.85379" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M21.5894 12.8538H9.58942" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-						Déconnexion
-					</a>
-				</li>
-			</ul>
+			<div id="profile-img" class="font-normal transition duration-300 text-gray-500 hover:font-bold hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="25px" viewbox="0 0 24 24" fill="none" stroke="#757575">
+					<g id="SVGRepo_bgCarrier" stroke-width="0"/>
+					<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+					<g id="SVGRepo_iconCarrier">
+						<path d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</g>
+				</svg>
+			</div>
 		{% else %}
-			<a href="{{ path('app_login') }}" data-turbo-action="visit" class="lg:flex lg:gap-[15px] w-[90%] transition duration-300 font-normal hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
-				<svg width="23" height="24" viewbox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M9 9V6L14 10L9 14V11H0V9H9ZM1.458 13H3.582C4.28005 14.7191 5.55371 16.1422 7.18512 17.0259C8.81652 17.9097 10.7043 18.1991 12.5255 17.8447C14.3468 17.4904 15.9883 16.5142 17.1693 15.0832C18.3503 13.6523 18.9975 11.8554 19 10C19.001 8.14266 18.3558 6.34283 17.1749 4.90922C15.994 3.47561 14.3511 2.49756 12.528 2.14281C10.7048 1.78807 8.81505 2.07874 7.18278 2.96498C5.55051 3.85121 4.27747 5.27778 3.582 7H1.458C2.732 2.943 6.522 0 11 0C16.523 0 21 4.477 21 10C21 15.523 16.523 20 11 20C6.522 20 2.732 17.057 1.458 13Z" stroke="#757575" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" fill="#757575"/>
+			<a href="{{ path('app_login') }}" data-turbo-action="visit" class="hover-element transition duration-300 {{ activeRoute == 'app_login' ? 'active' : '' }} hover:bg-gray-100 rounded-lg items-center px-2.5 py-2 hover:cursor-pointer">
+				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#757575" height="25px" width="24px" version="1.1" id="Layer_1" viewbox="0 0 330.002 330.002" xml:space="preserve" stroke="#757575">
+					<g id="SVGRepo_bgCarrier" stroke-width="0"/>
+					<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+					<g id="SVGRepo_iconCarrier">
+						<g id="XMLID_9_">
+							<path id="XMLID_10_" d="M169.392,199.395c-5.858,5.857-5.858,15.355,0,21.213c2.929,2.929,6.767,4.394,10.607,4.394 c3.838,0,7.678-1.465,10.606-4.394l44.998-44.997c0.347-0.347,0.676-0.712,0.988-1.091c0.069-0.084,0.128-0.176,0.196-0.262 c0.235-0.299,0.467-0.6,0.68-0.917c0.055-0.083,0.101-0.171,0.154-0.254c0.211-0.329,0.418-0.662,0.603-1.007 c0.032-0.06,0.057-0.123,0.088-0.184c0.194-0.374,0.378-0.753,0.541-1.145c0.017-0.04,0.028-0.081,0.044-0.121 c0.167-0.411,0.32-0.829,0.45-1.258c0.014-0.046,0.022-0.094,0.036-0.14c0.123-0.419,0.235-0.844,0.321-1.278 c0.024-0.121,0.035-0.245,0.056-0.367c0.063-0.36,0.125-0.72,0.162-1.088c0.05-0.496,0.076-0.995,0.076-1.497 c0-0.503-0.026-1.002-0.076-1.497c-0.037-0.371-0.1-0.734-0.164-1.097c-0.021-0.119-0.031-0.24-0.055-0.358 c-0.087-0.437-0.199-0.864-0.323-1.286c-0.013-0.044-0.02-0.088-0.034-0.132c-0.131-0.432-0.286-0.852-0.454-1.267 c-0.015-0.036-0.025-0.075-0.041-0.111c-0.164-0.394-0.349-0.776-0.544-1.152c-0.03-0.058-0.054-0.119-0.085-0.176 c-0.187-0.348-0.394-0.682-0.606-1.013c-0.053-0.082-0.097-0.168-0.151-0.249c-0.213-0.317-0.445-0.62-0.681-0.919 c-0.067-0.086-0.126-0.177-0.195-0.261c-0.312-0.379-0.641-0.744-0.988-1.091l-44.998-44.998c-5.857-5.858-15.355-5.858-21.213,0 c-5.857,5.858-5.857,15.355,0,21.213l19.393,19.394H15c-8.284,0-15,6.716-15,15s6.716,15,15,15h173.785L169.392,199.395z"/>
+							<path id="XMLID_11_" d="M207.301,42.3c-40.945,0-79.04,20.312-101.903,54.333c-4.621,6.876-2.793,16.196,4.083,20.816 c6.876,4.621,16.196,2.793,20.816-4.083C147.578,87.652,176.365,72.3,207.301,72.3c51.116,0,92.701,41.586,92.701,92.701 s-41.586,92.701-92.701,92.701c-30.844,0-59.585-15.283-76.879-40.882c-4.638-6.864-13.962-8.67-20.827-4.032 c-6.864,4.638-8.67,13.962-4.032,20.827c22.882,33.868,60.915,54.087,101.738,54.087c67.658,0,122.701-55.044,122.701-122.701 S274.958,42.3,207.301,42.3z"/>
+						</g>
+					</g>
 				</svg>
 			</a>
 		{% endif %}
+
+		<!-- Menu déroulant -->
+		<ul class="hidden bg-white absolute bottom-14 left-0 w-[30%] p-2 rounded-lg shadow-lg" id="options-list">
+			<li>
+				<a href="{{ path('app_my_exercices') }}" data-turbo-action="visit" class="hover-element flex gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+					<svg width="19" height="18" viewbox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M6.08942 1.81165H18.0894V2.81165H6.08942V1.81165ZM1.08942 1.31165H3.08942V3.31165H1.08942V1.31165ZM1.08942 8.31165H3.08942V10.3116H1.08942V8.31165ZM1.08942 15.3116H3.08942V17.3116H1.08942V15.3116ZM6.08942 8.81165H18.0894V9.81165H6.08942V8.81165ZM6.08942 15.8116H18.0894V16.8116H6.08942V15.8116Z" fill="#757575" stroke="#757575"/>
+					</svg>
+					Mes exercices
+				</a>
+			</li>
+			<li>
+				<a href="{{ path('app_submit_exercise') }}" data-turbo-action="visit" class="flex gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+					<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M22.5895 2.58325L15.5895 22.5833L11.5895 13.5833L2.58948 9.58325L22.5895 2.58325Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M22.5895 2.58325L11.5895 13.5833" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+					Soumettre
+				</a>
+			</li>
+			{% if is_granted('ROLE_ADMIN') %}
+				<li>
+					<a href="{{ path('app_contributor') }}" data-turbo-action="visit" class="flex gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+						<svg width="25px" height="25px" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+						Dashboard
+					</a>
+				</li>
+			{% endif %}
+			<li>
+				<a href="{{ path('app_logout') }}" data-turbo-action="visit" class="flex gap-[15px] w-[90%] font-normal transition duration-300 hover:font-bold text-gray-500 hover:bg-gray-100 hover:text-blue-950 rounded-lg font-medium text-[18px] items-center px-2.5 py-2 hover:cursor-pointer">
+					<svg width="25" height="25" viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M9.58942 21.8538H5.58942C5.05898 21.8538 4.55028 21.6431 4.1752 21.268C3.80013 20.8929 3.58942 20.3842 3.58942 19.8538V5.85379C3.58942 5.32336 3.80013 4.81465 4.1752 4.43958C4.55028 4.0645 5.05898 3.85379 5.58942 3.85379H9.58942" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M16.5894 17.8538L21.5894 12.8538L16.5894 7.85379" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M21.5894 12.8538H9.58942" stroke="#757575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+					Déconnexion
+				</a>
+			</li>
+		</ul>
 	</div>
 </nav>

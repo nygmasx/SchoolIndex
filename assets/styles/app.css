@@ -115,26 +115,88 @@ html.turn-exit [data-turn-exit] {
     }
 }
 
-.rotate {
-    transform: rotate(180deg);
-    transition: transform 0.3s ease;
+#dropdown-trigger svg {
+    transition: transform 0.3s ease; /* Ajoute une transition fluide */
 }
 
-.arrow-down {
-    transition: transform 0.3s ease;
-}
-
-.arrow-up {
-    transform: rotate(180deg);
-    transition: transform 0.3s ease; /* Ajoute une transition pour un effet d'animation fluide */
-  }
-
-.custom-select.open .select-selected {
-    border-bottom: 0px;
-    border-bottom-right-radius: 0px;
+#dropdown-trigger.open{
     border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
+
+#dropdown-trigger.open svg {
+    transform: rotate(180deg); /* Inverse l'orientation de la flèche lorsque la liste est ouverte */
+}
+
+#dropdown-trigger-level svg {
+    transition: transform 0.3s ease; /* Ajoute une transition fluide */
+}
+
+#dropdown-trigger-level.open {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom: none;
+}
+
+#course-dropdown-trigger svg {
+    transition: transform 0.3s ease; /* Ajoute une transition fluide */
+}
+
+#course-dropdown-trigger.open svg {
+    transform: rotate(180deg); /* Inverse l'orientation de la flèche lorsque la liste est ouverte */
+}
+
+#course-dropdown-trigger.open {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+
+#dropdown-trigger-level.open svg {
+    transform: rotate(180deg); /* Inverse l'orientation de la flèche lorsque la liste est ouverte */
+}
+
+#dropdown-trigger-college svg {
+    transition: transform 0.3s ease; /* Ajoute une transition fluide */
+}
+
+#dropdown-trigger-college.open svg {
+    transform: rotate(180deg); /* Inverse l'orientation de la flèche lorsque la liste est ouverte */
+}
+
 
 .active-svg path {
-    stroke: #1B3168; /* Couleur de remplissage du SVG */
+    stroke: rgb(23, 37, 84); /* Couleur de remplissage du SVG */
 }
+
+
+.select-items{
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+ 
+.hover-element svg path {
+    fill: #757575; /* Couleur par défaut pour le SVG */
+  }
+  
+  .hover-element:hover svg path {
+    fill: rgb(23, 37, 84); /* Style lors du survol */
+  }
+  
+  .hover-element.active {
+    color: rgb(23, 37, 84); /* Style actif pour le texte */
+    background-color: rgb(243 244 246);  }
+  
+  .hover-element.active svg path {
+    stroke: rgb(23, 37, 84); /* Style actif pour le contour du SVG */
+    fill: rgb(23, 37, 84); /* Style actif pour le remplissage du SVG */
+  }
+
+
+  .hoverr-element.active {
+    color: rgb(23, 37, 84); /* Style actif pour le texte */
+    background-color: rgb(243 244 246);  }
+  
+  .hoverr-element.active svg path {
+    stroke: rgb(23, 37, 84); /* Style actif pour le contour du SVG */
+  }

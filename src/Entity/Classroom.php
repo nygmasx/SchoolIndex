@@ -72,4 +72,12 @@ class Classroom
 
         return $this;
     }
+
+    /**
+     * Renvoie le nombre d'exercices associés à cette classe.
+     */
+    public function getNumberOfExercises(): int
+    {
+        return $this->exercises->count();
+    }
 }

@@ -6,6 +6,8 @@
     "@symfony\/stimulus-bundle",
     "@hotwired\/stimulus",
     "\/assets\/@symfony\/stimulus-bundle\/controllers.js",
+    "\/assets\/@symfony\/ux-live-component\/live_controller.js",
+    "\/assets\/@symfony\/ux-live-component\/live.min.css",
     "\/assets\/@symfony\/ux-swup\/controller.js",
     "\/assets\/@symfony\/ux-toggle-password\/controller.js",
     "\/assets\/@symfony\/ux-toggle-password\/style.min.css",

@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'administration
+{% endblock %}
+
+{% block main %}
+	<div class="bg-slate-200 flex flex-col  min-h-screen font-['Epilogue'] pb-5">
+		<h1 class="text-2xl	 md:text-4xl font-medium text-center lg:text-start text-blue-900 pt-12 px-6 pb-4">Administration</h1>
+
+		<div class="flex gap-3 min-md:ml-10 max-sm:ml-1 ml-[18px] mt-4 max-sm:hidden">
+			<a href="{{ path('app_contributor') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 opacity-[0.8] flex justify-center transition duration-200 hover:opacity-100">
+				<span class="justify-center items-center flex text-white font-noto">Contributeurs</span>
+			</a>
+			<a href="#" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex justify-center opacity-[0.8] transition duration-200 hover:opacity-100">
+				<span class="justify-center items-center flex text-white font-noto">Exercices</span>
+			</a>
+			<a href="{{ path('app_course') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex opacity-[0.8] justify-center transition duration-200 hover:opacity-100">
+				<span class="justify-center items-center flex text-white font-noto">Matières</span>
+			</a>
+			<a href="{{ path('app_classroom') }}" class="bg-customBlue rounded-tl-xl px-14 py-2.5 rounded-tr-xl flex justify-center transition duration-200 hover:opacity-100">
+				<span class="justify-center items-center flex text-white font-noto">Classes</span>
+			</a>
+			<a href="{{ path('app_thematic') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex opacity-80 justify-center transition duration-200 hover:opacity-100">
+				<span class="justify-center items-center flex text-white font-noto">Thématiques</span>
+			</a>
+			<a href="{{ path('app_skill') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 opacity-80 flex justify-center transition duration-200 hover:opacity-100">
+				<span class="justify-center items-center flex text-white font-noto" href="">Compétences</span>
+			</a>
+			<a href="{{ path('app_origin') }}" class="bg-customBlue rounded-tl-xl px-5 py-2.5 rounded-tr-xl flex opacity-80 justify-center  transition duration-200 hover:opacity-100">
+				<span class="justify-center items-center flex text-white font-noto">Origines</span>
+			</a>
+		</div>
+
+		<div class="bg-white rounded-md w-[95%]  md:w-[97%] p-3 md:p-7 min-h-[85vh] m-auto rounded-tl-none	">
+			<h1 class="text-[20px] font-semibold font-noto mt-2.5	">Gestion des classes</h1>
+			<div>
+				<p class="font-noto text-customGrey pt-3">Rechercher par le nom d'une classe</p>
+				<form class="flex items-center pt-2.5 gap-7	max-sm:flex-col">
+					<input type="text" name="search" class="text-gray-500 rounded-md border-gray-300 border border-solid h-11 p-2 outline-none w-[45%] max-sm:w-[100%]">
+					<button type="submit" class="bg-slate-100 h-11 rounded-md w-[15%] max-[768px]:w-[25%] max-[640px]:w-[40%] font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200">Rechercher</button>
+					<a href="{{ path('add_classroom') }}" class="flex justify-center items-center bg-customGreen font-medium font-noto text-white text-[16px] w-[15%] max-[768px]:w-[25%] max-[640px]:w-[40%]  rounded-md border-gray-300 border border-solid h-11 transition duration-200 hover:bg-darkGreen ">
+						<button type="submit">Ajouter +</button>
+					</a>
+				</form>
+				<div class="overflow-x-auto relative mt-5 rounded-xl border border-solid border-gray-200">
+					<table class="w-full">
+						<thead class="text-left h-12 bg-gray-100">
+							<tr>
+								<th class=" font-medium px-6 py-3 rounded-tl-xl w-[40%]">Nom</th>
+								<th class=" font-medium pr-6 py-3 w-[40%]">Nombre d'exercices liés</th>
+								<th class=" font-medium px-6 py-3 rounded-tr-xl	 ">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for classroom in pagination %}
+								<tr class="bg-white  dark:bg-gray-800 dark:border-gray-700 border-solid border-t border-gray-200">
+									<td class="py-4 px-6">{{ classroom.name }}</td>
+									<td class="py-4 px-[7%]">{{ classroom.getNumberOfExercises() }}</td>
+									<td class="py-4 px-6 md:flex md:justify-center md:items-center md:gap-3 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center max-sm:gap-3">
+										<a href="{{ path('edit_classroom', {'id': classroom.id}) }}" class="flex items-center gap-2.5 font-medium hover:underline">
+											<svg width="16" height="16" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M11.266 0.875098L9.68262 2.45843H1.95833V13.5418H13.0417V5.81747L14.625 4.23414V14.3334C14.625 14.5434 14.5416 14.7448 14.3931 14.8932C14.2447 15.0417 14.0433 15.1251 13.8333 15.1251H1.16667C0.956704 15.1251 0.75534 15.0417 0.606874 14.8932C0.458407 14.7448 0.375 14.5434 0.375 14.3334V1.66676C0.375 1.4568 0.458407 1.25544 0.606874 1.10697C0.75534 0.958505 0.956704 0.875098 1.16667 0.875098H11.266ZM14.2173 0.162598L15.3375 1.2836L8.0605 8.5606L6.94267 8.56297L6.94108 7.44118L14.2173 0.162598Z" fill="#757575"/>
+											</svg>
+											Modifier
+										</a>
+										<a href="{{ path('classroom_delete', {'id': classroom.id}) }}" class="flex items-center gap-2.5 font-medium hover:underline ml-4">
+											<svg width="19" height="20" viewbox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<g clip-path="url(#clip0_1095_4423)">
+													<path d="M3.16668 6.83325H15.8333V17.1249C15.8333 17.3349 15.7499 17.5362 15.6015 17.6847C15.453 17.8332 15.2516 17.9166 15.0417 17.9166H3.95834C3.74838 17.9166 3.54702 17.8332 3.39855 17.6847C3.25008 17.5362 3.16668 17.3349 3.16668 17.1249V6.83325ZM4.75001 8.41658V16.3333H14.25V8.41658H4.75001ZM7.12501 9.99992H8.70834V14.7499H7.12501V9.99992ZM10.2917 9.99992H11.875V14.7499H10.2917V9.99992ZM5.54168 4.45825V2.87492C5.54168 2.66496 5.62508 2.46359 5.77355 2.31513C5.92202 2.16666 6.12338 2.08325 6.33334 2.08325H12.6667C12.8766 2.08325 13.078 2.16666 13.2265 2.31513C13.3749 2.46359 13.4583 2.66496 13.4583 2.87492V4.45825H17.4167V6.04158H1.58334V4.45825H5.54168ZM7.12501 3.66659V4.45825H11.875V3.66659H7.12501Z" fill="#757575"/>
+												</g>
+												<defs>
+													<clipPath id="clip0_1095_4423">
+														<rect width="19" height="19" fill="white" transform="translate(0 0.5)"/>
+													</clipPath>
+												</defs>
+											</svg>
+											Supprimer
+										</a>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="mt-5">
+				{{ knp_pagination_render(pagination, 'components/pagination/custom_pagination.html.twig') }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

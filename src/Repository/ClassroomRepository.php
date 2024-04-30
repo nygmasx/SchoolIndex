@@ -14,12 +14,30 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Classroom[]    findAll()
  * @method Classroom[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+
 class ClassroomRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Classroom::class);
     }
+
+    /**
+     * Recherche les classes par leur nom.
+     *
+     * @param string $searchTerm Le terme de recherche
+     * @return Classroom[] Les classes correspondantes
+     */
+    public function findBySearchTerm(string $searchTerm): array
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.name LIKE :searchTerm')
+            ->setParameter('searchTerm', '%' . $searchTerm . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
+
 
 //    /**
 //     * @return Classroom[] Returns an array of Classroom objects
