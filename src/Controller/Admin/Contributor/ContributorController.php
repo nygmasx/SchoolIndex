@@ -22,7 +22,7 @@ class ContributorController extends AbstractController
 
     }
 
-    #[Route('/contributeurs', name: 'app_contributor')]
+    #[Route('/contributeur', name: 'app_contributor')]
     public function index(Request $request): Response
     {
         // Capture le terme de recherche depuis la requête

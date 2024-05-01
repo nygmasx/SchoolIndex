@@ -24,7 +24,7 @@ class UserController extends AbstractController
         private EntityManagerInterface $entityManager,
     ) {}
 
-    #[Route('/utilisateurs/create', name: 'new_user')]
+    #[Route('/utilisateur/create', name: 'new_user')]
     public function addUser(Request $request, AuthorizationCheckerInterface $authChecker): Response
     {
 
@@ -74,7 +74,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/utilisateurs/delete/{id}', name: 'user_delete', methods: ['GET', 'POST'])]
+    #[Route('/utilisateur/delete/{id}', name: 'user_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, User $user, AuthorizationCheckerInterface $authChecker, EntityManagerInterface $entityManager): Response
     {
         // Vérifie si l'utilisateur a le rôle admin
@@ -117,7 +117,7 @@ class UserController extends AbstractController
     }
         
 
-    #[Route('/utilisateurs/edit/{id}', name: 'edit_user')]
+    #[Route('/utilisateur/edit/{id}', name: 'edit_user')]
     public function editUser(User $user, Request $request, AuthorizationCheckerInterface $authChecker): Response
     {
 

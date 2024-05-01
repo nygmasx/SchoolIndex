@@ -19,7 +19,7 @@ html[data-turbo-visit-direction="forward"]::view-transition-old(sidebar):only-ch
 
 .turbo-progress-bar {
     height: 5px;
-    background-color: green;
+    background-color: #1B3168;
 }
 
 html.turn-advance.turn-exit [data-turn-exit] {
@@ -45,6 +45,7 @@ html.turn-exit [data-turn-exit] {
 
 .toggle-password-button{
     position: sticky !important;
+    color: #757575 !important;
 }
 
 .active{

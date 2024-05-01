@@ -18,7 +18,7 @@ use Knp\Component\Pager\PaginatorInterface;
 class ClassroomController extends AbstractController
 {
 
-    #[Route('/classes', name: 'app_classroom')]
+    #[Route('/classe', name: 'app_classroom')]
     public function index(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator): Response
     {
         if (!$this->isGranted('ROLE_ADMIN')) {
@@ -45,7 +45,7 @@ class ClassroomController extends AbstractController
         ]);
     }
     
-    #[Route('/classes/create', name: 'add_classroom')]
+    #[Route('/classe/create', name: 'add_classroom')]
     public function addClassroom(Request $request, EntityManagerInterface $entityManager): Response
     {
         // Créez un nouvel objet Classroom
@@ -72,7 +72,7 @@ class ClassroomController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    #[Route('/classes/edit/{id}', name: 'edit_classroom')]
+    #[Route('/classe/edit/{id}', name: 'edit_classroom')]
     public function editClassroom(Request $request, EntityManagerInterface $entityManager, Classroom $classroom): Response
     {
         // Créez un formulaire pour traiter les données de la classe
@@ -97,7 +97,7 @@ class ClassroomController extends AbstractController
         ]);
     }
 
-    #[Route('/classes/delete/{id}', name: 'classroom_delete', methods: ['GET', 'POST'])]
+    #[Route('/classe/delete/{id}', name: 'classroom_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, Classroom $classroom, AuthorizationCheckerInterface $authChecker, EntityManagerInterface $entityManager): Response
     {
         // Vérifie si l'utilisateur a le rôle admin

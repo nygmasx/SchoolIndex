@@ -14,7 +14,7 @@ use Knp\Component\Pager\PaginatorInterface;
 
 class OriginController extends AbstractController
 {
-    #[Route('/origines', name: 'app_origin')]
+    #[Route('/origine', name: 'app_origin')]
     public function index(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator): Response
     {
         $searchTerm = $request->query->get('search');
@@ -40,7 +40,7 @@ class OriginController extends AbstractController
         ]);
     }
         
-    #[Route('/origines/create', name: 'add_origin')]
+    #[Route('/origine/create', name: 'add_origin')]
     public function addOrigin(Request $request, EntityManagerInterface $entityManager): Response
     {
         $origin = new Origin();
@@ -60,7 +60,7 @@ class OriginController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    #[Route('/origines/edit/{id}', name: 'edit_origin')]
+    #[Route('/origine/edit/{id}', name: 'edit_origin')]
     public function editOrigin(Request $request, EntityManagerInterface $entityManager, Origin $origin): Response
     {
         $form = $this->createForm(OriginType::class, $origin);
@@ -81,7 +81,7 @@ class OriginController extends AbstractController
         ]);
     }
 
-    #[Route('/origines/delete/{id}', name: 'delete_origin', methods: ['GET', 'POST'])]
+    #[Route('/origine/delete/{id}', name: 'delete_origin', methods: ['GET', 'POST'])]
     public function delete(Request $request, Origin $origin, EntityManagerInterface $entityManager): Response
     {
         // Création du formulaire de confirmation
