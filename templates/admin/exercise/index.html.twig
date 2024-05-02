@@ -16,7 +16,7 @@
                 <form class="flex items-center pt-2.5 gap-7 max-sm:flex-col">
                     <input type="text" name="search" class="text-gray-500 rounded-md border-gray-300 border border-solid h-11 p-2 outline-none w-[45%] max-sm:w-[100%]">
                     <button type="submit" class="bg-slate-100 h-11 rounded-md w-[15%] max-[768px]:w-[25%] max-[640px]:w-[40%] font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200">Rechercher</button>
-                    <a href="{{ path('exercise_admin_create_general') }}" class="flex justify-center items-center bg-customGreen font-medium font-noto text-white text-[16px] w-[15%] max-[768px]:w-[25%] max-[640px]:w-[40%] rounded-md border-gray-300 border border-solid h-11 transition duration-200 hover:bg-darkGreen ">
+                    <a href="{{ path('admin_exercise_create') }}" class="flex justify-center items-center bg-customGreen font-medium font-noto text-white text-[16px] w-[15%] max-[768px]:w-[25%] max-[640px]:w-[40%] rounded-md border-gray-300 border border-solid h-11 transition duration-200 hover:bg-darkGreen ">
                         <button type="submit">Ajouter +</button>
                     </a>
                 </form>
@@ -53,7 +53,7 @@
                                         </div>
                                     </td>
                                     <td class="py-4 px-6 md:flex md:justify-center md:items-center md:gap-3 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center max-sm:gap-3">
-                                        <a href="{{ path('exercise_admin_edit_general', {'id': exercise.id}) }}" class="flex items-center gap-2.5 font-medium hover:underline">
+                                        <a href="" class="flex items-center gap-2.5 font-medium hover:underline">
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M11.266 0.875098L9.68262 2.45843H1.95833V13.5418H13.0417V5.81747L14.625 4.23414V14.3334C14.625 14.5434 14.5416 14.7448 14.3931 14.8932C14.2447 15.0417 14.0433 15.1251 13.8333 15.1251H1.16667C0.956704 15.1251 0.75534 15.0417 0.606874 14.8932C0.458407 14.7448 0.375 14.5434 0.375 14.3334V1.66676C0.375 1.4568 0.458407 1.25544 0.606874 1.10697C0.75534 0.958505 0.956704 0.875098 1.16667 0.875098H11.266ZM14.2173 0.162598L15.3375 1.2836L8.0605 8.5606L6.94267 8.56297L6.94108 7.44118L14.2173 0.162598Z" fill="#757575"/>
                                             </svg>

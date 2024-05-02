@@ -2,7 +2,6 @@
 
 namespace App\Form\Exercise;
 
-use App\DataTransferObject\ExerciseSourceDto;
 use App\Entity\Exercise;
 use App\Entity\Origin;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -30,7 +29,7 @@ class ExerciseSourceType extends AbstractType
                 "label" => "Informations complémentaires :",
             ])
             ->add('proposedbyType', ChoiceType::class, [
-                    "label" => "Ou proposé par un :",
+                "label" => "Ou proposé par un :",
             ])
             ->add('proposedByFirstName', TextType::class, [
                 "label" => "Nom :",
