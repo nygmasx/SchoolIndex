@@ -1,5 +1,5 @@
 {
-    "@symfony\/stimulus-bundle\/controllers.js": "\/assets\/@symfony\/stimulus-bundle\/controllers-3050ae13f1cd323067dea938939a684a.js",
+    "@symfony\/stimulus-bundle\/controllers.js": "\/assets\/@symfony\/stimulus-bundle\/controllers-2f870cef7df7b3589f4f13891b452fa0.js",
     "@symfony\/stimulus-bundle\/loader.js": "\/assets\/@symfony\/stimulus-bundle\/loader-e1ee9ace0562f2e6a52301e4ccc8627d.js",
     "@symfony\/ux-live-component\/live.min.css": "\/assets\/@symfony\/ux-live-component\/live.min-5108f988fb2a3dbb292d6feebc9db7e8.css",
     "@symfony\/ux-live-component\/live_controller.js": "\/assets\/@symfony\/ux-live-component\/live_controller-fd9380642323cc211d12f22a34ea9052.js",
@@ -12,7 +12,7 @@
     "bootstrap.js": "\/assets\/bootstrap-7d6354d3e22b86483b44e32a99d2c73c.js",
     "controllers\/hello_controller.js": "\/assets\/controllers\/hello_controller-87b6385829902356204e988334af9bf5.js",
     "js\/contributors\/tag.js": "\/assets\/js\/contributors\/tag-99aa06d3014798d86001c324468d497f.js",
-    "styles\/app.css": "\/assets\/styles\/app-41eb80030b9ee80f898e2e91cc9cf90d.css",
+    "styles\/app.css": "\/assets\/styles\/app-efe6a65178ed78a7f80699c25b38b1dc.css",
     "vendor\/@domchristie\/turn\/dist\/turn.css": "\/assets\/vendor\/@domchristie\/turn\/dist\/turn-acf0a462afaca5161df1b16f4f83f33f.css",
     "vendor\/@domchristie\/turn\/dist\/turn.js": "\/assets\/vendor\/@domchristie\/turn\/dist\/turn-31ea450b6272e54da42e96409f9e31d1.js",
     "vendor\/@domchristie\/turn\/dist\/turn.min.js": "\/assets\/vendor\/@domchristie\/turn\/dist\/turn.min-ae4a6ebd702d432d2648d38eb9104fb2.js",

@@ -6,7 +6,7 @@
 	<div class="bg-slate-200 flex flex-col  min-h-screen font-['Epilogue'] pb-5">
 		<h1 class="text-2xl	 md:text-4xl max-sm:text-3xl max-sm:pt-6 font-medium text-center lg:text-start text-blue-900 pt-12 px-6 pb-4">
 			Administration</h1>		<div class="px-[18px] max-sm:px-[10px]">
-			<div class="flex gap-3">
+			<div class="flex gap-3 max-[1330px]:overflow-auto	">
 				<a href="{{ path('app_contributor') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 opacity-[0.8] flex justify-center transition duration-200 hover:opacity-100">
 					<span class="justify-center items-center flex text-white font-noto">Contributeurs</span>
 				</a>
@@ -30,7 +30,7 @@
 				</a>
 			</div>
 
-			<div class="bg-white rounded-md w-full p-3 md:p-7 rounded-tl-none	">
+			<div class="max-[1330px]:rounded-tr-none	bg-white rounded-md w-full p-3 md:p-7 rounded-tl-none">
 				<h1 class="text-[20px] font-semibold font-noto">Ajouter une compétence</h1>
 				{{ form_start(form) }}
 			    <div class="max-sm:block flex gap-12 my-4">
