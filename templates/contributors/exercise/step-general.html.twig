@@ -1,0 +1,170 @@
+{# templates/exercise/edit.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+    <script type="text/javascript">
+        console.log($('#general-form').serialize());
+        var ajaxRequestCounter = 0;  // Initialize counter to track AJAX requests
+
+        function updateThematicField() {
+            ajaxRequestCounter++;  // Increment for the new AJAX request
+            var courseId = $('#exercise_general_information_course').val();
+            $.ajax({
+                url: "{{ path('update_thematic_field') }}",
+                type: "POST",
+                data: { course_id: courseId },
+                success: function (data) {
+                    $('#thematic-field-container').html(data);
+                    // Other logic to handle the response
+                    ajaxRequestCounter--;  // Decrement the counter on success
+                    if (ajaxRequestCounter === 0) {
+                        $(document).trigger('ajaxCompleted');
+                    }
+                },
+                error: function () {
+                    alert('Error updating thematic field');
+                    ajaxRequestCounter--;  // Decrement the counter on error
+                }
+            });
+        }
+
+        function updateSkillsField() {
+            ajaxRequestCounter++;  // Increment for the new AJAX request
+            var courseId = $('#exercise_general_information_course').val();
+            $.ajax({
+                url: "{{ path('update_skills_field') }}",
+                type: "POST",
+                data: { course_id: courseId },
+                success: function (data) {
+                    $('#skills-field-container').html(data);
+                    // Other logic to handle the response
+                    ajaxRequestCounter--;  // Decrement the counter on success
+                    if (ajaxRequestCounter === 0) {
+                        $(document).trigger('ajaxCompleted');
+                    }
+                },
+                error: function () {
+                    alert('Error updating skills field');
+                    ajaxRequestCounter--;  // Decrement the counter on error
+                }
+            });
+        }
+
+        // Handling form submission
+        $('#general-form').on('submit', function(e) {
+            e.preventDefault();
+            console.log($(this).serialize());  // Check what's being submitted
+
+            if (ajaxRequestCounter === 0) {
+                this.submit();
+            } else {
+                $(document).one('ajaxCompleted', () => {
+                    this.submit();
+                });
+            }
+        });
+
+
+    </script>
+
+
+
+    <div class="bg-slate-200 flex flex-col min-h-[95vh]">
+        <h1 class="text-[28px] ml-12 text-customBlue font-epilogue md:mt-8 font-medium">Administration</h1>
+
+        <div class="flex gap-3 min-md:ml-10 max-sm:ml-1 ml-8 mt-4 max-sm:hidden">
+            <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[220px] h-[40px] flex justify-center">
+                <a class="justify-center items-center flex text-white font-noto"
+                   href="{{ path('exercise_create_general') }}">Informations générales</a>
+            </div>
+            <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
+                <a class="justify-center items-center flex text-white font-noto"
+                   href="{{ path('exercise_create_sources') }}">Sources</a>
+            </div>
+            <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
+                <a class="justify-center items-center flex text-white font-noto"
+                   href="{{ path('exercise_create_files') }}">Fichiers</a>
+            </div>
+        </div>
+
+        <div class="w-[95%] md:ml-[30px] min-md:w-[100%] min-md:ml-10 rounded-lg  sm:flex sm:flex-col justify-center  bg-white max-sm:w-[100%] p-4 ">
+            <div class="flex justify-center max-sm:pt-2">
+                <select id="pageSelect" class="md:hidden">
+                    <option value="contributeurs">Contributeurs</option>
+                    <option value="exercices">Exercices</option>
+                    <option value="matieres">Matières</option>
+                    <option value="classes">Classes</option>
+                    <option value="thematiques">Thématiques</option>
+                    <option value="competences">Compétences</option>
+                    <option value="origines">Origines</option>
+                </select>
+            </div>
+            <h1 class="ml-7 text-[20px] font-semibold font-noto md:pt-6 max-sm:mt-[5px]">Ajouter un
+                contributeur</h1>
+
+            <div class="flex w-[90%] justify-center items-start gap-8">
+                {{ form_start(form, {'attr': {'class': 'mx-auto flex w-full justify-center items-start gap-8', 'id': 'general-form' }}) }}
+
+                <div class="w-1/2">
+                    <div class="mb-5">
+                        {{ form_label(form.name, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                        {{ form_widget(form.name, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'base-input-name'}}) }}
+                    </div>
+
+                    <div class="mb-5">
+                        {{ form_label(form.course, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                        {{ form_widget(form.course, {'attr': {'id': 'course-select','onChange': 'updateThematicField(), updateSkillsField()','class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                    </div>
+
+                    <div class="mb-5">
+                        {{ form_label(form.classroom, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                        {{ form_widget(form.classroom, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'countries-course'}}) }}
+                    </div>
+
+                    <div class="mb-5" id="thematic-field-container">
+                        {{ form_label(form.thematic, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                        {{ form_widget(form.thematic, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                    </div>
+
+                    <div class="mb-5">
+                        {{ form_label(form.chapter, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                        {{ form_widget(form.chapter, {
+                            'attr': {
+                                'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+                                'id': 'countries-course'
+                            }
+                        }) }}
+
+                    </div>
+                </div>
+
+                <div class="w-1/2">
+                    <div class="mb-5" id="skills-field-container">
+                        {{ form_label(form.skills, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                        {{ form_widget(form.skills, {'attr': {'class': ''}}) }}
+                    </div>
+
+                    <div class="mb-5">
+                        {{ form_label(form.keywords, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                        {{ form_widget(form.keywords, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+
+                        <div class="mb-5">
+                            {{ form_label(form.difficulty, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                            {{ form_widget(form.difficulty, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'countries-course'}}) }}
+                        </div>
+
+                        <div class="mb-5">
+                            {{ form_label(form.duration, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                            {{ form_widget(form.duration, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'countries-course'}}) }}
+                        </div>
+                    </div>
+
+                    {{ form_rest(form) }}
+                    <button type="submit">Soumettre</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

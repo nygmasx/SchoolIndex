@@ -79,5 +79,60 @@
         		</div>
     		{{ form_end(form) }}
 
+<<<<<<< HEAD
 	</div>
+=======
+    <div class="md:flex gap-12">
+
+        <div class="w-full md:w-[35%]">
+        {{ form_label(form.name, 'Nom :', {
+        'label_attr': {
+            'class': 'noto text-color text-customGrey',
+            'data-toggle': 'tooltip',
+        }
+        }) }}
+        {{ form_errors(form.name) }}
+        {{ form_widget(form.name, {
+            'attr': {
+                'class': 'my-custom-class flex flex-column border border-borderGrey rounded-md p-2 mb-4 focus:outline-none focus:border-darkGrey w-full',
+                'placeholder': 'Saisissez le nom du contributeur',
+            }
+        }) }}
+    </div>
+
+
+        <div class="w-full md:w-[35%]">
+            {{ form_label(form.course, 'Matière :', {
+            'label_attr': {
+                'class': 'noto text-color text-customGrey',
+                'data-toggle': 'tooltip',
+            }
+            }) }}
+            {{ form_errors(form.course) }}
+            {{ form_widget(form.course, {
+                'attr': {
+                    'class': 'my-custom-class flex flex-column text-customGrey border border-borderGrey rounded-md p-2 mb-4 focus:outline-none focus:border-darkGrey w-full',
+                }
+            }) }}
+        </div>
+    </div>
+
+    <div class="flex gap-7 pt-3 pb-8">
+
+    <a href="{{path('app_thematic')}}" class="font-semibold h-[45px] items-center flex justify-center text-sm bg-slate-100  font-noto text-fontGrey py-2 px-4 rounded hover:bg-slate-200 focus:outline-none focus:shadow-outline">< Retour à la liste</a>
+
+        <div class="">
+            {{ form_widget(form.submit, {
+                'label': 'Enregistrer',
+                'attr': {
+                    'class': 'h-[45px] font-semibold items-center flex justify-center text-sm bg-slate-100 font-noto text-fontGrey py-2 px-4 rounded hover:bg-slate-200 focus:outline-none focus:shadow-outline',
+                }
+            }) }}
+        </div>
+
+    </div>
+
+    {{ form_end(form) }}
+</div>
+>>>>>>> f909c23d1bb4528a218bc41fa530dde00eb43e55
 {% endblock %}

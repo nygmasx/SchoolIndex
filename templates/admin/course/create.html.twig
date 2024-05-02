@@ -50,10 +50,29 @@
 						}) }}
             		</div>
 
+<<<<<<< HEAD
     			<div class="flex gap-5 max-sm:flex-col">
+=======
+        {{ form_label(form.name, 'Nom :', {
+        'label_attr': {
+            'class': 'block text-base font-medium text-gray-700',
+            'data-toggle': 'tooltip',
+        }
+        }) }}
+        {{ form_errors(form.name) }}
+        {{ form_widget(form.name, {
+            'attr': {
+                'placeholder': 'Saisissez le nom de la matière',
+                'class': 'max-sm:w-full h-[50px] mt-1 p-2 block w-[50%] text-base border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500'
+            }
+        }) }}
+            </div>
+
+    <div class="flex gap-5 max-sm:flex-col">
+>>>>>>> f909c23d1bb4528a218bc41fa530dde00eb43e55
                         <a href="{{path('app_course')}}" class="font-semibold flex justify-center items-center bg-slate-100 h-11 px-5 rounded-md font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200">< Retour à la liste</a>
 
-                            {{ form_widget(form.submit, { 
+                            {{ form_widget(form.submit, {
                                 'label': 'Enregistrer',
                                 'attr': {
                                     'class': 'font-semibold bg-slate-100 h-11 px-5 rounded-md font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200e',
