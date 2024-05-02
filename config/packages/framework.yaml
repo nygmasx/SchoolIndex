@@ -13,4 +13,7 @@ when@test:
     framework:
         test: true
         session:
-            storage_factory_id: session.storage.factory.mock_file
+            handler_id: null # Utilisez le gestionnaire de session par défaut
+            cookie_secure: auto
+            cookie_samesite: lax
+                # autres configurations selon vos besoins

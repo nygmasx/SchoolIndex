@@ -103,20 +103,9 @@
     array (
     ),
   ),
-  'flowbite' => 
+  'tom-select' => 
   array (
-    'version' => '2.3.0',
-    'dependencies' => 
-    array (
-      0 => '@popperjs/core',
-    ),
-    'extraFiles' => 
-    array (
-    ),
-  ),
-  '@popperjs/core' => 
-  array (
-    'version' => '2.11.8',
+    'version' => '2.3.1',
     'dependencies' => 
     array (
     ),
@@ -124,9 +113,9 @@
     array (
     ),
   ),
-  'flowbite/dist/flowbite.min.css' => 
+  'tom-select/dist/css/tom-select.default.css' => 
   array (
-    'version' => '2.3.0',
+    'version' => '2.3.1',
     'dependencies' => 
     array (
     ),

@@ -7,81 +7,92 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: ExerciseRepository::class)]
+#[Vich\Uploadable]
 class Exercise
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: false)]
+    #[NotBlank(message: "Veuillez saisir un nom pour l'exercice")]
+    #[Assert\Length(max: 255)]
     private ?string $name = null;
-
-    #[ORM\ManyToOne(inversedBy: 'exercises')]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'exercises')]
+    #[NotBlank(message: "Veuillez choisir une matière pour l'exercice")]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Course $course = null;
-
-    #[ORM\ManyToOne(inversedBy: 'exercises')]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'exercises')]
+    #[NotBlank(message: "Veuillez choisir une classe pour l'exercice")]
     #[ORM\JoinColumn(nullable: false)]
     private ?Classroom $classroom = null;
-
-    #[ORM\ManyToOne(inversedBy: 'exercises')]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'exercises')]
+    #[NotBlank(message: "Veuillez choisir une thématique pour l'exercice")]
     #[ORM\JoinColumn(nullable: false)]
     private ?Thematic $thematic = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $chapter = null;
-
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $keywords = null;
-
-    #[ORM\Column]
-    private ?int $difficulty = null;
-
-    #[ORM\Column]
-    private ?float $duration = null;
-
-    #[ORM\ManyToOne(inversedBy: 'exercises')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Origin $origin = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $originName = null;
-
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $originInformation = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $proposedbyType = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $proposedByFirstName = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $proposedByLastName = null;
-
-    #[ORM\ManyToMany(targetEntity: Skill::class, inversedBy: 'exercises')]
-    private Collection $skill;
-
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $chapter;
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $keywords;
+    #[ORM\Column(nullable: true)]
+    private ?float $duration;
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'exercises')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Origin $origin;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $originName;
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $originInformation;
+    #[ORM\Column(length: 255, nullable: true)]
+    #[NotBlank(message: "Veuillez spécifier qui a proposé l'exercice")]
+    private ?string $proposedByType = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $proposedByFirstName;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $proposedByLastName;
+    /**
+     * @var string A "Y-m-d H:i:s" formatted value
+     */
+    #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private \DateTimeImmutable $createdAt;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $exerciseFile = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $correctionFile = null;
+    #[Vich\UploadableField(mapping: 'exercises', fileNameProperty: 'exerciseFile', size: 'fileSize', mimeType: 'fileExtension', originalName: 'originalFileName')]
+    #[Assert\NotBlank(message: "Veuillez fournir un document pour l'exercice")]
+    #[Assert\File(mimeTypes: ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])]
+    private ?File $firstFile = null;
+    #[Vich\UploadableField(mapping: 'exercises', fileNameProperty: 'correctionFile', size: 'fileSize', mimeType: 'fileExtension', originalName: 'originalFileName')]
+    #[Assert\NotBlank(message: "Veuillez fournir un corrigé pour l'exercice")]
+    #[Assert\File(mimeTypes: ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])]
+    private ?File $secondFile = null;
     #[ORM\ManyToOne(inversedBy: 'exercises')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $createdBy = null;
-
-    #[ORM\OneToOne(inversedBy: 'exercise', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?File $exerciseFile = null;
-
-    #[ORM\OneToOne(inversedBy: 'exercise', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?File $correctionFile = null;
-
+    #[ORM\ManyToMany(targetEntity: Skill::class, inversedBy: 'exercises', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    private Collection $skills;
+    #[ORM\Column(length: 255)]
+    private ?string $originalFileName = null;
+    #[ORM\Column(length: 255)]
+    private ?string $fileExtension = null;
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    private ?int $fileSize = null;
+    #[ORM\Column]
+    #[NotBlank(message: "Veuillez choisir une difficulté pour l'exercice")]
+    private ?int $difficulty = null;
 
     public function __construct()
     {
-        $this->skill = new ArrayCollection();
+        $this->createdAt = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', date('Y-m-d H:i:s'));
+        $this->skills = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -142,7 +153,7 @@ class Exercise
         return $this->chapter;
     }
 
-    public function setChapter(string $chapter): static
+    public function setChapter(?string $chapter): static
     {
         $this->chapter = $chapter;
 
@@ -154,21 +165,9 @@ class Exercise
         return $this->keywords;
     }
 
-    public function setKeywords(string $keywords): static
+    public function setKeywords(?string $keywords): static
     {
         $this->keywords = $keywords;
-
-        return $this;
-    }
-
-    public function getDifficulty(): ?int
-    {
-        return $this->difficulty;
-    }
-
-    public function setDifficulty(int $difficulty): static
-    {
-        $this->difficulty = $difficulty;
 
         return $this;
     }
@@ -178,7 +177,7 @@ class Exercise
         return $this->duration;
     }
 
-    public function setDuration(float $duration): static
+    public function setDuration(?float $duration): static
     {
         $this->duration = $duration;
 
@@ -202,7 +201,7 @@ class Exercise
         return $this->originName;
     }
 
-    public function setOriginName(string $originName): static
+    public function setOriginName(?string $originName): static
     {
         $this->originName = $originName;
 
@@ -214,21 +213,21 @@ class Exercise
         return $this->originInformation;
     }
 
-    public function setOriginInformation(string $originInformation): static
+    public function setOriginInformation(?string $originInformation): static
     {
         $this->originInformation = $originInformation;
 
         return $this;
     }
 
-    public function getProposedbyType(): ?string
+    public function getProposedByType(): ?string
     {
-        return $this->proposedbyType;
+        return $this->proposedByType;
     }
 
-    public function setProposedbyType(string $proposedbyType): static
+    public function setProposedByType(?string $proposedByType): static
     {
-        $this->proposedbyType = $proposedbyType;
+        $this->proposedByType = $proposedByType;
 
         return $this;
     }
@@ -238,7 +237,7 @@ class Exercise
         return $this->proposedByFirstName;
     }
 
-    public function setProposedByFirstName(string $proposedByFirstName): static
+    public function setProposedByFirstName(?string $proposedByFirstName): static
     {
         $this->proposedByFirstName = $proposedByFirstName;
 
@@ -250,33 +249,33 @@ class Exercise
         return $this->proposedByLastName;
     }
 
-    public function setProposedByLastName(string $proposedByLastName): static
+    public function setProposedByLastName(?string $proposedByLastName): static
     {
         $this->proposedByLastName = $proposedByLastName;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Skill>
-     */
-    public function getSkill(): Collection
+    public function getExerciseFile(): ?string
     {
-        return $this->skill;
+        return $this->exerciseFile;
     }
 
-    public function addSkill(Skill $skill): static
+    public function setExerciseFile(?string $exerciseFile): static
     {
-        if (!$this->skill->contains($skill)) {
-            $this->skill->add($skill);
-        }
+        $this->exerciseFile = $exerciseFile;
 
         return $this;
     }
 
-    public function removeSkill(Skill $skill): static
+    public function getCorrectionFile(): ?string
     {
-        $this->skill->removeElement($skill);
+        return $this->correctionFile;
+    }
+
+    public function setCorrectionFile(?string $correctionFile): static
+    {
+        $this->correctionFile = $correctionFile;
 
         return $this;
     }
@@ -293,31 +292,7 @@ class Exercise
         return $this;
     }
 
-    public function getExerciseFile(): ?File
-    {
-        return $this->exerciseFile;
-    }
-
-    public function setExerciseFile(File $exerciseFile): static
-    {
-        $this->exerciseFile = $exerciseFile;
-
-        return $this;
-    }
-
-    public function getCorrectionFile(): ?File
-    {
-        return $this->correctionFile;
-    }
-
-    public function setCorrectionFile(File $correctionFile): static
-    {
-        $this->correctionFile = $correctionFile;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): \DateTimeImmutable|false|string
     {
         return $this->createdAt;
     }
@@ -328,4 +303,106 @@ class Exercise
 
         return $this;
     }
+
+    public function removeFiles(): static
+    {
+        $this->correctionFile = null;
+        $this->exerciseFile = null;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Skill>
+     */
+    public function getSkills(): Collection
+    {
+        return $this->skills;
+    }
+
+    public function addSkill(Skill $skill): static
+    {
+        if (!$this->skills->contains($skill)) {
+            $this->skills->add($skill);
+        }
+
+        return $this;
+    }
+
+    public function removeSkill(Skill $skill): static
+    {
+        $this->skills->removeElement($skill);
+
+        return $this;
+    }
+
+    public function getOriginalFileName(): ?string
+    {
+        return $this->originalFileName;
+    }
+
+    public function setOriginalFileName(string $originalFileName): static
+    {
+        $this->originalFileName = $originalFileName;
+
+        return $this;
+    }
+
+    public function getFileExtension(): ?string
+    {
+        return $this->fileExtension;
+    }
+
+    public function setFileExtension(string $fileExtension): static
+    {
+        $this->fileExtension = $fileExtension;
+
+        return $this;
+    }
+
+    public function getFileSize(): ?int
+    {
+        return $this->fileSize;
+    }
+
+    public function setFileSize(int $fileSize): static
+    {
+        $this->fileSize = $fileSize;
+
+        return $this;
+    }
+
+    public function getFirstFile(): ?File
+    {
+        return $this->firstFile;
+    }
+
+    public function setFirstFile(?File $firstFile = null): void
+    {
+        $this->firstFile = $firstFile;
+    }
+
+    public function setSecondFile(?File $secondFile = null): void
+    {
+        $this->secondFile = $secondFile;
+    }
+
+    public function getSecondFile(): ?File
+    {
+        return $this->secondFile;
+    }
+
+    public function getDifficulty(): ?int
+    {
+        return $this->difficulty;
+    }
+
+    public function setDifficulty(int $difficulty): static
+    {
+        $this->difficulty = $difficulty;
+
+        return $this;
+    }
+
+
 }

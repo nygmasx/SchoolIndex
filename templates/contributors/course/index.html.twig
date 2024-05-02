@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tous les exercices
+{% endblock %}
+
+{% block main %}
+<div class="bg-slate-200 flex flex-col items-center min-h-screen font-['Epilogue'] pb-5">
+    <div class="w-full text-center lg:text-start">
+        <h1 class="text-2xl	 md:text-4xl font-medium text-center lg:text-start text-blue-900 pt-12 px-6 pb-4">
+            {{ course.name }}
+        </h1>
+    </div>
+
+    <div class="bg-white rounded-md w-[95%]  md:w-[97%] mx-0 p-3 md:p-7 min-h-[85vh]">
+        {% if pagination.currentPageNumber == 1 %}
+
+            <p class="text-xl font-semibold text-blue-900">Nouveautés</p>
+            <div class="overflow-x-auto mt-5 rounded-xl border border-solid border-gray-200">
+                <table class="w-full">
+                    <thead class="text-left h-12 bg-gray-100">
+                    <tr>
+                        <th class=" font-medium px-6	py-3 rounded-tl-xl">Nom</th>
+                        <th class="font-medium px-6	py-3  ">Niveau</th>
+                        <th class="font-medium px-6	py-3  ">Thématiques</th>
+                        <th class="font-medium px-6	py-3  ">Difficultés</th>
+                        <th class="font-medium px-6	py-3  ">Durée</th>
+                        <th class="font-medium px-6	py-3  ">Mots clés</th>
+                        <th class=" font-medium px-6	py-3 rounded-tr-xl	 ">Fichiers</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for exercise in latestExercises %}
+                        <tr class="border-t border-solid border-gray-200">
+                            <td class="h-24 px-6 py-4 ">{{ exercise.name }}</td>
+                            <td class="h-24 px-6 py-4 ">{{ exercise.classroom.name }}</td>
+                            <td class="px-6 py-4">{{ exercise.thematic.name }}</td>
+                            <td class="px-6 py-4">Niveau
+                                {{ exercise.difficulty }}</td>
+                            <td class="px-6 py-4">{{ exercise.duration }}</td>
+                            <td class="px-6	py-4 flex flex-wrap	gap-1.5	">
+										<span class="bg-gray-200 px-4 py-2 rounded-full">
+											{{ exercise.keywords }}
+										</span>
+                            </td>
+                            <td class="px-6	py-4  ">
+                                <div class="flex flex-col gap-4 items-baseline">
+                                    <a class="flex justify-center items-normal gap-2" href="#">
+                                        <svg width="16" height="19" viewbox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.38596 6.50012H9.49122L6.6842 9.02643L3.87719 6.50012H5.98245V3.9738H7.38596V6.50012ZM8.78946 1.44748H1.77193V11.5527H11.5965V3.9738H8.78946V1.44748ZM0.368423 0.810853C0.368423 0.464747 0.682107 0.184326 1.06948 0.184326H9.49122L13 3.34222V12.1799C13.0006 12.2628 12.9831 12.3451 12.9485 12.4219C12.9138 12.4988 12.8626 12.5687 12.7979 12.6278C12.7332 12.6869 12.6562 12.7339 12.5713 12.7661C12.4864 12.7984 12.3953 12.8153 12.3031 12.8159H1.06526C0.880969 12.8147 0.704576 12.7484 0.57419 12.6312C0.443804 12.5139 0.369893 12.3552 0.368423 12.1894V0.810853Z" fill="#03053D"/>
+                                        </svg>
+                                        Exercice</a>
+                                    <a class="flex justify-center items-normal gap-2" href="#">
+                                        <svg width="16" height="19" viewbox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.38596 6.50012H9.49122L6.6842 9.02643L3.87719 6.50012H5.98245V3.9738H7.38596V6.50012ZM8.78946 1.44748H1.77193V11.5527H11.5965V3.9738H8.78946V1.44748ZM0.368423 0.810853C0.368423 0.464747 0.682107 0.184326 1.06948 0.184326H9.49122L13 3.34222V12.1799C13.0006 12.2628 12.9831 12.3451 12.9485 12.4219C12.9138 12.4988 12.8626 12.5687 12.7979 12.6278C12.7332 12.6869 12.6562 12.7339 12.5713 12.7661C12.4864 12.7984 12.3953 12.8153 12.3031 12.8159H1.06526C0.880969 12.8147 0.704576 12.7484 0.57419 12.6312C0.443804 12.5139 0.369893 12.3552 0.368423 12.1894V0.810853Z" fill="#03053D"/>
+                                        </svg>Corrigé</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+
+
+        <div class="mt-8">
+            <p class="text-xl font-semibold text-blue-900">Tous les exercices</p>
+            <div class="overflow-x-auto mt-5 rounded-xl border border-solid border-gray-200">
+                <table class="w-full">
+                    <thead class="text-left h-12 bg-gray-100">
+                    <tr>
+                        <th class=" font-medium px-6	py-3 rounded-tl-xl">Nom</th>
+                        <th class="font-medium px-6	py-3  ">Niveau</th>
+                        <th class="font-medium px-6	py-3  ">Thématiques</th>
+                        <th class="font-medium px-6	py-3  ">Difficultés</th>
+                        <th class="font-medium px-6	py-3  ">Durée</th>
+                        <th class="font-medium px-6	py-3  ">Mots clés</th>
+                        <th class=" font-medium px-6	py-3 rounded-tr-xl	 ">Fichiers</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for exercise in pagination %}
+                        <tr class="border-t border-solid border-gray-200">
+                            <td class="h-24 px-6 py-4 ">{{ exercise.name }}</td>
+                            <td class="h-24 px-6 py-4 ">{{ exercise.classroom.name }}</td>
+                            <td class="px-6 py-4">{{ exercise.thematic.name }}</td>
+                            <td class="px-6 py-4">Niveau
+                                {{ exercise.difficulty }}</td>
+                            <td class="px-6 py-4">{{ exercise.duration }}</td>
+                            <td class="px-6	py-4 flex flex-wrap	gap-1.5	">
+										<span class="bg-gray-200 px-4 py-2 rounded-full">
+											{{ exercise.keywords }}
+										</span>
+                            </td>
+                            <td class="px-6	py-4  ">
+                                <div class="flex flex-col gap-4 items-baseline">
+                                    <a class="flex justify-center items-normal gap-2" href="#">
+                                        <svg width="16" height="19" viewbox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.38596 6.50012H9.49122L6.6842 9.02643L3.87719 6.50012H5.98245V3.9738H7.38596V6.50012ZM8.78946 1.44748H1.77193V11.5527H11.5965V3.9738H8.78946V1.44748ZM0.368423 0.810853C0.368423 0.464747 0.682107 0.184326 1.06948 0.184326H9.49122L13 3.34222V12.1799C13.0006 12.2628 12.9831 12.3451 12.9485 12.4219C12.9138 12.4988 12.8626 12.5687 12.7979 12.6278C12.7332 12.6869 12.6562 12.7339 12.5713 12.7661C12.4864 12.7984 12.3953 12.8153 12.3031 12.8159H1.06526C0.880969 12.8147 0.704576 12.7484 0.57419 12.6312C0.443804 12.5139 0.369893 12.3552 0.368423 12.1894V0.810853Z" fill="#03053D"/>
+                                        </svg>
+                                        Exercice</a>
+                                    <a class="flex justify-center items-normal gap-2" href="#">
+                                        <svg width="16" height="19" viewbox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.38596 6.50012H9.49122L6.6842 9.02643L3.87719 6.50012H5.98245V3.9738H7.38596V6.50012ZM8.78946 1.44748H1.77193V11.5527H11.5965V3.9738H8.78946V1.44748ZM0.368423 0.810853C0.368423 0.464747 0.682107 0.184326 1.06948 0.184326H9.49122L13 3.34222V12.1799C13.0006 12.2628 12.9831 12.3451 12.9485 12.4219C12.9138 12.4988 12.8626 12.5687 12.7979 12.6278C12.7332 12.6869 12.6562 12.7339 12.5713 12.7661C12.4864 12.7984 12.3953 12.8153 12.3031 12.8159H1.06526C0.880969 12.8147 0.704576 12.7484 0.57419 12.6312C0.443804 12.5139 0.369893 12.3552 0.368423 12.1894V0.810853Z" fill="#03053D"/>
+                                        </svg>Corrigé</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-5">
+                {{ knp_pagination_render(pagination, 'components/pagination/custom_pagination.html.twig') }}
+            </div>
+        </div>
+        {% endblock %}
