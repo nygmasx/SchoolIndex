@@ -206,146 +206,146 @@ CoursesDropdownTrigger.querySelector('span').textContent = selectedCourse;
 toggleDropdown();
 hideSelectedCourse(selectedCourse);
 // Mettre à jour le champ caché avec la valeur sélectionnée
-const hiddenCourseInput = document.querySelector('input[name="course"]');
-hiddenCourseInput.value = selectedCourse;
-});
-});
+                    const hiddenCourseInput = document.querySelector('input[name="course"]');
+                    hiddenCourseInput.value = selectedCourse;
+                });
+            });
 
-document.addEventListener('click', function (event) {
-const isClickInsideDropdown = CoursesDropdownTrigger.contains(event.target) || CoursesdropdownList.contains(event.target);
-if (! isClickInsideDropdown) {
-CoursesdropdownList.classList.add('hidden');
-CoursesDropdownTrigger.classList.remove('open');
-}
-});
+            document.addEventListener('click', function (event) {
+                const isClickInsideDropdown = CoursesDropdownTrigger.contains(event.target) || CoursesdropdownList.contains(event.target);
+                if (!isClickInsideDropdown) {
+                    CoursesdropdownList.classList.add('hidden');
+                    CoursesDropdownTrigger.classList.remove('open');
+                }
+            });
 
-function hideSelectedCourse(selectedCourse) {
-courseItems.forEach(function (item) {
-const courseName = item.textContent.trim();
-if (courseName === selectedCourse) {
-item.style.display = 'none';
-} else {
-item.style.display = 'block';
-}
-});
-}
+            function hideSelectedCourse(selectedCourse) {
+                courseItems.forEach(function (item) {
+                    const courseName = item.textContent.trim();
+                    if (courseName === selectedCourse) {
+                        item.style.display = 'none';
+                    } else {
+                        item.style.display = 'block';
+                    }
+                });
+            }
 
 // Liste pour les thématiques//
-const dropdownTrigger = document.getElementById('dropdown-trigger');
-const dropdownList = document.querySelector('.dropdown-list');
-const thematicItems = document.querySelectorAll('.dropdown-list .select-item');
+            const dropdownTrigger = document.getElementById('dropdown-trigger');
+            const dropdownList = document.querySelector('.dropdown-list');
+            const thematicItems = document.querySelectorAll('.dropdown-list .select-item');
 
-dropdownTrigger.addEventListener('click', function (event) {
-dropdownList.classList.toggle('hidden');
-dropdownTrigger.classList.toggle('open');
-event.stopPropagation();
-});
+            dropdownTrigger.addEventListener('click', function (event) {
+                dropdownList.classList.toggle('hidden');
+                dropdownTrigger.classList.toggle('open');
+                event.stopPropagation();
+            });
 
-thematicItems.forEach(function (item) {
-item.addEventListener('click', function () {
-const selectedThematic = item.textContent.trim();
-dropdownTrigger.querySelector('span').textContent = selectedThematic;
-dropdownList.classList.add('hidden');
-dropdownTrigger.classList.remove('open');
-hideSelectedThematic(selectedThematic);
+            thematicItems.forEach(function (item) {
+                item.addEventListener('click', function () {
+                    const selectedThematic = item.textContent.trim();
+                    dropdownTrigger.querySelector('span').textContent = selectedThematic;
+                    dropdownList.classList.add('hidden');
+                    dropdownTrigger.classList.remove('open');
+                    hideSelectedThematic(selectedThematic);
 // Mettre à jour le champ caché avec la valeur sélectionnée
-const hiddenThematicInput = document.querySelector('input[name="thematic"]');
-hiddenThematicInput.value = selectedThematic;
-});
-});
+                    const hiddenThematicInput = document.querySelector('input[name="thematic"]');
+                    hiddenThematicInput.value = selectedThematic;
+                });
+            });
 
-document.addEventListener('click', function (event) {
-const isClickInsideDropdown = dropdownTrigger.contains(event.target) || dropdownList.contains(event.target);
-if (! isClickInsideDropdown) {
-dropdownList.classList.add('hidden');
-dropdownTrigger.classList.remove('open');
-}
-});
+            document.addEventListener('click', function (event) {
+                const isClickInsideDropdown = dropdownTrigger.contains(event.target) || dropdownList.contains(event.target);
+                if (!isClickInsideDropdown) {
+                    dropdownList.classList.add('hidden');
+                    dropdownTrigger.classList.remove('open');
+                }
+            });
 
-function hideSelectedThematic(selectedThematic) {
-thematicItems.forEach(function (item) {
-const thematicName = item.textContent.trim();
-if (thematicName === selectedThematic) {
-item.style.display = 'none';
-} else {
-item.style.display = 'block';
-}
-});
-}
+            function hideSelectedThematic(selectedThematic) {
+                thematicItems.forEach(function (item) {
+                    const thematicName = item.textContent.trim();
+                    if (thematicName === selectedThematic) {
+                        item.style.display = 'none';
+                    } else {
+                        item.style.display = 'block';
+                    }
+                });
+            }
 
 // liste pour les niveaux//
-const dropdownTriggerLevel = document.getElementById('dropdown-trigger-level');
-const dropdownLevel = document.querySelector('.dropdown-level');
-const levelItems = document.querySelectorAll('.dropdown-level > div[data-level]');
-const arrows = document.querySelectorAll('.dropdown-level .arrow-down');
-const selectText = document.querySelector('#dropdown-trigger-level span');
+            const dropdownTriggerLevel = document.getElementById('dropdown-trigger-level');
+            const dropdownLevel = document.querySelector('.dropdown-level');
+            const levelItems = document.querySelectorAll('.dropdown-level > div[data-level]');
+            const arrows = document.querySelectorAll('.dropdown-level .arrow-down');
+            const selectText = document.querySelector('#dropdown-trigger-level span');
 
-function closeAllSubDropdowns(except) {
-levelItems.forEach((item, index) => {
-if (item !== except) {
-const subDropdown = document.querySelector (`.dropdown-${
-item.dataset.level
-}`);
-if (subDropdown && ! subDropdown.classList.contains('hidden')) {
-subDropdown.classList.add('hidden');
-arrows[index].classList.remove('open');
-arrows[index].setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);');
-}
-}
-});
-}
+            function closeAllSubDropdowns(except) {
+                levelItems.forEach((item, index) => {
+                    if (item !== except) {
+                        const subDropdown = document.querySelector(`.dropdown-${
+                            item.dataset.level
+                        }`);
+                        if (subDropdown && !subDropdown.classList.contains('hidden')) {
+                            subDropdown.classList.add('hidden');
+                            arrows[index].classList.remove('open');
+                            arrows[index].setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);');
+                        }
+                    }
+                });
+            }
 
-dropdownTriggerLevel.addEventListener('click', function (event) {
-dropdownLevel.classList.toggle('hidden');
-dropdownTriggerLevel.classList.toggle('open');
-arrows.forEach(arrow => arrow.classList.toggle('open'));
-event.stopPropagation();
-});
+            dropdownTriggerLevel.addEventListener('click', function (event) {
+                dropdownLevel.classList.toggle('hidden');
+                dropdownTriggerLevel.classList.toggle('open');
+                arrows.forEach(arrow => arrow.classList.toggle('open'));
+                event.stopPropagation();
+            });
 
-levelItems.forEach((item, index) => {
-item.addEventListener('click', function (event) {
-const subDropdown = document.querySelector (`.dropdown-${
-this.dataset.level
-}`);
-if (subDropdown) {
-subDropdown.classList.toggle('hidden');
-arrows[index].classList.toggle('open');
-if (! subDropdown.classList.contains('hidden')) {
-arrows[index].setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(180deg);');
-closeAllSubDropdowns(item);
-} else {
-arrows[index].setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);');
-}
-}
-event.stopPropagation();
-});
-});
+            levelItems.forEach((item, index) => {
+                item.addEventListener('click', function (event) {
+                    const subDropdown = document.querySelector(`.dropdown-${
+                        this.dataset.level
+                    }`);
+                    if (subDropdown) {
+                        subDropdown.classList.toggle('hidden');
+                        arrows[index].classList.toggle('open');
+                        if (!subDropdown.classList.contains('hidden')) {
+                            arrows[index].setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(180deg);');
+                            closeAllSubDropdowns(item);
+                        } else {
+                            arrows[index].setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);');
+                        }
+                    }
+                    event.stopPropagation();
+                });
+            });
 
-document.querySelectorAll('.college-class, .lycee-class, .bts-class, .licence-class').forEach(item => {
-item.addEventListener('click', function (event) {
-selectText.textContent = item.textContent;
-dropdownLevel.classList.add('hidden');
-dropdownTriggerLevel.classList.remove('open');
-arrows.forEach(arrow => arrow.classList.remove('open'));
-arrows.forEach(arrow => arrow.setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);'));
-closeAllSubDropdowns();
+            document.querySelectorAll('.college-class, .lycee-class, .bts-class, .licence-class').forEach(item => {
+                item.addEventListener('click', function (event) {
+                    selectText.textContent = item.textContent;
+                    dropdownLevel.classList.add('hidden');
+                    dropdownTriggerLevel.classList.remove('open');
+                    arrows.forEach(arrow => arrow.classList.remove('open'));
+                    arrows.forEach(arrow => arrow.setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);'));
+                    closeAllSubDropdowns();
 // Mettre à jour le champ caché avec la valeur sélectionnée
-const hiddenLevelInput = document.querySelector('input[name="class"]');
-hiddenLevelInput.value = item.textContent;
-event.stopPropagation();
-});
-});
+                    const hiddenLevelInput = document.querySelector('input[name="class"]');
+                    hiddenLevelInput.value = item.textContent;
+                    event.stopPropagation();
+                });
+            });
 
-document.addEventListener('click', function (event) {
-const isClickInsideDropdown = dropdownTriggerLevel.contains(event.target) || dropdownLevel.contains(event.target);
-if (! isClickInsideDropdown) {
-dropdownLevel.classList.add('hidden');
-dropdownTriggerLevel.classList.remove('open');
-arrows.forEach(arrow => arrow.classList.remove('open'));
-arrows.forEach(arrow => arrow.setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);'));
-closeAllSubDropdowns();
-}
-});
-});
-			</script>
-		{% endblock %}
+            document.addEventListener('click', function (event) {
+                const isClickInsideDropdown = dropdownTriggerLevel.contains(event.target) || dropdownLevel.contains(event.target);
+                if (!isClickInsideDropdown) {
+                    dropdownLevel.classList.add('hidden');
+                    dropdownTriggerLevel.classList.remove('open');
+                    arrows.forEach(arrow => arrow.classList.remove('open'));
+                    arrows.forEach(arrow => arrow.setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);'));
+                    closeAllSubDropdowns();
+                }
+            });
+        });
+    </script>
+{% endblock %}

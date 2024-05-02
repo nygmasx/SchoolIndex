@@ -12,8 +12,8 @@
 		</div>
 		<div data-turbo="false" class="bg-white rounded-md w-[95%]  md:w-[97%] mx-0 p-3 md:p-7 min-h-[85vh]">
 			<p class="text-[14px] md:text-[18px] lg:text-[16px]">Cet espace est réservé aux
-								                enseignants du lycée Saint-Vincent - Senlis. Si vous n’avez pas encore de compte, veuillez effectuer
-								                votre demande directement en envoyant un email à
+												                enseignants du lycée Saint-Vincent - Senlis. Si vous n’avez pas encore de compte, veuillez effectuer
+												                votre demande directement en envoyant un email à
 				<a class="text-sky-700" href="mailto:contact@lyceestvincent.net">contact@lyceestvincent.net</a>
 				.</p>
 			<form class="flex flex-col mt-9 gap-8 w-[40%] max-[1300px]:w-[60%] max-sm:w-[95%] max-sm:mx-auto" method="post">
@@ -30,17 +30,14 @@
 				{% endif %}
 				<div class="flex flex-col">
 					<label for="inputEmail" class="md:text-center lg:text-justify text-gray-700 md:text-[18px] font-medium">Email
-											                    :</label>
+																	                    :</label>
 					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="h-11 border border-gray-200 border rounded " autocomplete="email" placeholder="Saisissez votre e-mail" required autofocus>
 
 				</div>
 				<div class="toggle-password-container flex flex-col">
 					<label for="inputPassword" class="md:text-center lg:text-justify text-gray-700 md:text-[18px] font-medium">Password
-												                        :</label>
-					<input type="password" name="password" id="inputPassword" class="border-gray-200 border w-full rounded h-11" autocomplete="current-password" required
-                            {{ stimulus_controller('symfony/ux-toggle-password/toggle-password', {
-                                buttonClasses: ['toggle-password-button']
-                            }) }} placeholder="Saisissez votre mot de passe">
+																		                        :</label>
+					<input type="password" name="password" id="inputPassword" class="border-gray-200 border w-full rounded h-11" autocomplete="current-password" required {{ stimulus_controller('symfony/ux-toggle-password/toggle-password', { buttonClasses: ['toggle-password-button'] } ) }} placeholder="Saisissez votre mot de passe">
 				</div>
 				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 				<div class="flex justify-between items-center max-sm:flex-col max-sm:items-start max-sm:gap-5	">
@@ -48,9 +45,14 @@
 						Connexion
 					</button>
 
-					<a class=" text-gray-700" href="">Mot de passe oublié ?</a>
+					<a class="text-center text-gray-700 lg:ml-6 items-center" href="{{ path('app_resetting_request') }}">Mot de passe oublié ?</a>
 				</div>
 			</form>
 		</div>
+		{% for message in app.flashes('success') %}
+			<div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+				<span class="font-medium">{{ message }}</span>
+			</div>
+		{% endfor %}
 	</div>
 {% endblock %}

@@ -38,9 +38,6 @@
             "migrations/.gitignore"
         ]
     },
-    "knplabs/knp-menu-bundle": {
-        "version": "v3.3.0"
-    },
     "knplabs/knp-paginator-bundle": {
         "version": "v6.3.0"
     },
@@ -266,6 +263,21 @@
             "templates/base.html.twig"
         ]
     },
+    "symfony/ux-autocomplete": {
+        "version": "2.16",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "2.6",
+            "ref": "07d9602b7231ba355f484305d6cea58310c01741"
+        },
+        "files": [
+            "config/routes/ux_autocomplete.yaml"
+        ]
+    },
+    "symfony/ux-dropzone": {
+        "version": "v2.17.0"
+    },
     "symfony/ux-live-component": {
         "version": "2.17",
         "recipe": {
@@ -275,7 +287,7 @@
             "ref": "73e69baf18f47740d6f58688c5464b10cdacae06"
         },
         "files": [
-            "./config/routes/ux_live_component.yaml"
+            "config/routes/ux_live_component.yaml"
         ]
     },
     "symfony/ux-swup": {
@@ -339,25 +351,19 @@
     "symfonycasts/tailwind-bundle": {
         "version": "v0.5.1"
     },
-    "tales-from-a-dev/flowbite-bundle": {
-        "version": "0.6",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "main",
-            "version": "0.4",
-            "ref": "8c5eef17730535682128557a1016872fd3e81c33"
-        }
-    },
-    "tales-from-a-dev/twig-tailwind-extra": {
-        "version": "0.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "main",
-            "version": "0.2",
-            "ref": "7243ab070ed66198eb82c026684e9b9773e7b64a"
-        }
-    },
     "twig/extra-bundle": {
         "version": "v3.8.0"
+    },
+    "vich/uploader-bundle": {
+        "version": "2.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.13",
+            "ref": "1b3064c2f6b255c2bc2f56461aaeb76b11e07e36"
+        },
+        "files": [
+            "config/packages/vich_uploader.yaml"
+        ]
     }
 }

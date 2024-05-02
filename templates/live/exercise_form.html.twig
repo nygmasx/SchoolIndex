@@ -1,0 +1,22 @@
+{# templates/live/exercise_form.html.twig #}
+<div {{ live_component(exercise_form) }}>
+    <select name="course_id" {{ live_attr('course', {action: 'change->live#update'}) }}>
+        {% for course in app.repository.course.findAll() %}
+            <option value="{{ course.id }}" {{ course == this.course ? 'selected' : '' }}>{{ course.name }}</option>
+        {% endfor %}
+    </select>
+
+    <div id="skills-field-container">
+        {% for skill in this.skills %}
+            <input type="checkbox" name="exercise[skills][]" value="{{ skill.id }}" id="skill_{{ skill.id }}">
+            <label for="skill_{{ skill.id }}">{{ skill.name }}</label>
+        {% endfor %}
+    </div>
+
+    <div id="thematic-field-container">
+        {% for thematic in this.thematics %}
+            <input type="checkbox" name="exercise[thematics][]" value="{{ thematic.id }}" id="thematic_{{ thematic.id }}">
+            <label for="thematic_{{ thematic.id }}">{{ thematic.name }}</label>
+        {% endfor %}
+    </div>
+</div>

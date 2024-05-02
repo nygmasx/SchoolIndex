@@ -35,7 +35,7 @@
 									<td class="h-24 px-6 py-4 ">{{ exercise.classroom.name }}</td>
 									<td class="px-6 py-4">{{ exercise.thematic.name }}</td>
 									<td class="px-6 py-4">Niveau
-										{{ exercise.difficulty }}</td>
+										{{ exercise.difficulty.value }}</td>
 									<td class="px-6 py-4">{{ exercise.duration }}</td>
 									<td class="px-6	py-4 flex flex-wrap	gap-1.5	">
 										{% set keywords = exercise.keywords|split('@') %}
@@ -90,7 +90,7 @@
 									<td class="h-24 px-6 py-4 ">{{ exercise.classroom.name }}</td>
 									<td class="px-6 py-4">{{ exercise.thematic.name }}</td>
 									<td class="px-6 py-4">Niveau
-										{{ exercise.difficulty }}</td>
+										{{ exercise.difficulty.value }}</td>
 									<td class="px-6 py-4">{{ exercise.duration }}</td>
 									<td class="px-6	py-4 flex flex-wrap	gap-1.5	">
 										{% set keywords = exercise.keywords|split('@') %}

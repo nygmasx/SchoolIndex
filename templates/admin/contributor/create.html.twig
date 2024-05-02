@@ -112,6 +112,7 @@
         </div>
 
         <div class="flex gap-5 max-sm:flex-col">
+<<<<<<< HEAD
             <a href="{{path('app_contributor')}}" class="font-semibold flex justify-center items-center bg-slate-100 h-11 px-5 rounded-md font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200">< Retour à la liste</a>
                 <div>
                     {{ form_widget(form.submit, { 
@@ -121,8 +122,22 @@
                                     }
                                 }) }}
                             </div>
+=======
+            <a href="{{ path('app_contributor') }}"
+               class="font-semibold flex justify-center items-center bg-slate-100 h-11 px-5 rounded-md font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200"><
+                Retour à la liste</a>
+
+            <div class="">
+                {{ form_widget(form.submit, {
+                    'label': 'Enregistrer',
+                    'attr': {
+                        'class': 'max-sm:w-full font-semibold bg-slate-100 h-11 px-5 rounded-md font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200e',
+                    }
+                }) }}
+            </div>
+>>>>>>> f909c23d1bb4528a218bc41fa530dde00eb43e55
         </div>
         {{ form_end(form) }}
     </div>
 </div>
-{% endblock %}
+    {% endblock %}

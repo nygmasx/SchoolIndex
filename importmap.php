@@ -49,14 +49,11 @@ return [
     '@domchristie/turn' => [
         'version' => '3.1.1',
     ],
-    'flowbite' => [
-        'version' => '2.3.0',
+    'tom-select' => [
+        'version' => '2.3.1',
     ],
-    '@popperjs/core' => [
-        'version' => '2.11.8',
-    ],
-    'flowbite/dist/flowbite.min.css' => [
-        'version' => '2.3.0',
+    'tom-select/dist/css/tom-select.default.css' => [
+        'version' => '2.3.1',
         'type' => 'css',
     ],
     '@symfony/ux-live-component' => [
