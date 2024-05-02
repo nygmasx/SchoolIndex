@@ -9,6 +9,7 @@ use App\Entity\Thematic;
 use App\Form\Exercise\ExerciseFileType;
 use App\Form\Exercise\ExerciseGeneralInformationType;
 use App\Form\Exercise\ExerciseSourceType;
+use App\Form\ExerciseType;
 use App\Repository\SkillRepository;
 use App\Repository\ThematicRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -50,7 +51,7 @@ final class ExerciseController extends AbstractController
         $exercises = $paginator->paginate(
             $exercisesQuery, // Requête à paginer
             $request->query->getInt('page', 1), // Numéro de la page
-            5 // Nombre d'éléments par page
+            10 // Nombre d'éléments par page
         );
 
         return $this->render('admin/exercise/index.html.twig', [
@@ -58,10 +59,11 @@ final class ExerciseController extends AbstractController
         ]);
     }
 
-    #[Route('/create/general', name: 'exercise_admin_create_general')]
+    #[Route('/exercise/create', name: 'admin_exercise_create')]
     public function createStep1(Request $request, SessionInterface $session): Response
     {
-        $form = $this->createForm(ExerciseGeneralInformationType::class);
+        $exercise = new Exercise();
+        $form = $this->createForm(ExerciseType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -92,132 +94,12 @@ final class ExerciseController extends AbstractController
                 }
             }
 
-            $session->set('step1_data', $formData);
-            return $this->redirectToRoute('exercise_create_sources');
-        }
-
-        return $this->render('/admin/exercise/step-general.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-    #[Route('/edit/general/{id}', name: 'exercise_admin_edit_general')]
-    public function editStep1(Request $request, Exercise $exercise, SessionInterface $session): Response
-    {
-        $form = $this->createForm(ExerciseGeneralInformationType::class, $exercise);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->persist($exercise);
             $this->entityManager->flush();
-
-            $session->set('edit_step1_data', $exercise);
-            return $this->redirectToRoute('exercise_admin_edit_sources', ['id' => $exercise->getId()]);
+            return $this->redirectToRoute('app_admin_exercise');
         }
 
-        return $this->render('/admin/exercise/step-general.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-
-    #[Route('/create/sources', name: 'exercise_admin_create_sources')]
-    public function createStep2(Request $request, SessionInterface $session): Response
-    {
-        $form = $this->createForm(ExerciseSourceType::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $session->set('step2_data', $form->getData());
-            return $this->redirectToRoute('exercise_create_files');
-        }
-
-        return $this->render('/contributors/exercise/step-sources.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-    #[Route('/edit/sources/{id}', name: 'exercise_admin_edit_sources')]
-    public function editStep2(Request $request, SessionInterface $session, Exercise $exercise): Response
-    {
-        $form = $this->createForm(ExerciseSourceType::class, $exercise);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $session->set('edit_step2_data', $exercise);
-            return $this->redirectToRoute('exercise_admin_edit_files', ['id' => $exercise->getId()]);
-        }
-
-        return $this->render('/contributors/exercise/step-sources.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-
-    /**
-     * @throws ORMException
-     */
-    #[Route('/create/files', name: 'exercise_admin_create_files')]
-    public function createStep3(Request $request, SessionInterface $session): Response
-    {
-        $step1Data = $session->get('step1_data'); // Data from previous steps
-        $step2Data = $session->get('step2_data'); // Data from previous steps
-        $form = $this->createForm(ExerciseFileType::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $step3Data = $form->getData();
-            $exercise = new Exercise();
-            $exercise->setName($step1Data->getName());
-            $exercise->setChapter($step1Data->getChapter());
-            $exercise->setCourse($step1Data->getCourse()); // Verify this line, it may also cause errors if getCourse returns null or doesn't expect setName()
-            $exercise->setClassroom($step1Data->getClassroom());
-            $exercise->setThematic($step1Data->getThematic());
-            $exercise->setKeywords($step1Data->getKeywords());
-            $exercise->setDifficulty($step1Data->getDifficulty());
-            $exercise->setDuration($step1Data->getDuration());
-            // Correctly add each Skill to the Exercise
-            foreach ($step1Data->getSkills() as $skill) {
-                $exercise->addSkill($skill);
-            }
-            $exercise->setOrigin($step2Data->getOrigin());
-            $exercise->setOriginInformation($step2Data->getOriginInformation());
-            $exercise->setProposedByType($step2Data->getProposedByType());
-            $exercise->setProposedByFirstName($step2Data->getProposedByFirstName());
-            $exercise->setProposedByLastName($step2Data->getProposedByLastName());
-            $exercise->setFirstFile($step3Data->getFirstFile());
-            $exercise->setSecondFile($step3Data->getSecondFile());
-
-            $exercise->setCreatedAt(new \DateTimeImmutable());
-            $exercise->setCreatedBy($this->getUser());
-
-            $this->entityManager->persist($exercise);
-            $this->entityManager->flush();
-
-            return $this->redirectToRoute('app_home');
-        }
-
-        return $this->render('/contributors/exercise/step-files.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-    #[Route('/edit/files/{id}', name: 'exercise_admin_edit_files')]
-    public function editStep3(Request $request, SessionInterface $session, Exercise $exercise): Response
-    {
-        $form = $this->createForm(ExerciseFileType::class, $exercise);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Handle file uploads here, similar to your create function
-            $this->entityManager->persist($exercise);
-            $this->entityManager->flush();
-
-            return $this->redirectToRoute('app_home');
-        }
-
-        return $this->render('/contributors/exercise/step-files.html.twig', [
+        return $this->render('/admin/exercise/create.html.twig', [
             'form' => $form->createView(),
         ]);
     }

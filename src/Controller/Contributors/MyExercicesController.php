@@ -30,7 +30,7 @@ class MyExercicesController extends AbstractController
         // Récupère les exercices créés par l'utilisateur connecté
         $exercices = $repository->findBy(['createdBy' => $user]);
 
-        return $this->render('my_exercices/index.html.twig', [
+        return $this->render('contributors/my_exercices/index.html.twig', [
             'exercices' => $exercices,
         ]);
     }

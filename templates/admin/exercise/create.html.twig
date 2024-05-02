@@ -4,7 +4,7 @@
 {% block main %}
 
     <script type="text/javascript">
-        console.log($('#general-form').serialize());
+        console.log($('#exercise-admin-create-from').serialize());
         var ajaxRequestCounter = 0;  // Initialize counter to track AJAX requests
 
         function updateThematicField() {
@@ -110,21 +110,25 @@
                     <div class="mb-5">
                         {{ form_label(form.name, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
                         {{ form_widget(form.name, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'base-input-name'}}) }}
+                        {{ form_errors(form.name) }}
                     </div>
 
                     <div class="mb-5">
                         {{ form_label(form.course, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
                         {{ form_widget(form.course, {'attr': {'id': 'course-select','onChange': 'updateThematicField(), updateSkillsField()','class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                        {{ form_errors(form.course) }}
                     </div>
 
                     <div class="mb-5">
                         {{ form_label(form.classroom, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
                         {{ form_widget(form.classroom, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'countries-course'}}) }}
+                        {{ form_errors(form.classroom) }}
                     </div>
 
                     <div class="mb-5" id="thematic-field-container">
                         {{ form_label(form.thematic, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
                         {{ form_widget(form.thematic, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                        {{ form_errors(form.thematic) }}
                     </div>
 
                     <div class="mb-5">
@@ -135,7 +139,7 @@
                                 'id': 'countries-course'
                             }
                         }) }}
-
+                        {{ form_errors(form.chapter) }}
                     </div>
                 </div>
 
@@ -143,11 +147,13 @@
                     <div class="mb-5" id="skills-field-container">
                         {{ form_label(form.skills, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
                         {{ form_widget(form.skills, {'attr': {'class': ''}}) }}
+                        {{ form_errors(form.skills) }}
                     </div>
 
                     <div class="mb-5">
                         {{ form_label(form.keywords, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
                         {{ form_widget(form.keywords, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                        {{ form_errors(form.keywords) }}
 
                         <div class="mb-5">
                             {{ form_label(form.difficulty, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
@@ -157,6 +163,7 @@
                         <div class="mb-5">
                             {{ form_label(form.duration, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
                             {{ form_widget(form.duration, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'countries-course'}}) }}
+                            {{ form_errors(form.duration) }}
                         </div>
                     </div>
 
