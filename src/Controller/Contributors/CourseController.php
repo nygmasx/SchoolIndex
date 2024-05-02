@@ -39,7 +39,7 @@ class CourseController extends AbstractController
         // Récupérer les exercices pour le deuxième tableau
         $secondTableExercises = $entityManager->getRepository(Exercise::class)->findBy(['course' => $matiere], ['createdAt' => 'DESC'], $secondTableLimit);
 
-        return $this->render('course/index.html.twig', [
+        return $this->render('contributors/course/index.html.twig', [
             'course' => $course,
             'matiere' => $matiere,
             'pagination' => $pagination,

@@ -21,8 +21,8 @@ class SecurityController extends AbstractController
 {
     public function __construct
     (
-        private readonly UserRepository $userRepository,
-        private readonly JWT $jwt,
+        private readonly UserRepository         $userRepository,
+        private readonly JWT                    $jwt,
         private readonly EntityManagerInterface $entityManager
     )
     {
@@ -75,9 +75,9 @@ class SecurityController extends AbstractController
                 $url = $this->generateUrl('app_reset_password', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
 
                 $mail->send(
-                    'noreply@schoolindex.fr',
+                    ' contact@lyceestvincent.net',
                     $user->getEmail(),
-                    'SchoolIndex - Réinitialiser votre mot de passe',
+                    'SchoolIndex - ' . $user->getFirstName() . 'demande un changement de mot de passe',
                     'resetting_request',
                     compact('user', 'url')
                 );
@@ -95,7 +95,7 @@ class SecurityController extends AbstractController
     #[Route('/reset/{token}', name: 'app_reset_password')]
     public function resetPassword($token, UserPasswordHasherInterface $passwordHasher, Request $request): Response
     {
-        if($this->jwt->isValid($token) && !$this->jwt->isExpired($token) && $this->jwt->check($token, $this->getParameter('app.jwtsecret'))){
+        if ($this->jwt->isValid($token) && !$this->jwt->isExpired($token) && $this->jwt->check($token, $this->getParameter('app.jwtsecret'))) {
             // Le token est valide
             // On récupère les données (payload)
             $payload = $this->jwt->getPayload($token);
@@ -104,12 +104,12 @@ class SecurityController extends AbstractController
             // On récupère le user
             $user = $this->userRepository->find($payload['user_id']);
 
-            if($user){
+            if ($user) {
                 $form = $this->createForm(ResetPasswordType::class);
 
                 $form->handleRequest($request);
 
-                if($form->isSubmitted() && $form->isValid()){
+                if ($form->isSubmitted() && $form->isValid()) {
                     $user->setPassword(
                         $passwordHasher->hashPassword($user, $form->get('password')->getData())
                     );

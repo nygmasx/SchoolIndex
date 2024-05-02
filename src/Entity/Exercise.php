@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
-use App\Enum\DifficultyLevelEnum;
 use App\Repository\ExerciseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 
@@ -19,92 +20,79 @@ class Exercise
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
     #[ORM\Column(length: 255, nullable: false)]
+    #[NotBlank(message: "Veuillez saisir un nom pour l'exercice")]
+    #[Assert\Length(max: 255)]
     private ?string $name = null;
-
     #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'exercises')]
+    #[NotBlank(message: "Veuillez choisir une matière pour l'exercice")]
     #[ORM\JoinColumn(nullable: false)]
     private ?Course $course = null;
-
     #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'exercises')]
+    #[NotBlank(message: "Veuillez choisir une classe pour l'exercice")]
     #[ORM\JoinColumn(nullable: false)]
     private ?Classroom $classroom = null;
-
     #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'exercises')]
+    #[NotBlank(message: "Veuillez choisir une thématique pour l'exercice")]
     #[ORM\JoinColumn(nullable: false)]
     private ?Thematic $thematic = null;
-
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $chapter = null;
-
+    private ?string $chapter;
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $keywords = null;
-
-    #[ORM\Column(type: 'string', enumType: DifficultyLevelEnum::class)]
-    private ?DifficultyLevelEnum $difficulty = null;
-
+    private ?string $keywords;
     #[ORM\Column(nullable: true)]
-    private ?float $duration = null;
-
+    private ?float $duration;
     #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'exercises')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Origin $origin = null;
-
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Origin $origin;
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $originName = null;
-
+    private ?string $originName;
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $originInformation = null;
-
+    private ?string $originInformation;
     #[ORM\Column(length: 255, nullable: true)]
+    #[NotBlank(message: "Veuillez spécifier qui a proposé l'exercice")]
     private ?string $proposedByType = null;
-
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $proposedByFirstName = null;
-
+    private ?string $proposedByFirstName;
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $proposedByLastName = null;
-
+    private ?string $proposedByLastName;
     /**
      * @var string A "Y-m-d H:i:s" formatted value
      */
     #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
     private \DateTimeImmutable $createdAt;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $exerciseFile = null;
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $correctionFile = null;
-
     #[Vich\UploadableField(mapping: 'exercises', fileNameProperty: 'exerciseFile', size: 'fileSize', mimeType: 'fileExtension', originalName: 'originalFileName')]
+    #[Assert\NotBlank(message: "Veuillez fournir un document pour l'exercice")]
+    #[Assert\File(mimeTypes: ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])]
     private ?File $firstFile = null;
     #[Vich\UploadableField(mapping: 'exercises', fileNameProperty: 'correctionFile', size: 'fileSize', mimeType: 'fileExtension', originalName: 'originalFileName')]
+    #[Assert\NotBlank(message: "Veuillez fournir un corrigé pour l'exercice")]
+    #[Assert\File(mimeTypes: ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])]
     private ?File $secondFile = null;
-
     #[ORM\ManyToOne(inversedBy: 'exercises')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $createdBy = null;
-
     #[ORM\ManyToMany(targetEntity: Skill::class, inversedBy: 'exercises', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private Collection $skills;
-
     #[ORM\Column(length: 255)]
     private ?string $originalFileName = null;
-
     #[ORM\Column(length: 255)]
     private ?string $fileExtension = null;
-
     #[ORM\Column]
     private ?int $fileSize = null;
+    #[ORM\Column]
+    #[NotBlank(message: "Veuillez choisir une difficulté pour l'exercice")]
+    private ?int $difficulty = null;
 
     public function __construct()
     {
         $this->createdAt = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', date('Y-m-d H:i:s'));
         $this->skills = new ArrayCollection();
-        $this->course = new Course();
-
     }
 
     public function getId(): ?int
@@ -180,18 +168,6 @@ class Exercise
     public function setKeywords(?string $keywords): static
     {
         $this->keywords = $keywords;
-
-        return $this;
-    }
-
-    public function getDifficulty(): ?DifficultyLevelEnum
-    {
-        return $this->difficulty;
-    }
-
-    public function setDifficulty(DifficultyLevelEnum $difficulty): static
-    {
-        $this->difficulty = $difficulty;
 
         return $this;
     }
@@ -414,6 +390,18 @@ class Exercise
     public function getSecondFile(): ?File
     {
         return $this->secondFile;
+    }
+
+    public function getDifficulty(): ?int
+    {
+        return $this->difficulty;
+    }
+
+    public function setDifficulty(int $difficulty): static
+    {
+        $this->difficulty = $difficulty;
+
+        return $this;
     }
 
 

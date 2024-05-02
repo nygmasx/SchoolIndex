@@ -56,7 +56,7 @@ class ResearchController extends AbstractController
         $thematics = $entityManager->getRepository(Thematic::class)->findAll();
         $courses = $entityManager->getRepository(Course::class)->findAll();
 
-        return $this->render('research/index.html.twig', [
+        return $this->render('/contributors/research/index.html.twig', [
             'pagination' => $pagination,
             'classrooms' => $classrooms,
             'thematics' => $thematics,

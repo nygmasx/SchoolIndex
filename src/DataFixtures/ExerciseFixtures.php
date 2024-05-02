@@ -21,7 +21,7 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
             'thematic' => 'thematic_3',
             'chapter' => 'Chapitre 2',
             'keywords' => 'algèbre@maths@calcul',
-            'difficulty' => DifficultyLevelEnum::BACPLUS2,
+            'difficulty' => 1,
             'duration' => 45.5,
             'original_name' => 'Mathématiques avancées',
             'originInformation' => 'Exercice tiré du livre "Mathématiques avancées".',
@@ -38,7 +38,7 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
             'chapter' => 'Chapitre 3',
             'thematic' => 'thematic_3',
             'keywords' => 'algèbre@maths@calcul',
-            'difficulty' => DifficultyLevelEnum::BAC,
+            'difficulty' => 1,
             'duration' => 200,
             'original_name' => 'Mathématiques avancées',
             'originInformation' => 'Exercice tiré du livre "Mathématiques avancées".',
@@ -55,7 +55,7 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
             'chapter' => 'Chapitre 5',
             'thematic' => 'thematic_5',
             'keywords' => 'algèbre@maths@calcul',
-            'difficulty' => DifficultyLevelEnum::BACPLUS3,
+            'difficulty' => 1,
             'duration' => 150,
             'original_name' => 'Mathématiques avancées',
             'originInformation' => 'Exercice tiré du livre "Mathématiques avancées".',
@@ -72,7 +72,7 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
             'chapter' => 'Chapitre 5',
             'thematic' => 'thematic_2',
             'keywords' => 'théatre@molière',
-            'difficulty' => DifficultyLevelEnum::BACPLUS5,
+            'difficulty' => 1,
             'duration' => 150,
             'original_name' => 'Le Malade Imaginaire',
             'originInformation' => 'Livre de molière',
@@ -87,7 +87,7 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
             'chapter' => 'Chapitre 2',
             'thematic' => 'thematic_1',
             'keywords' => 'paris@littérature@arts',
-            'difficulty' => DifficultyLevelEnum::BACPLUS8,
+            'difficulty' => 1,
             'duration' => 90,
             'original_name' => 'classique&cie BTS',
             'origin_information' => 'Johan Faerber',
@@ -115,10 +115,10 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
                 ->setThematic($this->getReference($exerciseInfo['thematic']))
                 ->setChapter($exerciseInfo['chapter'])
                 ->setKeywords($exerciseInfo['keywords'])
-                ->setDifficulty(DifficultyLevelEnum::random())
                 ->setDuration($exerciseInfo['duration'])
                 ->setOrigin($this->getReference(OriginFixtures::REFERENCE_IDENTIFIER . random_int(0, count(OriginFixtures::ORIGIN) - 1)))
                 ->setoriginName($exerciseInfo['original_name'])
+                ->setDifficulty($exerciseInfo['difficulty'])
                 ->setOriginInformation('Exercice tiré du livre "Mathématiques avancées".')
                 ->setProposedByType('Enseignant')
                 ->setProposedByFirstName('Laurent')
