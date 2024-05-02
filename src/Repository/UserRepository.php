@@ -42,31 +42,31 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     public function createQueryBuilderForAll()
-{
-    return $this->createQueryBuilder('u')
-        ->orderBy('u.id', 'ASC');
-}
-
-public function findBySearchTerm(string $searchTerm): array
-{
-    return $this->createQueryBuilder('u')
-        ->andWhere('u.name LIKE :searchTerm OR u.surname LIKE :searchTerm OR u.email LIKE :searchTerm')
-        ->setParameter('searchTerm', '%' . $searchTerm . '%')
-        ->getQuery()
-        ->getResult();
-}
-
-public function getSearchQueryBuilder(string $searchTerm = ''): QueryBuilder
-{
-    $qb = $this->createQueryBuilder('u');
-
-    if ($searchTerm) {
-        $qb->andWhere('u.email LIKE :searchTerm OR u.firstName LIKE :searchTerm OR u.lastName LIKE :searchTerm')
-            ->setParameter('searchTerm', '%' . $searchTerm . '%');
+    {
+        return $this->createQueryBuilder('u')
+            ->orderBy('u.id', 'ASC');
     }
 
-    return $qb; // Ajoutez cette ligne pour corriger l'erreur
-}
+    public function findBySearchTerm(string $searchTerm): array
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.name LIKE :searchTerm OR u.surname LIKE :searchTerm OR u.email LIKE :searchTerm')
+            ->setParameter('searchTerm', '%' . $searchTerm . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getSearchQueryBuilder(string $searchTerm = ''): QueryBuilder
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        if ($searchTerm) {
+            $qb->andWhere('u.email LIKE :searchTerm OR u.firstName LIKE :searchTerm OR u.lastName LIKE :searchTerm')
+                ->setParameter('searchTerm', '%' . $searchTerm . '%');
+        }
+
+        return $qb; // Ajoutez cette ligne pour corriger l'erreur
+    }
 
     public function findOneByEmail(string $email): ?User
     {

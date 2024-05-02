@@ -1,20 +1,18 @@
 <?php
 
-namespace App\Controller\Admin\Course;
+namespace App\Controller\Admin;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
-use Knp\Component\Pager\PaginatorInterface;
-use App\Repository\CourseRepository;
-use Symfony\Component\HttpFoundation\Request;
-use App\Security\LoginAuthenticator;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Tools\Pagination\Paginator;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use App\Entity\Course;
 use App\Form\CourseType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use App\Repository\CourseRepository;
+use App\Security\LoginAuthenticator;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 
 class CourseController extends AbstractController
@@ -26,13 +24,13 @@ class CourseController extends AbstractController
         private CourseRepository $courseRepository,
     ) {}
 
-    #[Route('/matières', name: 'app_course')]
+    #[Route('/matières', name: 'app_admin_course')]
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
 
         // Capture le terme de recherche depuis la requête
         $searchTerm = $request->query->get('search', '');
-    
+
         // Utilisez la méthode modifiée pour obtenir un QueryBuilder basé sur le terme de recherche
         $queryBuilder = $this->courseRepository->getSearchQueryBuilder($searchTerm);
 
@@ -64,7 +62,7 @@ class CourseController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             $this->entityManager->persist($course);
             $this->entityManager->flush();
 
@@ -116,7 +114,7 @@ class CourseController extends AbstractController
         if (!$authChecker->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé. Vous n\'avez pas les permissions nécessaires.');
         }
-        
+
         $form = $this->createForm(CourseType::class, $course, [
         ]);
         $form->handleRequest($request);

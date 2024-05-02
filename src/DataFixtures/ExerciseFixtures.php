@@ -123,8 +123,11 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
                 ->setProposedByType('Enseignant')
                 ->setProposedByFirstName('Laurent')
                 ->setProposedByLastName('Guyard')
-                ->setExerciseFile($this->getReference($exerciseInfo['file']))
-                ->setCorrectionFile($this->getReference($exerciseInfo['correction_file']))
+                ->setExerciseFile($exerciseInfo['file'])
+                ->setOriginalFileName($exerciseInfo['file'])
+                ->setFileExtension('pdf')
+                ->setFileSize(5678)
+                ->setCorrectionFile($exerciseInfo['correction_file'])
                 ->setCreatedBy($this->getReference(UserFixtures::REFERENCE_IDENTIFIER. $i))
                 ->setCreatedAt(\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', date('Y-m-d H:i:s')));
 
@@ -141,7 +144,6 @@ class ExerciseFixtures extends Fixture implements DependentFixtureInterface
             ThematicFixtures::class,
             UserFixtures::class,
             OriginFixtures::class,
-            FileFixtures::class,
             CourseFixtures::class,
             SkillFixtures::class,
             ClassroomFixtures::class,

@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\Classroom;
 use App\Entity\Course;
 use App\Entity\Exercise;
-use App\Entity\File;
 use App\Entity\Origin;
 use App\Entity\Skill;
 use App\Entity\Thematic;
@@ -19,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class ExerciseType extends AbstractType
 {
@@ -92,11 +92,11 @@ class ExerciseType extends AbstractType
                 'multiple' => true,
                 'expanded' => true
             ])
-            ->add('exerciseFile', FileType::class, [
+            ->add('firstFile', VichFileType::class, [
                 "label" => "Fiche exercice (PDF, word) * :",
                 'required' => true
             ])
-            ->add('correctionFile', FileType::class, [
+            ->add('secondFile', VichFileType::class, [
                 "label" => "Fiche corrigé (PDF, word) * :",
                 'required' => true
             ]);

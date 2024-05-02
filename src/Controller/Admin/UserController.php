@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Controller\Admin\User;
+namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Form\UserType;
 use App\Security\LoginAuthenticator;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class UserController extends AbstractController
 {
@@ -58,7 +57,7 @@ class UserController extends AbstractController
             }
             // Assure que les rôles sont uniques
             $roles = array_unique($roles);
-            
+
             // Attribue les rôles à l'utilisateur
             $user->setRoles($roles);
 
@@ -81,7 +80,7 @@ class UserController extends AbstractController
         if (!$authChecker->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé. Vous n\'avez pas les permissions nécessaires.');
         }
-    
+
         // Création du formulaire de confirmation de suppression
 
             $form = $this->createForm(UserType::class, $user);
@@ -89,33 +88,33 @@ class UserController extends AbstractController
             // Création du formulaire de confirmation
             $form = $this->createFormBuilder()
                 ->getForm();
-    
+
             $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
             // Récupérer tous les exercices associés à l'utilisateur
             $exercises = $user->getExercises();
-    
+
             // Supprimer chaque exercice associé à l'utilisateur
             foreach ($exercises as $exercise) {
                 $entityManager->remove($exercise);
             }
-    
+
             // Ensuite, supprimer l'utilisateur lui-même
             $entityManager->remove($user);
             $entityManager->flush();
-    
+
             $this->addFlash('success', 'L\'utilisateur et ses exercices associés ont été supprimés avec succès.');
-    
+
             return $this->redirectToRoute('app_contributor');
         }
-    
+
         return $this->render('admin/contributor/delete.html.twig', [
             'user' => $user,
             'confirmationForm' => $form->createView(),
         ]);
     }
-        
+
 
     #[Route('/utilisateurs/edit/{id}', name: 'edit_user')]
     public function editUser(User $user, Request $request, AuthorizationCheckerInterface $authChecker): Response
@@ -125,7 +124,7 @@ class UserController extends AbstractController
         if (!$authChecker->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé. Vous n\'avez pas les permissions nécessaires.');
         }
-        
+
         $form = $this->createForm(UserType::class, $user, [
             'require_password' => false,
         ]);

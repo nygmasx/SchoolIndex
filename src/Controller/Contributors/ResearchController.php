@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Contributors;
 
 use App\Entity\Classroom;
-use App\Entity\Thematic;
 use App\Entity\Course;
+use App\Entity\Thematic;
 use App\Repository\ExerciseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;

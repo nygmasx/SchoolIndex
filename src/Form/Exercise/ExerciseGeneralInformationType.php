@@ -32,6 +32,7 @@ class ExerciseGeneralInformationType extends AbstractType
             ])
             ->add('course', EntityType::class, [
                 "label" => "Matière",
+                'placeholder' => 'Choisissez une matière',
                 'class' => Course::class,
                 'choice_label' => 'name',
             ])

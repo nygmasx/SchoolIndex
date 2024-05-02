@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Controller\Admin\Skill;
+namespace App\Controller\Admin;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use App\Entity\Skill;
 use App\Form\SkillType;
 use App\Repository\SkillRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class SkillController extends AbstractController
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private readonly PaginatorInterface $paginator, 
-        private readonly skillRepository $skillRepository, 
+        private readonly PaginatorInterface $paginator,
+        private readonly skillRepository $skillRepository,
     ) {}
 
     #[Route('/compétences/new', name: 'new_skill')]
@@ -35,7 +35,7 @@ class SkillController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-    
+
 
             $this->entityManager->persist($skill);
             $this->entityManager->flush();
@@ -56,7 +56,7 @@ class SkillController extends AbstractController
             throw $this->createAccessDeniedException('Accès refusé. Vous n\'avez pas les permissions nécessaires.');
         }
 
-        
+
         // Création du formulaire de confirmation
         $form = $this->createFormBuilder()
             ->getForm();
@@ -87,7 +87,7 @@ class SkillController extends AbstractController
         if (!$authChecker->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException('Accès refusé. Vous n\'avez pas les permissions nécessaires.');
         }
-        
+
         $form = $this->createForm(SkillType::class, $skill, [
         ]);
         $form->handleRequest($request);

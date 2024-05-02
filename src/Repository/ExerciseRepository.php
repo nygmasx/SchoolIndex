@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Course;
 use App\Entity\Exercise;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,7 +16,6 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Exercise[]    findAll()
  * @method Exercise[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-
 class ExerciseRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -22,21 +23,21 @@ class ExerciseRepository extends ServiceEntityRepository
         parent::__construct($registry, Exercise::class);
     }
 
-    public function findMathExercises()
+    public function findExercisesByCourseName(string $courseName)
     {
         return $this->createQueryBuilder('e')
             ->leftJoin('e.course', 'c')
             ->andWhere('c.name = :courseName')
-            ->setParameter('courseName', 'Mathématiques')
+            ->setParameter('courseName', $courseName)
             ->getQuery();
     }
 
-    public function findLatestMathExercises($limit)
+    public function findLatestExercises(Course $course, $limit)
     {
         return $this->createQueryBuilder('e')
             ->leftJoin('e.course', 'c')
-            ->andWhere('c.name = :courseName')
-            ->setParameter('courseName', 'Mathématiques')
+            ->andWhere('c = :course')
+            ->setParameter('course', $course)
             ->orderBy('e.createdAt', 'DESC')
             ->setMaxResults($limit)
             ->getQuery()
@@ -84,9 +85,21 @@ class ExerciseRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-    
-    
-    
+
+    public function getExerciseSearchQueryBuilder(string $searchTerm = ''): ?QueryBuilder
+    {
+        $qb = $this->createQueryBuilder('e')
+            ->join('e.course', 'c')
+            ->join('e.thematic', 't');
+
+        if ($searchTerm) {
+            $qb->andWhere('e.name LIKE :searchTerm OR e.difficulty LIKE :searchTerm OR t.name LIKE :searchTerm OR c.name LIKE :searchTerm')
+                ->setParameter('searchTerm', '%' . $searchTerm . '%');
+        }
+
+        return $qb;
+    }
+
 
 
 //    /**

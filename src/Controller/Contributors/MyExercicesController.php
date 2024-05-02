@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Contributors;
 
+use App\Entity\Exercise;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException; // Ajoutez cette ligne
-use App\Entity\Exercise;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
+// Ajoutez cette ligne
 
 class MyExercicesController extends AbstractController
 {

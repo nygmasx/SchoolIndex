@@ -23,14 +23,14 @@ class SkillRepository extends ServiceEntityRepository
     }
 
     public function findBySearchTerm(string $searchTerm): array
-        {
-        
-            return $this->createQueryBuilder('u')
+    {
+
+        return $this->createQueryBuilder('u')
             ->andWhere('u.name LIKE :searchTerm OR u.surname LIKE :searchTerm OR u.email LIKE :searchTerm')
             ->setParameter('searchTerm', '%' . $searchTerm . '%')
             ->getQuery()
             ->getResult();
-        }
+    }
 
     public function getSearchQueryBuilder(string $searchTerm = ''): QueryBuilder
     {

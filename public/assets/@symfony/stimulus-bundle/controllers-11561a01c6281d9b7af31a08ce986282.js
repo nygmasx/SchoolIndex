@@ -1,0 +1,14 @@
+import controller_0 from "../ux-autocomplete/controller.js";
+import "tom-select/dist/css/tom-select.default.css";
+import controller_1 from "../ux-dropzone/controller.js";
+import "../ux-dropzone/style.min.css";
+import controller_2 from "../ux-live-component/live_controller.js";
+import "../ux-live-component/live.min.css";
+import controller_3 from "../ux-swup/controller.js";
+import controller_4 from "../ux-toggle-password/controller.js";
+import "../ux-toggle-password/style.min.css";
+import controller_5 from "../ux-turbo/turbo_controller.js";
+import controller_6 from "../../controllers/hello_controller.js";
+export const eagerControllers = {"symfony--ux-autocomplete--autocomplete": controller_0, "symfony--ux-dropzone--dropzone": controller_1, "live": controller_2, "symfony--ux-swup--swup": controller_3, "symfony--ux-toggle-password--toggle-password": controller_4, "symfony--ux-turbo--turbo-core": controller_5, "hello": controller_6};
+export const lazyControllers = {};
+export const isApplicationDebug = true;
