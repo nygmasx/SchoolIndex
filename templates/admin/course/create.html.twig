@@ -1,50 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Page d'administration{% endblock %}
+{% block title %}Page d'administration
+{% endblock %}
 
 {% block main %}
-	<div class="bg-slate-200 flex flex-col  min-h-screen max-sm:min-h-[75vh] font-['Epilogue'] pb-5">
-	<h1 class="text-2xl	 md:text-4xl font-medium text-center max-sm:pt-4 lg:text-start text-blue-900 pt-12 px-6 pb-4">Administration</h1>
+<div class="bg-slate-200 flex flex-col  min-h-screen font-['Epilogue'] pb-5">
+	<h1 class="text-2xl	 md:text-4xl max-sm:text-3xl max-sm:pt-6 font-medium text-center lg:text-start text-blue-900 pt-12 px-6 pb-4">
+		Administration</h1>
 
-		{% include "admin/layout/nav.html.twig" %}
+	{% include "admin/layout/nav.html.twig" %}
 
-		<div class="bg-white rounded-md w-[95%]  md:w-[97%] p-3 md:p-7  mx-auto rounded-tl-none	">
-			<h1 class="text-[20px] font-semibold font-noto">Ajouter une matière.</h1>
-    {{ form_start(form) }}
+	<div class="bg-white rounded-md w-[95%]  md:w-[97%] p-3 md:p-7  mx-auto rounded-tl-none	">
+		<h1 class="text-[20px] font-semibold font-noto">Ajouter une matière.</h1>
+		{{ form_start(form) }}
 
-		<div class="my-4">
+		{{ form_label(form.name, 'Nom de la matière :', {
+						'label_attr': {
+							'class': 'block text-base font-medium text-gray-700',
+							'data-toggle': 'tooltip',
+						}
+						}) }}
+		{{ form_errors(form.name) }}
+		{{ form_widget(form.name, { 
+							'attr': {                
+								'placeholder': 'Saisissez le nom de la matière',
+								'class': 'max-sm:w-full h-[50px] mt-1 p-2 block w-[50%] text-base border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500'
+							} 
+						}) }}
+	</div>
 
-        {{ form_label(form.name, 'Nom :', {
+	{{ form_label(form.name, 'Nom :', {
         'label_attr': {
             'class': 'block text-base font-medium text-gray-700',
             'data-toggle': 'tooltip',
         }
         }) }}
-        {{ form_errors(form.name) }}
-        {{ form_widget(form.name, {
+	{{ form_errors(form.name) }}
+	{{ form_widget(form.name, {
             'attr': {
                 'placeholder': 'Saisissez le nom de la matière',
                 'class': 'max-sm:w-full h-[50px] mt-1 p-2 block w-[50%] text-base border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500'
             }
         }) }}
-            </div>
-
-    <div class="flex gap-5 max-sm:flex-col">
-                        <a href="{{path('app_course')}}" class="font-semibold flex justify-center items-center bg-slate-100 h-11 px-5 rounded-md font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200">< Retour à la liste</a>
-
-                            {{ form_widget(form.submit, {
-                                'label': 'Enregistrer',
-                                'attr': {
-                                    'class': 'font-semibold bg-slate-100 h-11 px-5 rounded-md font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200e',
-                                }
-                            }) }}
-        </div>
-    {{ form_end(form) }}
-
-        </div>
-
-
 </div>
 
-{% endblock %}
-
+<div class="flex gap-5 max-sm:flex-col">
+	<a href="{{path('app_course')}}" class="font-semibold flex justify-center items-center bg-slate-100 h-11 px-5 rounded-md font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200">
+		<Retour à la liste</a> {{ form_widget(form.submit, { 'label': 'Enregistrer', 'attr': { 'class': 'font-semibold bg-slate-100 h-11 px-5 rounded-md font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200e', } }) }} </div> {{ form_end(form) }} </div> </div> </div> {% endblock %}

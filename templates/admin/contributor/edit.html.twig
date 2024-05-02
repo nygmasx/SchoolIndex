@@ -30,6 +30,19 @@
                     }
                 }) }}
 
+					{{ form_label(form.firstName, 'Prénom :',{
+                        'label_attr': {
+                        'class': 'text-base text-color text-customGrey',
+                        'data-toggle': 'tooltip',
+                        }}
+					) }}
+					{{ form_errors(form.firstName) }}
+					{{ form_widget(form.firstName, { 
+                        'attr': {
+                            'class': 'h-[50px] mb-4 mt-1 p-2 block  text-base border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500',
+                            'placeholder': 'Saisissez le prénom',
+                        } 
+                    }) }}
 
                 {{ form_label(form.firstName, 'Prénom :',{
                     'label_attr': {
@@ -90,7 +103,6 @@
                     }
                 }) }}
             </div>
-        </div>
 
         <div class="max-sm:flex-col flex gap-5">
             <a href="{{ path('app_contributor') }}"

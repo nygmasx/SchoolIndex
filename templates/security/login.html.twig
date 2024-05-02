@@ -5,56 +5,48 @@
 
 {% block main %}
 
-    <div class="bg-slate-200 flex flex-col items-center min-h-[91vh] font-['Epilogue'] ">
-        <div class="w-full text-center md:w-[90%] lg:text-start">
-            <h1  class="text-3xl md:text-4xl font-medium text-center lg:text-start text-blue-950 pt-12 px-4 pb-4">Connexion</h1>
-        </div>
-        <div data-turbo="false"
-             class="bg-white rounded-md w-[85%] md:w-[90%] min-h-[75vh] mx-0 p-0">
-            <p class="text-[14px] md:text-[18px] lg:text-[16px] p-4 lg:p-4 lg:ml-6 lg:mt-2">Cet espace est réservé aux
-                enseignants du lycée Saint-Vincent - Senlis. Si vous n’avez pas encore de compte, veuillez effectuer
-                votre demande directement en envoyant un email à
-                <a class="text-sky-700" href="mailto:contact@lyceestvincent.net">contact@lyceestvincent.net</a>
-                .</p>
-            <form class="p-2 flex flex-col" method="post">
-                {% if error %}
-                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                {% endif %}
+	<div class="bg-slate-200 flex flex-col items-center min-h-screen font-['Epilogue'] pb-5">
+		<div class="w-full text-center lg:text-start">
+			<h1 class="text-2xl	 md:text-4xl max-sm:text-3xl max-sm:pt-6 font-medium text-center lg:text-start text-blue-900 pt-12 px-6 pb-4">
+				Connexion</h1>
+		</div>
+		<div data-turbo="false" class="bg-white rounded-md w-[95%]  md:w-[97%] mx-0 p-3 md:p-7 min-h-[85vh]">
+			<p class="text-[14px] md:text-[18px] lg:text-[16px]">Cet espace est réservé aux
+								                enseignants du lycée Saint-Vincent - Senlis. Si vous n’avez pas encore de compte, veuillez effectuer
+								                votre demande directement en envoyant un email à
+				<a class="text-sky-700" href="mailto:contact@lyceestvincent.net">contact@lyceestvincent.net</a>
+				.</p>
+			<form class="flex flex-col mt-9 gap-8 w-[40%] max-[1300px]:w-[60%] max-sm:w-[95%] max-sm:mx-auto" method="post">
+				{% if error %}
+					<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+				{% endif %}
 
-                {% if app.user %}
-                    <div class="mb-3">
-                        You are logged in as
-                        {{ app.user.userIdentifier }},
-                        <a href="{{ path('app_logout') }}">Logout</a>
-                    </div>
-                {% endif %}
+				{% if app.user %}
+					<div class="mb-3">
+						You are logged in as
+						{{ app.user.userIdentifier }},
+						<a href="{{ path('app_logout') }}">Logout</a>
+					</div>
+				{% endif %}
+				<div class="flex flex-col">
+					<label for="inputEmail" class="md:text-center lg:text-justify text-gray-700 md:text-[18px] font-medium">Email
+											                    :</label>
+					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="h-11 border border-gray-200 border rounded " autocomplete="email" placeholder="Saisissez votre e-mail" required autofocus>
 
-                <label for="inputEmail"
-                       class="md:text-center lg:text-justify text-gray-700 md:text-[18px] lg:p-6 lg:ml-6 font-medium">Email
-                    :</label>
-                <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
-                       class="border-gray-400 border rounded mt-2 mb-2 md:mb-6 md:mt-4 p-1 md:w-10/12 md:m-auto lg:m-0 lg:p-3 lg:ml-12 lg:mb-4 lg:w-4/12"
-                       autocomplete="email" placeholder="Saisissez votre e-mail" required autofocus>
-                <div class="toggle-password-container flex flex-col">
-                    <label for="inputPassword"
-                           class="md:text-center lg:text-justify text-gray-700 md:text-[18px] lg:p-6 lg:ml-6 font-medium">Password
-                        :</label>
-                        <div class="flex gap-4">
-                            <input type="password" name="password" id="inputPassword"
-                           class="border-gray-400 border w-full rounded mt-2 md:mt-4 p-1 md:w-10/12 md:m-auto lg:m-0 lg:p-3 lg:ml-12 lg:mb-6 lg:w-4/12"
-                           autocomplete="current-password" placeholder="Saisissez votre mot de passe" required
+				</div>
+				<div class="toggle-password-container flex flex-col">
+					<label for="inputPassword" class="md:text-center lg:text-justify text-gray-700 md:text-[18px] font-medium">Password
+												                        :</label>
+					<input type="password" name="password" id="inputPassword" class="border-gray-200 border w-full rounded h-11" autocomplete="current-password" required
                             {{ stimulus_controller('symfony/ux-toggle-password/toggle-password', {
                                 buttonClasses: ['toggle-password-button']
-                            }) }}
-                    >
-                        </div>
-                </div>
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                <div class="flex flex-col items-center lg:flex-row lg:justify-start lg:w-3/5">
-                    <button class="p-2 mt-8 mb-2 text-center w-1/3 lg:w-1/5 bg-gray-300 m-auto lg:m-0 lg:ml-12 rounded lg:p-4"
-                            type="submit">
-                        Connexion
-                    </button>
+                            }) }} placeholder="Saisissez votre mot de passe">
+				</div>
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+				<div class="flex justify-between items-center max-sm:flex-col max-sm:items-start max-sm:gap-5	">
+					<button class="font-semibold bg-slate-100 h-[55px] px-7 rounded-md font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200" type="submit">
+						Connexion
+					</button>
 
                     <a class="text-center text-gray-700 lg:ml-6 items-center" href="{{ path('app_resetting_request') }}">Mot de passe oublié ?</a>
                 </div>

@@ -21,7 +21,7 @@ class SkillController extends AbstractController
         private readonly skillRepository $skillRepository,
     ) {}
 
-    #[Route('/compétences/new', name: 'new_skill')]
+    #[Route('/competence/create', name: 'new_skill')]
     public function addskill(Request $request, AuthorizationCheckerInterface $authChecker): Response
     {
 
@@ -48,7 +48,7 @@ class SkillController extends AbstractController
         ]);
     }
 
-    #[Route('/compétences/delete/{id}', name: 'skill_delete', methods: ['GET', 'POST'])]
+    #[Route('/competence/delete/{id}', name: 'skill_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, skill $skill, AuthorizationCheckerInterface $authChecker, EntityManagerInterface $entityManager): Response
     {
         // Vérifie si l'utilisateur a le rôle admin
@@ -79,7 +79,7 @@ class SkillController extends AbstractController
     }
 
 
-    #[Route('/compétences/edit/{id}', name: 'edit_skill')]
+    #[Route('/competence/edit/{id}', name: 'edit_skill')]
     public function editskill(skill $skill, Request $request, AuthorizationCheckerInterface $authChecker): Response
     {
 
@@ -106,7 +106,7 @@ class SkillController extends AbstractController
         ]);
     }
 
-    #[Route('/compétences', name: 'app_skill')]
+    #[Route('/competence', name: 'app_skill')]
     public function index(Request $request): Response
     {
         // Capture le terme de recherche depuis la requête
@@ -119,8 +119,18 @@ class SkillController extends AbstractController
         $pagination = $this->paginator->paginate(
             $queryBuilder, // QueryBuilder
             $request->query->getInt('page', 1), // Numéro de la page
-            4 // Limite par page
+            5 // Limite par page
         );
+
+        $skills = $pagination->getItems();
+        foreach ($skills as $skill) {
+            $exercisesCount = count($skill->getExercises());
+            $skill->exercisesCount = $exercisesCount;
+
+            // Accéder à la propriété course via le getter de l'entité Thematic
+            $courseLinked = $skill->getCourse();
+            $skill->courseLinked = $courseLinked;
+        }
 
         // Renvoyez le résultat à votre template, avec la pagination et le terme de recherche
         return $this->render('admin/skill/index.html.twig', [

@@ -3,9 +3,34 @@
 {% block title %}Page d'administration{% endblock %}
 
 {% block main %}
-<div class="bg-slate-200 flex flex-col min-h-[95vh]">
-	<h1 class="text-2xl	 md:text-4xl font-medium text-center max-sm:pt-4 lg:text-start text-blue-900 pt-12 px-6 pb-4">Administration</h1>
+	<div class="bg-slate-200 flex flex-col  min-h-screen font-['Epilogue'] pb-5">
+		<h1 class="text-2xl	 md:text-4xl max-sm:text-3xl max-sm:pt-6 font-medium text-center lg:text-start text-blue-900 pt-12 px-6 pb-4">
+			Administration</h1>		<div class="px-[18px] max-sm:px-[10px]">
+			<div class="flex gap-3">
+				<a href="{{ path('app_contributor') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 opacity-[0.8] flex justify-center transition duration-200 hover:opacity-100">
+					<span class="justify-center items-center flex text-white font-noto">Contributeurs</span>
+				</a>
+				<a href="#" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex justify-center opacity-[0.8] transition duration-200 hover:opacity-100">
+					<span class="justify-center items-center flex text-white font-noto">Exercices</span>
+				</a>
+				<a href="{{ path('app_course') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex opacity-[0.8] justify-center transition duration-200 hover:opacity-100">
+					<span class="justify-center items-center flex text-white font-noto">Matières</span>
+				</a>
+				<a href="{{ path('app_classroom') }}" class="bg-customBlue rounded-tl-xl px-5 py-2.5 rounded-tr-xl flex justify-center opacity-[0.8] transition duration-200 hover:opacity-100">
+					<span class="justify-center items-center flex text-white font-noto">Classes</span>
+				</a>
+				<a href="{{ path('app_thematic') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex justify-center opacity-80 transition duration-200 hover:opacity-100">
+					<span class="justify-center items-center flex text-white font-noto">Thématiques</span>
+				</a>
+				<a href="{{ path('app_skill') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-14 py-2.5 flex justify-center transition duration-200 hover:opacity-100">
+					<span class="justify-center items-center flex text-white font-noto" href="">Compétences</span>
+				</a>
+				<a href="{{ path('app_origin') }}" class="bg-customBlue rounded-tl-xl px-5 py-2.5 rounded-tr-xl flex opacity-80 justify-center  transition duration-200 hover:opacity-100">
+					<span class="justify-center items-center flex text-white font-noto">Origines</span>
+				</a>
+			</div>
 
+<<<<<<< HEAD
     {% include "admin/layout/nav.html.twig" %}
 
     <div class="w-[95%] md:ml-[30px] min-md:w-[100%] min-md:ml-10 rounded-lg sm:flex sm:flex-col justify-center bg-white max-sm:w-[100%] ">
@@ -63,10 +88,54 @@
             }) }}
         </div>
                     {{ form_end(form) }}
+=======
+			<div class="bg-white rounded-md w-full p-3 md:p-7 rounded-tl-none	">
+				<h1 class="text-[20px] font-semibold font-noto">Ajouter une compétence</h1>
+				{{ form_start(form) }}
+			    <div class="max-sm:block flex gap-12 my-4">
+				    <div class="w-[40%] max-sm:w-full">
+                        {{ form_label(form.name, 'Nom de la compétence:', {
+                        'label_attr': {
+							'class': 'block text-base font-medium text-gray-700',
+                            'data-toggle': 'tooltip',
+                        }
+                        }) }}
+                        {{ form_errors(form.name) }}
+                        {{ form_widget(form.name, { 
+                            'attr': {
+								'class': 'max-sm:w-full h-[50px] mt-1 p-2 block text-base border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500',
+                                'placeholder': 'Saisissez le nom de la compétence',
+                            } 
+                        }) }}
+                    </div>
+                    <div class="w-[40%] max-sm:w-full">
+                        {{ form_label(form.course, 'Matière :', {
+                        'label_attr': {
+							'class': 'block text-base font-medium text-gray-700',
+                            'data-toggle': 'tooltip',
+                        } 
+                        }) }}
+                        {{ form_errors(form.course) }}
+                        {{ form_widget(form.course, { 
+                            'attr': {
+                                'class': 'my-custom-class h-[50px] text-base flex flex-column text-customGrey border border-gray-200 rounded-md p-2 mb-4 focus:outline-none focus:border-darkGrey w-full', 
+                            } 
+                        }) }}
+                    </div>
+>>>>>>> 2a70289 (J'ai finis tous les onglets du backoffice sauf Exercices + refonte du style d'un peu toutes les pages)
                 </div>
+                <div class="flex gap-5 max-sm:flex-col">
+                    <a href="{{path('app_skill')}}" class="font-semibold flex justify-center items-center bg-slate-100 h-11 px-5 rounded-md font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200">< Retour à la liste</a>
+                        {{ form_widget(form.submit, { 
+                            'label': 'Enregistrer',
+                            'attr': {
+                                'class': 'font-semibold bg-slate-100 h-11 px-5 rounded-md font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200e',
+                            }
+                        }) }}
+        		</div>
+                {{ form_end(form) }}
             </div>
         </div>
     </div>
-</div>
-
 {% endblock %}
+
