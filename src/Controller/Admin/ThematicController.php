@@ -47,13 +47,8 @@ class ThematicController extends AbstractController
                 'form' => $form->createView(),
             ]);
         }
-<<<<<<< HEAD:src/Controller/Admin/ThematicController.php
-
-        #[Route('/thematiques/delete/{id}', name: 'thematic_delete', methods: ['GET', 'POST'])]
-=======
     
         #[Route('/thematique/delete/{id}', name: 'thematic_delete', methods: ['GET', 'POST'])]
->>>>>>> 2a70289 (J'ai finis tous les onglets du backoffice sauf Exercices + refonte du style d'un peu toutes les pages):src/Controller/Admin/Thematic/ThematicController.php
         public function delete(Request $request, thematic $thematic, AuthorizationCheckerInterface $authChecker, EntityManagerInterface $entityManager): Response
         {
             // Vérifie si l'utilisateur a le rôle admin
@@ -82,15 +77,9 @@ class ThematicController extends AbstractController
                 'confirmationForm' => $form->createView(),
             ]);
         }
-<<<<<<< HEAD:src/Controller/Admin/ThematicController.php
-
-
-        #[Route('/thematiques/edit/{id}', name: 'edit_thematic')]
-=======
     
     
         #[Route('/thematique/edit/{id}', name: 'edit_thematic')]
->>>>>>> 2a70289 (J'ai finis tous les onglets du backoffice sauf Exercices + refonte du style d'un peu toutes les pages):src/Controller/Admin/Thematic/ThematicController.php
         public function editthematic(thematic $thematic, Request $request, AuthorizationCheckerInterface $authChecker): Response
         {
 
@@ -116,13 +105,8 @@ class ThematicController extends AbstractController
                 'form' => $form->createView(),
             ]);
         }
-<<<<<<< HEAD:src/Controller/Admin/ThematicController.php
-
-        #[Route('/thematiques', name: 'app_thematic')]
-=======
     
         #[Route('/thematique', name: 'app_thematic')]
->>>>>>> 2a70289 (J'ai finis tous les onglets du backoffice sauf Exercices + refonte du style d'un peu toutes les pages):src/Controller/Admin/Thematic/ThematicController.php
         public function index(Request $request): Response
         {
             // Capture le terme de recherche depuis la requête
@@ -138,8 +122,6 @@ class ThematicController extends AbstractController
                 5 // Limite par page
             );
 
-<<<<<<< HEAD:src/Controller/Admin/ThematicController.php
-=======
             $thematiques = $pagination->getItems();
             foreach ($thematiques as $thematique) {
                 $exercisesCount = count($thematique->getExercises());
@@ -150,7 +132,6 @@ class ThematicController extends AbstractController
                 $thematique->courseLinked = $courseLinked;
             }
     
->>>>>>> 2a70289 (J'ai finis tous les onglets du backoffice sauf Exercices + refonte du style d'un peu toutes les pages):src/Controller/Admin/Thematic/ThematicController.php
             // Renvoyez le résultat à votre template, avec la pagination et le terme de recherche
             return $this->render('admin/thematic/index.html.twig', [
                 'pagination' => $pagination,

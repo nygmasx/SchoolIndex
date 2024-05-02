@@ -43,13 +43,8 @@ class ClassroomController extends AbstractController
             'pagination' => $pagination,
         ]);
     }
-<<<<<<< HEAD:src/Controller/Admin/ClassroomController.php
-
-    #[Route('/classes/create', name: 'add_classroom')]
-=======
     
     #[Route('/classe/create', name: 'add_classroom')]
->>>>>>> 2a70289 (J'ai finis tous les onglets du backoffice sauf Exercices + refonte du style d'un peu toutes les pages):src/Controller/Admin/Classroom/ClassroomController.php
     public function addClassroom(Request $request, EntityManagerInterface $entityManager): Response
     {
         // Créez un nouvel objet Classroom
