@@ -41,19 +41,19 @@
                                     <td class="py-4 px-6">{{ exercise.thematic.name }}</td>
                                     <td class="px-6	py-4">
                                         <div class="flex flex-col gap-4 items-baseline">
-                                            <a class="flex justify-center items-normal gap-2" href="public/exercises/{{ exercise.exerciseFile }}">
+                                            <a class="flex justify-center items-normal gap-2" href="/uploads/files/exercises/{{ exercise.exerciseFile }}">
                                                 <svg width="16" height="19" viewbox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M7.38596 6.50012H9.49122L6.6842 9.02643L3.87719 6.50012H5.98245V3.9738H7.38596V6.50012ZM8.78946 1.44748H1.77193V11.5527H11.5965V3.9738H8.78946V1.44748ZM0.368423 0.810853C0.368423 0.464747 0.682107 0.184326 1.06948 0.184326H9.49122L13 3.34222V12.1799C13.0006 12.2628 12.9831 12.3451 12.9485 12.4219C12.9138 12.4988 12.8626 12.5687 12.7979 12.6278C12.7332 12.6869 12.6562 12.7339 12.5713 12.7661C12.4864 12.7984 12.3953 12.8153 12.3031 12.8159H1.06526C0.880969 12.8147 0.704576 12.7484 0.57419 12.6312C0.443804 12.5139 0.369893 12.3552 0.368423 12.1894V0.810853Z" fill="#03053D"/>
                                                 </svg>
                                                 Exercice</a>
-                                            <a class="flex justify-center items-normal gap-2" href="public/exercises/{{ exercise.correctionFile }}">
+                                            <a class="flex justify-center items-normal gap-2" href="/uploads/files/exercises/{{ exercise.correctionFile }}">
                                                 <svg width="16" height="19" viewbox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M7.38596 6.50012H9.49122L6.6842 9.02643L3.87719 6.50012H5.98245V3.9738H7.38596V6.50012ZM8.78946 1.44748H1.77193V11.5527H11.5965V3.9738H8.78946V1.44748ZM0.368423 0.810853C0.368423 0.464747 0.682107 0.184326 1.06948 0.184326H9.49122L13 3.34222V12.1799C13.0006 12.2628 12.9831 12.3451 12.9485 12.4219C12.9138 12.4988 12.8626 12.5687 12.7979 12.6278C12.7332 12.6869 12.6562 12.7339 12.5713 12.7661C12.4864 12.7984 12.3953 12.8153 12.3031 12.8159H1.06526C0.880969 12.8147 0.704576 12.7484 0.57419 12.6312C0.443804 12.5139 0.369893 12.3552 0.368423 12.1894V0.810853Z" fill="#03053D"/>
                                                 </svg>Corrigé</a>
                                         </div>
                                     </td>
                                     <td class="py-4 px-6 md:flex md:justify-center md:items-center md:gap-3 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center max-sm:gap-3">
-                                        <a href="{{ path('edit_origin', {'id': exercise.id}) }}" class="flex items-center gap-2.5 font-medium hover:underline">
+                                        <a href="{{ path('exercise_admin_edit_general', {'id': exercise.id}) }}" class="flex items-center gap-2.5 font-medium hover:underline">
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M11.266 0.875098L9.68262 2.45843H1.95833V13.5418H13.0417V5.81747L14.625 4.23414V14.3334C14.625 14.5434 14.5416 14.7448 14.3931 14.8932C14.2447 15.0417 14.0433 15.1251 13.8333 15.1251H1.16667C0.956704 15.1251 0.75534 15.0417 0.606874 14.8932C0.458407 14.7448 0.375 14.5434 0.375 14.3334V1.66676C0.375 1.4568 0.458407 1.25544 0.606874 1.10697C0.75534 0.958505 0.956704 0.875098 1.16667 0.875098H11.266ZM14.2173 0.162598L15.3375 1.2836L8.0605 8.5606L6.94267 8.56297L6.94108 7.44118L14.2173 0.162598Z" fill="#757575"/>
                                             </svg>

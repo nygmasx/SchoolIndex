@@ -101,6 +101,25 @@ final class ExerciseController extends AbstractController
         ]);
     }
 
+    #[Route('/edit/general/{id}', name: 'exercise_admin_edit_general')]
+    public function editStep1(Request $request, Exercise $exercise, SessionInterface $session): Response
+    {
+        $form = $this->createForm(ExerciseGeneralInformationType::class, $exercise);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($exercise);
+            $this->entityManager->flush();
+
+            $session->set('edit_step1_data', $exercise);
+            return $this->redirectToRoute('exercise_admin_edit_sources', ['id' => $exercise->getId()]);
+        }
+
+        return $this->render('/admin/exercise/step-general.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
 
     #[Route('/create/sources', name: 'exercise_admin_create_sources')]
     public function createStep2(Request $request, SessionInterface $session): Response
@@ -117,6 +136,23 @@ final class ExerciseController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/edit/sources/{id}', name: 'exercise_admin_edit_sources')]
+    public function editStep2(Request $request, SessionInterface $session, Exercise $exercise): Response
+    {
+        $form = $this->createForm(ExerciseSourceType::class, $exercise);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $session->set('edit_step2_data', $exercise);
+            return $this->redirectToRoute('exercise_admin_edit_files', ['id' => $exercise->getId()]);
+        }
+
+        return $this->render('/contributors/exercise/step-sources.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
 
     /**
      * @throws ORMException
@@ -166,6 +202,26 @@ final class ExerciseController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/edit/files/{id}', name: 'exercise_admin_edit_files')]
+    public function editStep3(Request $request, SessionInterface $session, Exercise $exercise): Response
+    {
+        $form = $this->createForm(ExerciseFileType::class, $exercise);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Handle file uploads here, similar to your create function
+            $this->entityManager->persist($exercise);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render('/contributors/exercise/step-files.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
 
     #[Route('/update-thematic-field', name: 'update_admin_thematic_field', methods: ['POST'])]
     public function updateThematicField(Request $request, ThematicRepository $thematicRepository, SessionInterface $session): Response
