@@ -39,13 +39,8 @@ class OriginController extends AbstractController
             'origines' => $origines,
         ]);
     }
-<<<<<<< HEAD:src/Controller/Admin/Origin/OriginController.php
         
     #[Route('/origine/create', name: 'add_origin')]
-=======
-
-    #[Route('/origines/create', name: 'add_origin')]
->>>>>>> f909c23d1bb4528a218bc41fa530dde00eb43e55:src/Controller/Admin/OriginController.php
     public function addOrigin(Request $request, EntityManagerInterface $entityManager): Response
     {
         $origin = new Origin();

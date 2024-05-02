@@ -24,11 +24,7 @@ class CourseController extends AbstractController
         private CourseRepository $courseRepository,
     ) {}
 
-<<<<<<< HEAD:src/Controller/Admin/Course/CourseController.php
     #[Route('/matiere', name: 'app_course')]
-=======
-    #[Route('/matières', name: 'app_admin_course')]
->>>>>>> f909c23d1bb4528a218bc41fa530dde00eb43e55:src/Controller/Admin/CourseController.php
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
 
