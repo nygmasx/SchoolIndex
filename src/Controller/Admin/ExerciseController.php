@@ -33,7 +33,7 @@ final class ExerciseController extends AbstractController
     {
     }
 
-    #[Route('/exercise', name: 'app_admin_exercise')]
+    #[Route('/exercice', name: 'app_admin_exercise')]
     public function index(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator): Response
     {
         $searchTerm = $request->query->get('search', '');

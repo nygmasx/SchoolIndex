@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 #[Route('/exercise')]
 final class ExerciseController extends AbstractController
@@ -193,6 +194,29 @@ final class ExerciseController extends AbstractController
 
         return $this->render('contributors/exercise/forms/skills.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+    #[Route('/delete/{id}', name: 'app_exercise_delete', methods: ['GET', 'POST'])]
+    public function delete(Request $request, Exercise $exercise): Response
+    {
+        // Création du formulaire de confirmation
+        $form = $this->createFormBuilder()->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->remove($exercise);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'L\'exercice a été supprimée avec succès.');
+
+            return $this->redirectToRoute('app_my_exercises');
+        }
+
+        return $this->render('contributors/exercise/delete.html.twig', [
+            'exercise' => $exercise,
+            'confirmationForm' => $form->createView(),
         ]);
     }
 
