@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Classroom;
 use App\Form\ClassroomType;
+use App\Repository\ClassroomRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +19,7 @@ class ClassroomController extends AbstractController
 {
 
     #[Route('/classe', name: 'app_classroom')]
-    public function index(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator): Response
+    public function index(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator, ClassroomRepository $classroomRepository): Response
     {
         if (!$this->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException("Vous n'avez pas accès à cette page.");
@@ -27,7 +28,7 @@ class ClassroomController extends AbstractController
         $searchTerm = $request->query->get('search');
 
         if ($searchTerm) {
-            $queryBuilder = $entityManager->getRepository(Classroom::class)->findBySearchTermQueryBuilder($searchTerm);
+            $queryBuilder = $classroomRepository->findBySearchTerm($searchTerm);
         } else {
             $queryBuilder = $entityManager->getRepository(Classroom::class)->createQueryBuilder('c');
         }
@@ -43,7 +44,7 @@ class ClassroomController extends AbstractController
             'pagination' => $pagination,
         ]);
     }
-    
+
     #[Route('/classe/create', name: 'add_classroom')]
     public function addClassroom(Request $request, EntityManagerInterface $entityManager): Response
     {

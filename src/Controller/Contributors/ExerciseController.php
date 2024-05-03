@@ -2,37 +2,23 @@
 
 namespace App\Controller\Contributors;
 
-use App\DataTransferObject\ExerciseFileDto;
-use App\DataTransferObject\ExerciseGeneralDto;
-use App\DataTransferObject\ExerciseSourceDto;
-use App\Entity\Course;
 use App\Entity\Exercise;
-use App\Entity\File;
 use App\Entity\Skill;
 use App\Entity\Thematic;
-use App\Entity\User;
-use App\Factory\ExerciseFactory;
 use App\Form\Exercise\ExerciseFileType;
 use App\Form\Exercise\ExerciseGeneralInformationType;
 use App\Form\Exercise\ExerciseSourceType;
-use App\Repository\CourseRepository;
-use App\Repository\ExerciseRepository;
 use App\Repository\SkillRepository;
 use App\Repository\ThematicRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Exception\ORMException;
-use Doctrine\Persistence\Proxy;
-use phpDocumentor\Reflection\Types\Self_;
-use phpDocumentor\Reflection\Types\True_;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Http\Attribute\CurrentUser;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 #[Route('/exercise')]
 final class ExerciseController extends AbstractController
@@ -88,25 +74,6 @@ final class ExerciseController extends AbstractController
         ]);
     }
 
-    #[Route('/edit/general/{id}', name: 'exercise__edit_general')]
-    public function editStep1(Request $request, Exercise $exercise, SessionInterface $session): Response
-    {
-        $form = $this->createForm(ExerciseGeneralInformationType::class, $exercise);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($exercise);
-            $this->entityManager->flush();
-
-            $session->set('edit_step1_data', $exercise);
-            return $this->redirectToRoute('exercise_admin_edit_sources', ['id' => $exercise->getId()]);
-        }
-
-        return $this->render('/contributors/exercise/step-general.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
 
     #[Route('/create/sources', name: 'exercise_create_sources')]
     public function createStep2(Request $request, SessionInterface $session): Response
@@ -117,22 +84,6 @@ final class ExerciseController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $session->set('step2_data', $form->getData());
             return $this->redirectToRoute('exercise_create_files');
-        }
-
-        return $this->render('/contributors/exercise/step-sources.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-    #[Route('/edit/sources/{id}', name: 'exercise_edit_sources')]
-    public function editStep2(Request $request, SessionInterface $session, Exercise $exercise): Response
-    {
-        $form = $this->createForm(ExerciseSourceType::class, $exercise);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $session->set('edit_step2_data', $exercise);
-            return $this->redirectToRoute('exercise_edit_files', ['id' => $exercise->getId()]);
         }
 
         return $this->render('/contributors/exercise/step-sources.html.twig', [
@@ -178,25 +129,6 @@ final class ExerciseController extends AbstractController
             $exercise->setCreatedAt(new \DateTimeImmutable());
             $exercise->setCreatedBy($this->getUser());
 
-            $this->entityManager->persist($exercise);
-            $this->entityManager->flush();
-
-            return $this->redirectToRoute('app_home');
-        }
-
-        return $this->render('/contributors/exercise/step-files.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-    #[Route('/edit/files/{id}', name: 'exercise_edit_files')]
-    public function editStep3(Request $request, SessionInterface $session, Exercise $exercise): Response
-    {
-        $form = $this->createForm(ExerciseFileType::class, $exercise);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Handle file uploads here, similar to your create function
             $this->entityManager->persist($exercise);
             $this->entityManager->flush();
 
@@ -262,6 +194,29 @@ final class ExerciseController extends AbstractController
 
         return $this->render('contributors/exercise/forms/skills.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+    #[Route('/delete/{id}', name: 'app_exercise_delete', methods: ['GET', 'POST'])]
+    public function delete(Request $request, Exercise $exercise): Response
+    {
+        // Création du formulaire de confirmation
+        $form = $this->createFormBuilder()->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->remove($exercise);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'L\'exercice a été supprimée avec succès.');
+
+            return $this->redirectToRoute('app_my_exercises');
+        }
+
+        return $this->render('contributors/exercise/delete.html.twig', [
+            'exercise' => $exercise,
+            'confirmationForm' => $form->createView(),
         ]);
     }
 

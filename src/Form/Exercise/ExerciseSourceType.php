@@ -30,6 +30,10 @@ class ExerciseSourceType extends AbstractType
             ])
             ->add('proposedbyType', ChoiceType::class, [
                 "label" => "Ou proposé par un :",
+                'choices' => [
+                    "Éleve" => "Éleve",
+                    "Professeur" => "Professeur"
+                ]
             ])
             ->add('proposedByFirstName', TextType::class, [
                 "label" => "Nom :",

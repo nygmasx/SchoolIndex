@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
@@ -20,79 +19,98 @@ class Exercise
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
     #[ORM\Column(length: 255, nullable: false)]
-    #[NotBlank(message: "Veuillez saisir un nom pour l'exercice")]
-    #[Assert\Length(max: 255)]
     private ?string $name = null;
-    #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'exercises')]
-    #[NotBlank(message: "Veuillez choisir une matière pour l'exercice")]
+
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'exercises')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Course $course = null;
-    #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'exercises')]
-    #[NotBlank(message: "Veuillez choisir une classe pour l'exercice")]
+
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'exercises')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Classroom $classroom = null;
-    #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'exercises')]
-    #[NotBlank(message: "Veuillez choisir une thématique pour l'exercice")]
+
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'exercises')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Thematic $thematic = null;
+
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $chapter;
+    private ?string $chapter = null;
+
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $keywords;
+    private ?string $keywords = null;
+
+    #[ORM\Column]
+    private ?int $difficulty = null;
+
     #[ORM\Column(nullable: true)]
-    private ?float $duration;
-    #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'exercises')]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?Origin $origin;
+    private ?float $duration = null;
+
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'exercises')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Origin $origin = null;
+
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $originName;
+    private ?string $originName = null;
+
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $originInformation;
+    private ?string $originInformation = null;
+
     #[ORM\Column(length: 255, nullable: true)]
-    #[NotBlank(message: "Veuillez spécifier qui a proposé l'exercice")]
     private ?string $proposedByType = null;
+
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $proposedByFirstName;
+    private ?string $proposedByFirstName = null;
+
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $proposedByLastName;
+    private ?string $proposedByLastName = null;
+
     /**
      * @var string A "Y-m-d H:i:s" formatted value
      */
     #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
     private \DateTimeImmutable $createdAt;
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $exerciseFile = null;
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $correctionFile = null;
-    #[Vich\UploadableField(mapping: 'exercises', fileNameProperty: 'exerciseFile', size: 'fileSize', mimeType: 'fileExtension', originalName: 'originalFileName')]
-    #[Assert\NotBlank(message: "Veuillez fournir un document pour l'exercice")]
-    #[Assert\File(mimeTypes: ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])]
+
+    #[Vich\UploadableField(mapping: 'exercises', fileNameProperty: 'exerciseFile', size: 'firstFileSize', mimeType: 'firstFileExtension', originalName: 'originalFirstFileName')]
     private ?File $firstFile = null;
-    #[Vich\UploadableField(mapping: 'exercises', fileNameProperty: 'correctionFile', size: 'fileSize', mimeType: 'fileExtension', originalName: 'originalFileName')]
-    #[Assert\NotBlank(message: "Veuillez fournir un corrigé pour l'exercice")]
-    #[Assert\File(mimeTypes: ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])]
+    #[Vich\UploadableField(mapping: 'exercises', fileNameProperty: 'correctionFile', size: 'secondFileSize', mimeType: 'secondFileExtension', originalName: 'originalSecondFileName')]
     private ?File $secondFile = null;
+
     #[ORM\ManyToOne(inversedBy: 'exercises')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $createdBy = null;
-    #[ORM\ManyToMany(targetEntity: Skill::class, inversedBy: 'exercises', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+
+    #[ORM\ManyToMany(targetEntity: Skill::class, inversedBy: 'exercises', cascade: ['persist'])]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'cascade')]
     private Collection $skills;
+
     #[ORM\Column(length: 255)]
-    private ?string $originalFileName = null;
+    private ?string $originalFirstFileName = null;
+
     #[ORM\Column(length: 255)]
-    private ?string $fileExtension = null;
-    #[ORM\Column]
-    private ?int $fileSize = null;
-    #[ORM\Column]
-    #[NotBlank(message: "Veuillez choisir une difficulté pour l'exercice")]
-    private ?int $difficulty = null;
+    private ?string $originalSecondFileName = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $firstFileExtension = null;
+    #[ORM\Column(length: 255)]
+    private ?string $secondFileExtension = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $firstFileSize = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $secondFileSize = null;
 
     public function __construct()
     {
         $this->createdAt = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', date('Y-m-d H:i:s'));
         $this->skills = new ArrayCollection();
+        $this->course = new Course();
     }
 
     public function getId(): ?int
@@ -120,7 +138,6 @@ class Exercise
     public function setCourse(?Course $course): static
     {
         $this->course = $course;
-
         return $this;
     }
 
@@ -168,6 +185,18 @@ class Exercise
     public function setKeywords(?string $keywords): static
     {
         $this->keywords = $keywords;
+
+        return $this;
+    }
+
+    public function getDifficulty(): ?int
+    {
+        return $this->difficulty;
+    }
+
+    public function setDifficulty(?int $difficulty): static
+    {
+        $this->difficulty = $difficulty;
 
         return $this;
     }
@@ -336,38 +365,74 @@ class Exercise
         return $this;
     }
 
-    public function getOriginalFileName(): ?string
+    public function getOriginalFirstFileName(): ?string
     {
-        return $this->originalFileName;
+        return $this->originalFirstFileName;
     }
 
-    public function setOriginalFileName(string $originalFileName): static
+    public function setOriginalFirstFileName(string $originalFirstFileName): static
     {
-        $this->originalFileName = $originalFileName;
+        $this->originalFirstFileName = $originalFirstFileName;
 
         return $this;
     }
 
-    public function getFileExtension(): ?string
+    public function getOriginalSecondFileName(): ?string
     {
-        return $this->fileExtension;
+        return $this->originalSecondFileName;
     }
 
-    public function setFileExtension(string $fileExtension): static
+    public function setOriginalSecondFileName(string $originalSecondFileName): static
     {
-        $this->fileExtension = $fileExtension;
+        $this->originalSecondFileName = $originalSecondFileName;
 
         return $this;
     }
 
-    public function getFileSize(): ?int
+    public function getFirstFileExtension(): ?string
     {
-        return $this->fileSize;
+        return $this->firstFileExtension;
     }
 
-    public function setFileSize(int $fileSize): static
+    public function setFirstFileExtension(string $firstFileExtension): static
     {
-        $this->fileSize = $fileSize;
+        $this->firstFileExtension = $firstFileExtension;
+
+        return $this;
+    }
+
+    public function getSecondFileExtension(): ?string
+    {
+        return $this->secondFileExtension;
+    }
+
+    public function setSecondFileExtension(string $secondFileExtension): static
+    {
+        $this->secondFileExtension = $secondFileExtension;
+
+        return $this;
+    }
+
+    public function getFirstFileSize(): ?int
+    {
+        return $this->firstFileSize;
+    }
+
+    public function setFirstFileSize(?int $firstFileSize): static
+    {
+        $this->firstFileSize = $firstFileSize;
+
+        return $this;
+    }
+
+    public function getSecondFileSize(): ?int
+    {
+        return $this->secondFileSize;
+    }
+
+    public function setSecondFileSize(?int $secondFileSize): static
+    {
+        $this->secondFileSize = $secondFileSize;
 
         return $this;
     }
@@ -380,7 +445,11 @@ class Exercise
     public function setFirstFile(?File $firstFile = null): void
     {
         $this->firstFile = $firstFile;
+        if ($firstFile !== null) {
+            $this->firstFileSize = $firstFile->getSize();
+        }
     }
+
 
     public function setSecondFile(?File $secondFile = null): void
     {
@@ -390,18 +459,6 @@ class Exercise
     public function getSecondFile(): ?File
     {
         return $this->secondFile;
-    }
-
-    public function getDifficulty(): ?int
-    {
-        return $this->difficulty;
-    }
-
-    public function setDifficulty(int $difficulty): static
-    {
-        $this->difficulty = $difficulty;
-
-        return $this;
     }
 
 

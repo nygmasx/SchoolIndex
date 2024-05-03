@@ -18,7 +18,7 @@ class Thematic
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'thematic', targetEntity: Exercise::class)]
+    #[ORM\OneToMany(targetEntity: Exercise::class, mappedBy: 'thematic')]
     private Collection $exercises;
 
     #[ORM\ManyToOne(inversedBy: 'thematics')]

@@ -4,355 +4,378 @@
 {% endblock %}
 
 {% block main %}
-	<div class="bg-slate-200 flex flex-col items-center min-h-screen font-['Epilogue'] pb-5">
-		<div class="w-full text-center lg:text-start">
-			<h1 class="text-2xl	 md:text-4xl max-sm:text-3xl max-sm:pt-6 font-medium text-center lg:text-start text-blue-900 pt-12 px-6 pb-4">
-				Rechercher un exercice
-			</h1>
-		</div>
-		<div class="bg-white rounded-md w-[95%]  md:w-[97%] mx-0 p-3 md:p-7 min-h-[85vh]">
-			<div class="flex flex-col md:flex-row   gap-2">
-				{% if pagination.currentPageNumber == 1 %}
-					<form action="{{ path('app_research') }}" class="flex w-full gap-5 max-lg:flex-col" method="GET">
+    <div class="bg-slate-200 flex flex-col items-center min-h-screen font-['Epilogue'] pb-5">
+        <div class="w-full text-center lg:text-start">
+            <h1 class="text-2xl	 md:text-4xl max-sm:text-3xl max-sm:pt-6 font-medium text-center lg:text-start text-blue-900 pt-12 px-6 pb-4">
+                Rechercher un exercice
+            </h1>
+        </div>
+        <div class="bg-white rounded-md w-[95%]  md:w-[97%] mx-0 p-3 md:p-7 min-h-[85vh]">
+            <div class="flex flex-col md:flex-row   gap-2">
+                {% if pagination.currentPageNumber == 1 %}
+                    <form action="{{ path('app_research') }}" class="flex w-full gap-5 max-lg:flex-col" method="GET">
 
-						<div class="flex flex-col text-gray-500 md:w-[40%]">
-							<p class="font-medium text-gray-600">Matière :</p>
-							<div class="custom-select select-none">
-								<div class="flex items-center justify-between text-gray-500 rounded-md border-gray-300 border border-solid h-11 px-2.5 select-selected cursor-pointer" id="course-dropdown-trigger">
-									<span>----</span>
-									<svg width="12" height="8" viewbox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" class="transition-transform">
-										<path d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z" fill="#757575"/>
-									</svg>
-								</div>
-								<div class="course-dropdown-list course-list hidden">
-									{% for course in courses %}
-										<div class="select-item border border-t-0 border-gray-300">
-											<div class="border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer">{{ course.name }}</div>
-										</div>
-									{% endfor %}
-								</div>
-							</div>
-							<input type="hidden" name="course" value=""/>
-						</div>
-
-
-						<div class="flex flex-col text-gray-500 md:w-[40%]">
-							<p class="font-medium text-gray-600">Niveau :</p>
-							<div>
-								<div id="dropdown-trigger-level" class="select-none flex items-center justify-between text-gray-500 rounded-md border-gray-300 border border-solid h-11 px-2.5  select-selected cursor-pointer">
-									<span>----</span>
-									<svg class="arrow-down" width="12" height="8" viewbox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z" fill="#757575"/>
-									</svg>
-								</div>
-								<div class="dropdown-level level-list  border border-t-0 border-gray-300 hidden select-none">
-									<div class="flex items-center justify-between border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer" data-level="college">
-										<span>Collège</span>
-										<svg class="arrow-down" width="12" height="8" viewbox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z" fill="#757575"/>
-										</svg>
-									</div>
-									<div class="dropdown-college hidden">
-										{% for classroom in classrooms %}
-											{% if classroom.name in ['6ème', '5ème', '4ème', '3ème'] %}
-												<div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 pl-6 	cursor-pointer college-class">{{ classroom.name }}</div>
-											{% endif %}
-										{% endfor %}
-									</div>
-
-									<div class=" flex items-center justify-between border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer" data-level="lycee">
-										<span>Lycée</span>
-										<svg class="arrow-down" width="12" height="8" viewbox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z" fill="#757575"/>
-										</svg>
-									</div>
-									<div class="dropdown-lycee hidden ">
-										{% for classroom in classrooms %}
-											{% if classroom.name in ['Seconde', 'Première', 'Terminale'] %}
-												<div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 pl-6 cursor-pointer lycee-class">{{ classroom.name }}</div>
-											{% endif %}
-										{% endfor %}
-									</div>
-									<div class="flex items-center justify-between border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer" data-level="bts">
-										<span>BTS</span>
-										<svg class="arrow-down" width="12" height="8" viewbox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z" fill="#757575"/>
-										</svg>
-									</div>
-									<div class="dropdown-bts hidden select-none">
-										{% for classroom in classrooms %}
-											{% if classroom.name in ['BTS1', 'BTS2'] %}
-												<div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 pl-6 cursor-pointer bts-class">{{ classroom.name }}</div>
-											{% endif %}
-										{% endfor %}
-									</div>
-
-									<div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer licence-class">
-										Licence
-									</div>
+                        <div class="flex flex-col text-gray-500 md:w-[40%]">
+                            <p class="font-medium text-gray-600">Matière :</p>
+                            <div class="custom-select select-none">
+                                <div class="flex items-center justify-between text-gray-500 rounded-md border-gray-300 border border-solid h-11 px-2.5 select-selected cursor-pointer"
+                                     id="course-dropdown-trigger">
+                                    <span>----</span>
+                                    <svg width="12" height="8" viewbox="0 0 12 8" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg" class="transition-transform">
+                                        <path d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z" fill="#757575"/>
+                                    </svg>
+                                </div>
+                                <div class="course-dropdown-list course-list hidden">
+                                    {% for course in courses %}
+                                        <div class="select-item border border-t-0 border-gray-300">
+                                            <div class="border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer">{{ course.name }}</div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <input type="hidden" name="course" value=""/>
+                        </div>
 
 
-								</div>
-								<input type="hidden" name="class" value=""/>
-							</div>
-						</div>
+                        <div class="flex flex-col text-gray-500 md:w-[40%]">
+                            <p class="font-medium text-gray-600">Niveau :</p>
+                            <div>
+                                <div id="dropdown-trigger-level"
+                                     class="select-none flex items-center justify-between text-gray-500 rounded-md border-gray-300 border border-solid h-11 px-2.5  select-selected cursor-pointer">
+                                    <span>----</span>
+                                    <svg class="arrow-down" width="12" height="8" viewbox="0 0 12 8" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z" fill="#757575"/>
+                                    </svg>
+                                </div>
+                                <div class="dropdown-level level-list  border border-t-0 border-gray-300 hidden select-none">
+                                    <div class="flex items-center justify-between border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer"
+                                         data-level="college">
+                                        <span>Collège</span>
+                                        <svg class="arrow-down" width="12" height="8" viewbox="0 0 12 8" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z"
+                                                  fill="#757575"/>
+                                        </svg>
+                                    </div>
+                                    <div class="dropdown-college hidden">
+                                        {% for classroom in classrooms %}
+                                            {% if classroom.name in ['6ème', '5ème', '4ème', '3ème'] %}
+                                                <div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 pl-6 	cursor-pointer college-class">{{ classroom.name }}</div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
 
-						<div class="flex flex-col text-gray-500 md:w-[40%]">
-							<p class="font-medium text-gray-600">Thématique :</p>
-							<div class="custom-select select-none">
-								<div class="flex items-center justify-between text-gray-500 rounded-md border-gray-300 border border-solid h-11 px-2.5 select-selected cursor-pointer" id="dropdown-trigger">
-									<span>----</span>
-									<svg width="12" height="8" viewbox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z" fill="#757575"/>
-									</svg>
-								</div>
-								<div class="dropdown-list thematic-list hidden">
-									{% for thematic in thematics %}
-										<div class="select-item border border-t-0 border-gray-300 	">
-											<div class="border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer">{{ thematic.name }}</div>
-										</div>
-									{% endfor %}
-								</div>
-							</div>
-							<input type="hidden" name="thematic" value=""/>
-						</div>
+                                    <div class=" flex items-center justify-between border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer"
+                                         data-level="lycee">
+                                        <span>Lycée</span>
+                                        <svg class="arrow-down" width="12" height="8" viewbox="0 0 12 8" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z"
+                                                  fill="#757575"/>
+                                        </svg>
+                                    </div>
+                                    <div class="dropdown-lycee hidden ">
+                                        {% for classroom in classrooms %}
+                                            {% if classroom.name in ['Seconde', 'Première', 'Terminale'] %}
+                                                <div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 pl-6 cursor-pointer lycee-class">{{ classroom.name }}</div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <div class="flex items-center justify-between border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer"
+                                         data-level="bts">
+                                        <span>BTS</span>
+                                        <svg class="arrow-down" width="12" height="8" viewbox="0 0 12 8" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z"
+                                                  fill="#757575"/>
+                                        </svg>
+                                    </div>
+                                    <div class="dropdown-bts hidden select-none">
+                                        {% for classroom in classrooms %}
+                                            {% if classroom.name in ['BTS1', 'BTS2'] %}
+                                                <div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 pl-6 cursor-pointer bts-class">{{ classroom.name }}</div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
 
-						<div class="flex flex-col text-gray-500 md:w-[40%]  ">
-							<p class="font-medium text-gray-600">Mots clés :</p>
-							<input type="text" name="keywords" class="text-gray-500 rounded-md border-gray-300 border border-solid h-11 p-2 outline-none md:w-[100%]">
-						</div>
-						<div class="flex justify-center mt-6 md:w-[40%] ">
-							<button type="submit" class="bg-slate-100 h-11 rounded-md w-[100%] max-[600px]:w-[75%] font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200">
-								Rechercher
-							</button>
-						</div>
-					</form>
+                                    {% for classroom in classrooms %}
+                                        {% if classroom.name not in ['BTS1', 'BTS2', 'Seconde', 'Première', 'Terminale', '6ème', '5ème', '4ème', '3ème'] %}
+                                            <div class="border-t border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 pl-6 cursor-pointer bts-class">{{ classroom.name }}</div>
+                                        {% endif %}
+                                    {% endfor %}
 
-				{% endif %}
 
-			</div>
+                                </div>
+                                <input type="hidden" name="class" value=""/>
+                            </div>
+                        </div>
 
-			<div class="mt-12">
-				<p class="text-xl font-semibold text-blue-900">{{ pagination.getTotalItemCount() }}
-					exercice(s) trouvé(s)</p>
-				<div class="overflow-x-auto mt-5 rounded-xl border border-solid border-gray-200">
-					<table class="w-full">
-						<thead class="text-left h-12 bg-gray-100">
-							<tr>
-								<th class="w-[30%] font-medium px-6	py-3 rounded-tl-xl">Nom</th>
-								<th class="font-medium px-6	py-3  ">Difficultés</th>
-								<th class="font-medium px-6	py-3  ">Mots clés</th>
-								<th class="font-medium px-6	py-3  ">Durée</th>
-								<th class=" font-medium px-6	py-3 rounded-tr-xl	 ">Fichiers</th>
-							</tr>
-						</thead>
-						<tbody>
-							{% for exercise in pagination %}
-								<tr class="border-t	border-solid border-gray-200">
-									<td class="w-[30%] h-24 px-6 py-4">{{ exercise.name }}</td>
-									<td class="px-6 py-4">Niveau
-										{{ exercise.difficulty }}</td>
-									<td class="px-6 py-4 flex flex-wrap gap-1.5">
-										{% set keywords = exercise.keywords|split('@') %}
-										{% for keyword in keywords %}
-											{% if keyword != "" %}
-												<span class="bg-gray-200 px-4 py-2 rounded-full">
+                        <div class="flex flex-col text-gray-500 md:w-[40%]">
+                            <p class="font-medium text-gray-600">Thématique :</p>
+                            <div class="custom-select select-none">
+                                <div class="flex items-center justify-between text-gray-500 rounded-md border-gray-300 border border-solid h-11 px-2.5 select-selected cursor-pointer"
+                                     id="dropdown-trigger">
+                                    <span>----</span>
+                                    <svg width="12" height="8" viewbox="0 0 12 8" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z" fill="#757575"/>
+                                    </svg>
+                                </div>
+                                <div class="dropdown-list thematic-list hidden">
+                                    {% for thematic in thematics %}
+                                        <div class="select-item border border-t-0 border-gray-300 	">
+                                            <div class="border-gray-300 transition duration-200 hover:bg-gray-200 p-2.5 cursor-pointer">{{ thematic.name }}</div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <input type="hidden" name="thematic" value=""/>
+                        </div>
+
+                        <div class="flex flex-col text-gray-500 md:w-[40%]  ">
+                            <p class="font-medium text-gray-600">Mots clés :</p>
+                            <input type="text" name="keywords"
+                                   class="text-gray-500 rounded-md border-gray-300 border border-solid h-11 p-2 outline-none md:w-[100%]">
+                        </div>
+                        <div class="flex justify-center mt-6 md:w-[40%] ">
+                            <button type="submit"
+                                    class="bg-slate-100 h-11 rounded-md w-[100%] max-[600px]:w-[75%] font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200">
+                                Rechercher
+                            </button>
+                        </div>
+                    </form>
+
+                {% endif %}
+
+            </div>
+
+            <div class="mt-12">
+                <p class="text-xl font-semibold text-blue-900">{{ pagination.getTotalItemCount() }}
+                    exercice(s) trouvé(s)</p>
+                <div class="overflow-x-auto mt-5 rounded-xl border border-solid border-gray-200">
+                    <table class="w-full">
+                        <thead class="text-left h-12 bg-gray-100">
+                        <tr>
+                            <th class="w-[30%] font-medium px-6	py-3 rounded-tl-xl">Nom</th>
+                            <th class="font-medium px-6	py-3  ">Difficultés</th>
+                            <th class="font-medium px-6	py-3  ">Mots clés</th>
+                            <th class="font-medium px-6	py-3  ">Durée</th>
+                            <th class=" font-medium px-6	py-3 rounded-tr-xl	 ">Fichiers</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for exercise in pagination %}
+                            <tr class="border-t	border-solid border-gray-200">
+                                <td class="w-[30%] h-24 px-6 py-4">{{ exercise.name }}</td>
+                                <td class="px-6 py-4">Niveau
+                                    {{ exercise.difficulty }}</td>
+                                <td class="px-6 py-4 flex flex-wrap gap-1.5">
+                                    {% set keywords = exercise.keywords|split('@') %}
+                                    {% for keyword in keywords %}
+                                        {% if keyword != "" %}
+                                            <span class="bg-gray-200 px-4 py-2 rounded-full">
 													{{ keyword }}
 												</span>
-											{% endif %}
-										{% endfor %}
-									</td>
-									<td class="px-6 py-4">{{ exercise.duration }}</td>
-									<td class="px-6 py-4">
-										<div class="flex gap-4 items-center">
-											<a class="flex justify-center items-normal gap-2" href="#">
-												<svg width="16" height="19" viewbox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-													<path d="M7.38596 6.50012H9.49122L6.6842 9.02643L3.87719 6.50012H5.98245V3.9738H7.38596V6.50012ZM8.78946 1.44748H1.77193V11.5527H11.5965V3.9738H8.78946V1.44748ZM0.368423 0.810853C0.368423 0.464747 0.682107 0.184326 1.06948 0.184326H9.49122L13 3.34222V12.1799C13.0006 12.2628 12.9831 12.3451 12.9485 12.4219C12.9138 12.4988 12.8626 12.5687 12.7979 12.6278C12.7332 12.6869 12.6562 12.7339 12.5713 12.7661C12.4864 12.7984 12.3953 12.8153 12.3031 12.8159H1.06526C0.880969 12.8147 0.704576 12.7484 0.57419 12.6312C0.443804 12.5139 0.369893 12.3552 0.368423 12.1894V0.810853Z" fill="#03053D"/>
-												</svg>
-												Exercice</a>
-											<a class="flex justify-center items-normal gap-2" href="#">
-												<svg width="16" height="19" viewbox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-													<path d="M7.38596 6.50012H9.49122L6.6842 9.02643L3.87719 6.50012H5.98245V3.9738H7.38596V6.50012ZM8.78946 1.44748H1.77193V11.5527H11.5965V3.9738H8.78946V1.44748ZM0.368423 0.810853C0.368423 0.464747 0.682107 0.184326 1.06948 0.184326H9.49122L13 3.34222V12.1799C13.0006 12.2628 12.9831 12.3451 12.9485 12.4219C12.9138 12.4988 12.8626 12.5687 12.7979 12.6278C12.7332 12.6869 12.6562 12.7339 12.5713 12.7661C12.4864 12.7984 12.3953 12.8153 12.3031 12.8159H1.06526C0.880969 12.8147 0.704576 12.7484 0.57419 12.6312C0.443804 12.5139 0.369893 12.3552 0.368423 12.1894V0.810853Z" fill="#03053D"/>
-												</svg>
-												Corrigé</a>
-										</div>
-									</td>
-								</tr>
-							{% endfor %}
-						</tbody>
-					</table>
-				</div>
-				<div class="mt-5">
-					{{ knp_pagination_render(pagination, 'components/pagination/custom_pagination.html.twig') }}
-				</div>
-			</div>
-		</div>
-	</div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td class="px-6 py-4">{{ exercise.duration }}</td>
+                                <td class="px-6 py-4">
+                                    <div class="flex gap-4 items-center">
+                                        <a class="flex justify-center items-normal gap-2" href="public/exercises/204546379400003-convocation-avec-epreuves-v1-20240411-6632f5bf7c64e457985055.pdf" download="">
+                                            <svg width="16" height="19" viewbox="0 0 13 13" fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M7.38596 6.50012H9.49122L6.6842 9.02643L3.87719 6.50012H5.98245V3.9738H7.38596V6.50012ZM8.78946 1.44748H1.77193V11.5527H11.5965V3.9738H8.78946V1.44748ZM0.368423 0.810853C0.368423 0.464747 0.682107 0.184326 1.06948 0.184326H9.49122L13 3.34222V12.1799C13.0006 12.2628 12.9831 12.3451 12.9485 12.4219C12.9138 12.4988 12.8626 12.5687 12.7979 12.6278C12.7332 12.6869 12.6562 12.7339 12.5713 12.7661C12.4864 12.7984 12.3953 12.8153 12.3031 12.8159H1.06526C0.880969 12.8147 0.704576 12.7484 0.57419 12.6312C0.443804 12.5139 0.369893 12.3552 0.368423 12.1894V0.810853Z"
+                                                      fill="#03053D"/>
+                                            </svg>
+                                            Exercice</a>
+                                        <a class="flex justify-center items-normal gap-2" href="#">
+                                            <svg width="16" height="19" viewbox="0 0 13 13" fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M7.38596 6.50012H9.49122L6.6842 9.02643L3.87719 6.50012H5.98245V3.9738H7.38596V6.50012ZM8.78946 1.44748H1.77193V11.5527H11.5965V3.9738H8.78946V1.44748ZM0.368423 0.810853C0.368423 0.464747 0.682107 0.184326 1.06948 0.184326H9.49122L13 3.34222V12.1799C13.0006 12.2628 12.9831 12.3451 12.9485 12.4219C12.9138 12.4988 12.8626 12.5687 12.7979 12.6278C12.7332 12.6869 12.6562 12.7339 12.5713 12.7661C12.4864 12.7984 12.3953 12.8153 12.3031 12.8159H1.06526C0.880969 12.8147 0.704576 12.7484 0.57419 12.6312C0.443804 12.5139 0.369893 12.3552 0.368423 12.1894V0.810853Z"
+                                                      fill="#03053D"/>
+                                            </svg>
+                                            Corrigé</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-5">
+                    {{ knp_pagination_render(pagination, 'components/pagination/custom_pagination.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<script>
-		document.addEventListener('turbo:load', function () {
+    <script>
+        document.addEventListener('turbo:load', function () {
 
-const CoursesDropdownTrigger = document.getElementById('course-dropdown-trigger');
-const CoursesdropdownList = document.querySelector('.course-dropdown-list');
-const courseItems = document.querySelectorAll('.course-dropdown-list .select-item');
+            const CoursesDropdownTrigger = document.getElementById('course-dropdown-trigger');
+            const CoursesdropdownList = document.querySelector('.course-dropdown-list');
+            const courseItems = document.querySelectorAll('.course-dropdown-list .select-item');
 
-function toggleDropdown() {
-CoursesdropdownList.classList.toggle('hidden');
-CoursesDropdownTrigger.classList.toggle('open');
-}
+            function toggleDropdown() {
+                CoursesdropdownList.classList.toggle('hidden');
+                CoursesDropdownTrigger.classList.toggle('open');
+            }
 
-CoursesDropdownTrigger.addEventListener('click', function (event) {
-toggleDropdown();
-event.stopPropagation();
-});
+            CoursesDropdownTrigger.addEventListener('click', function (event) {
+                toggleDropdown();
+                event.stopPropagation();
+            });
 
-courseItems.forEach(function (item) {
-item.addEventListener('click', function () {
-const selectedCourse = item.textContent.trim();
-CoursesDropdownTrigger.querySelector('span').textContent = selectedCourse;
-toggleDropdown();
-hideSelectedCourse(selectedCourse);
+            courseItems.forEach(function (item) {
+                item.addEventListener('click', function () {
+                    const selectedCourse = item.textContent.trim();
+                    CoursesDropdownTrigger.querySelector('span').textContent = selectedCourse;
+                    toggleDropdown();
+                    hideSelectedCourse(selectedCourse);
 // Mettre à jour le champ caché avec la valeur sélectionnée
-const hiddenCourseInput = document.querySelector('input[name="course"]');
-hiddenCourseInput.value = selectedCourse;
-});
-});
+                    const hiddenCourseInput = document.querySelector('input[name="course"]');
+                    hiddenCourseInput.value = selectedCourse;
+                });
+            });
 
-document.addEventListener('click', function (event) {
-const isClickInsideDropdown = CoursesDropdownTrigger.contains(event.target) || CoursesdropdownList.contains(event.target);
-if (! isClickInsideDropdown) {
-CoursesdropdownList.classList.add('hidden');
-CoursesDropdownTrigger.classList.remove('open');
-}
-});
+            document.addEventListener('click', function (event) {
+                const isClickInsideDropdown = CoursesDropdownTrigger.contains(event.target) || CoursesdropdownList.contains(event.target);
+                if (!isClickInsideDropdown) {
+                    CoursesdropdownList.classList.add('hidden');
+                    CoursesDropdownTrigger.classList.remove('open');
+                }
+            });
 
-function hideSelectedCourse(selectedCourse) {
-courseItems.forEach(function (item) {
-const courseName = item.textContent.trim();
-if (courseName === selectedCourse) {
-item.style.display = 'none';
-} else {
-item.style.display = 'block';
-}
-});
-}
+            function hideSelectedCourse(selectedCourse) {
+                courseItems.forEach(function (item) {
+                    const courseName = item.textContent.trim();
+                    if (courseName === selectedCourse) {
+                        item.style.display = 'none';
+                    } else {
+                        item.style.display = 'block';
+                    }
+                });
+            }
 
 // Liste pour les thématiques//
-const dropdownTrigger = document.getElementById('dropdown-trigger');
-const dropdownList = document.querySelector('.dropdown-list');
-const thematicItems = document.querySelectorAll('.dropdown-list .select-item');
+            const dropdownTrigger = document.getElementById('dropdown-trigger');
+            const dropdownList = document.querySelector('.dropdown-list');
+            const thematicItems = document.querySelectorAll('.dropdown-list .select-item');
 
-dropdownTrigger.addEventListener('click', function (event) {
-dropdownList.classList.toggle('hidden');
-dropdownTrigger.classList.toggle('open');
-event.stopPropagation();
-});
+            dropdownTrigger.addEventListener('click', function (event) {
+                dropdownList.classList.toggle('hidden');
+                dropdownTrigger.classList.toggle('open');
+                event.stopPropagation();
+            });
 
-thematicItems.forEach(function (item) {
-item.addEventListener('click', function () {
-const selectedThematic = item.textContent.trim();
-dropdownTrigger.querySelector('span').textContent = selectedThematic;
-dropdownList.classList.add('hidden');
-dropdownTrigger.classList.remove('open');
-hideSelectedThematic(selectedThematic);
+            thematicItems.forEach(function (item) {
+                item.addEventListener('click', function () {
+                    const selectedThematic = item.textContent.trim();
+                    dropdownTrigger.querySelector('span').textContent = selectedThematic;
+                    dropdownList.classList.add('hidden');
+                    dropdownTrigger.classList.remove('open');
+                    hideSelectedThematic(selectedThematic);
 // Mettre à jour le champ caché avec la valeur sélectionnée
-const hiddenThematicInput = document.querySelector('input[name="thematic"]');
-hiddenThematicInput.value = selectedThematic;
-});
-});
+                    const hiddenThematicInput = document.querySelector('input[name="thematic"]');
+                    hiddenThematicInput.value = selectedThematic;
+                });
+            });
 
-document.addEventListener('click', function (event) {
-const isClickInsideDropdown = dropdownTrigger.contains(event.target) || dropdownList.contains(event.target);
-if (! isClickInsideDropdown) {
-dropdownList.classList.add('hidden');
-dropdownTrigger.classList.remove('open');
-}
-});
+            document.addEventListener('click', function (event) {
+                const isClickInsideDropdown = dropdownTrigger.contains(event.target) || dropdownList.contains(event.target);
+                if (!isClickInsideDropdown) {
+                    dropdownList.classList.add('hidden');
+                    dropdownTrigger.classList.remove('open');
+                }
+            });
 
-function hideSelectedThematic(selectedThematic) {
-thematicItems.forEach(function (item) {
-const thematicName = item.textContent.trim();
-if (thematicName === selectedThematic) {
-item.style.display = 'none';
-} else {
-item.style.display = 'block';
-}
-});
-}
+            function hideSelectedThematic(selectedThematic) {
+                thematicItems.forEach(function (item) {
+                    const thematicName = item.textContent.trim();
+                    if (thematicName === selectedThematic) {
+                        item.style.display = 'none';
+                    } else {
+                        item.style.display = 'block';
+                    }
+                });
+            }
 
 // liste pour les niveaux//
-const dropdownTriggerLevel = document.getElementById('dropdown-trigger-level');
-const dropdownLevel = document.querySelector('.dropdown-level');
-const levelItems = document.querySelectorAll('.dropdown-level > div[data-level]');
-const arrows = document.querySelectorAll('.dropdown-level .arrow-down');
-const selectText = document.querySelector('#dropdown-trigger-level span');
+            const dropdownTriggerLevel = document.getElementById('dropdown-trigger-level');
+            const dropdownLevel = document.querySelector('.dropdown-level');
+            const levelItems = document.querySelectorAll('.dropdown-level > div[data-level]');
+            const arrows = document.querySelectorAll('.dropdown-level .arrow-down');
+            const selectText = document.querySelector('#dropdown-trigger-level span');
 
-function closeAllSubDropdowns(except) {
-levelItems.forEach((item, index) => {
-if (item !== except) {
-const subDropdown = document.querySelector (`.dropdown-${
-item.dataset.level
-}`);
-if (subDropdown && ! subDropdown.classList.contains('hidden')) {
-subDropdown.classList.add('hidden');
-arrows[index].classList.remove('open');
-arrows[index].setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);');
-}
-}
-});
-}
+            function closeAllSubDropdowns(except) {
+                levelItems.forEach((item, index) => {
+                    if (item !== except) {
+                        const subDropdown = document.querySelector(`.dropdown-${
+                            item.dataset.level
+                        }`);
+                        if (subDropdown && !subDropdown.classList.contains('hidden')) {
+                            subDropdown.classList.add('hidden');
+                            arrows[index].classList.remove('open');
+                            arrows[index].setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);');
+                        }
+                    }
+                });
+            }
 
-dropdownTriggerLevel.addEventListener('click', function (event) {
-dropdownLevel.classList.toggle('hidden');
-dropdownTriggerLevel.classList.toggle('open');
-arrows.forEach(arrow => arrow.classList.toggle('open'));
-event.stopPropagation();
-});
+            dropdownTriggerLevel.addEventListener('click', function (event) {
+                dropdownLevel.classList.toggle('hidden');
+                dropdownTriggerLevel.classList.toggle('open');
+                arrows.forEach(arrow => arrow.classList.toggle('open'));
+                event.stopPropagation();
+            });
 
-levelItems.forEach((item, index) => {
-item.addEventListener('click', function (event) {
-const subDropdown = document.querySelector (`.dropdown-${
-this.dataset.level
-}`);
-if (subDropdown) {
-subDropdown.classList.toggle('hidden');
-arrows[index].classList.toggle('open');
-if (! subDropdown.classList.contains('hidden')) {
-arrows[index].setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(180deg);');
-closeAllSubDropdowns(item);
-} else {
-arrows[index].setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);');
-}
-}
-event.stopPropagation();
-});
-});
+            levelItems.forEach((item, index) => {
+                item.addEventListener('click', function (event) {
+                    const subDropdown = document.querySelector(`.dropdown-${
+                        this.dataset.level
+                    }`);
+                    if (subDropdown) {
+                        subDropdown.classList.toggle('hidden');
+                        arrows[index].classList.toggle('open');
+                        if (!subDropdown.classList.contains('hidden')) {
+                            arrows[index].setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(180deg);');
+                            closeAllSubDropdowns(item);
+                        } else {
+                            arrows[index].setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);');
+                        }
+                    }
+                    event.stopPropagation();
+                });
+            });
 
-document.querySelectorAll('.college-class, .lycee-class, .bts-class, .licence-class').forEach(item => {
-item.addEventListener('click', function (event) {
-selectText.textContent = item.textContent;
-dropdownLevel.classList.add('hidden');
-dropdownTriggerLevel.classList.remove('open');
-arrows.forEach(arrow => arrow.classList.remove('open'));
-arrows.forEach(arrow => arrow.setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);'));
-closeAllSubDropdowns();
+            document.querySelectorAll('.college-class, .lycee-class, .bts-class, .licence-class').forEach(item => {
+                item.addEventListener('click', function (event) {
+                    selectText.textContent = item.textContent;
+                    dropdownLevel.classList.add('hidden');
+                    dropdownTriggerLevel.classList.remove('open');
+                    arrows.forEach(arrow => arrow.classList.remove('open'));
+                    arrows.forEach(arrow => arrow.setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);'));
+                    closeAllSubDropdowns();
 // Mettre à jour le champ caché avec la valeur sélectionnée
-const hiddenLevelInput = document.querySelector('input[name="class"]');
-hiddenLevelInput.value = item.textContent;
-event.stopPropagation();
-});
-});
+                    const hiddenLevelInput = document.querySelector('input[name="class"]');
+                    hiddenLevelInput.value = item.textContent;
+                    event.stopPropagation();
+                });
+            });
 
-document.addEventListener('click', function (event) {
-const isClickInsideDropdown = dropdownTriggerLevel.contains(event.target) || dropdownLevel.contains(event.target);
-if (! isClickInsideDropdown) {
-dropdownLevel.classList.add('hidden');
-dropdownTriggerLevel.classList.remove('open');
-arrows.forEach(arrow => arrow.classList.remove('open'));
-arrows.forEach(arrow => arrow.setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);'));
-closeAllSubDropdowns();
-}
-});
-});
-	</script>
+            document.addEventListener('click', function (event) {
+                const isClickInsideDropdown = dropdownTriggerLevel.contains(event.target) || dropdownLevel.contains(event.target);
+                if (!isClickInsideDropdown) {
+                    dropdownLevel.classList.add('hidden');
+                    dropdownTriggerLevel.classList.remove('open');
+                    arrows.forEach(arrow => arrow.classList.remove('open'));
+                    arrows.forEach(arrow => arrow.setAttribute('style', 'transition: transform 0.3s ease; transform: rotate(0deg);'));
+                    closeAllSubDropdowns();
+                }
+            });
+        });
+    </script>
 {% endblock %}

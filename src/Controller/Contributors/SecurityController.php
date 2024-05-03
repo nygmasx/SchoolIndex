@@ -91,40 +91,4 @@ class SecurityController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
-    #[Route('/reset/{token}', name: 'app_reset_password')]
-    public function resetPassword($token, UserPasswordHasherInterface $passwordHasher, Request $request): Response
-    {
-        if ($this->jwt->isValid($token) && !$this->jwt->isExpired($token) && $this->jwt->check($token, $this->getParameter('app.jwtsecret'))) {
-            // Le token est valide
-            // On récupère les données (payload)
-            $payload = $this->jwt->getPayload($token);
-
-
-            // On récupère le user
-            $user = $this->userRepository->find($payload['user_id']);
-
-            if ($user) {
-                $form = $this->createForm(ResetPasswordType::class);
-
-                $form->handleRequest($request);
-
-                if ($form->isSubmitted() && $form->isValid()) {
-                    $user->setPassword(
-                        $passwordHasher->hashPassword($user, $form->get('password')->getData())
-                    );
-
-                    $this->entityManager->flush();
-
-                    $this->addFlash('success', 'Mot de passe changé avec succès');
-                    return $this->redirectToRoute('app_login');
-                }
-                return $this->render('security/reset_password.html.twig', [
-                    'form' => $form->createView()
-                ]);
-            }
-        }
-        $this->addFlash('danger', 'Le token est invalide ou a expiré');
-        return $this->redirectToRoute('app_login');
-    }
 }

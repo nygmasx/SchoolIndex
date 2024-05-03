@@ -33,7 +33,7 @@ final class ExerciseController extends AbstractController
     {
     }
 
-    #[Route('/exercise', name: 'app_admin_exercise')]
+    #[Route('/exercice', name: 'app_admin_exercise')]
     public function index(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator): Response
     {
         $searchTerm = $request->query->get('search', '');
@@ -59,106 +59,26 @@ final class ExerciseController extends AbstractController
         ]);
     }
 
-    #[Route('/exercise/create', name: 'admin_exercise_create')]
-    public function createStep1(Request $request, SessionInterface $session): Response
+    #[Route('/exercice/delete/{id}', name: 'app_admin_exercise_delete', methods: ['GET', 'POST'])]
+    public function delete(Request $request, Exercise $exercise): Response
     {
-        $exercise = new Exercise();
-        $form = $this->createForm(ExerciseType::class);
+        // Création du formulaire de confirmation
+        $form = $this->createFormBuilder()->getForm();
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $formData = $form->getData();
-            $formArray = $request->request->all()['form'] ?? [];
-
-            if (isset($formArray['thematic'])) {
-                $thematicId = $formArray['thematic'];
-                $thematic = $this->thematicRepository->find($thematicId);
-                if ($thematic) {
-                    $formData->setThematic($thematic);
-                } else {
-                    // Handle error if the thematic is not found
-                    $this->addFlash('error', 'Selected thematic not found');
-                    return $this->redirectToRoute('exercise_create_general');  // Redirect or handle as needed
-                }
-            }
-
-            // Handling skills in a similar way, ensuring entities are fetched and set
-            if (isset($formArray['skills'])) {
-                foreach ($formArray['skills'] as $skillId) {
-                    $skill = $this->skillRepository->find($skillId);
-                    if ($skill) {
-                        $formData->addSkill($skill);
-                    } else {
-                        // Optionally handle the case where skill is not found
-                    }
-                }
-            }
-
-            $this->entityManager->persist($exercise);
+            $this->entityManager->remove($exercise);
             $this->entityManager->flush();
+
+            $this->addFlash('success', 'L\'exercice a été supprimée avec succès.');
+
             return $this->redirectToRoute('app_admin_exercise');
         }
 
-        return $this->render('/admin/exercise/create.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-
-    #[Route('/update-thematic-field', name: 'update_admin_thematic_field', methods: ['POST'])]
-    public function updateThematicField(Request $request, ThematicRepository $thematicRepository, SessionInterface $session): Response
-    {
-        $courseId = $request->request->get('course_id');
-        // Assuming you have a method to get thematics by course
-        $thematics = $thematicRepository->findBy(['course' => $courseId]);
-
-        $form = $this->createFormBuilder()
-            ->add('thematic', EntityType::class, [
-                'class' => Thematic::class,
-                'choices' => $thematics,
-                'choice_label' => 'name',
-                'label' => 'Thematique :',
-            ])
-            ->getForm();
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->isSubmitted() && $form->isValid()) {
-                $selectedThematic = $form->get('thematic')->getData();
-                $session->set('selected_thematic', $selectedThematic);
-            }
-        }
-
-        return $this->render('admin/exercise/forms/thematic.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
-
-    #[Route('/update-skills-field', name: 'update_admin_skills_field', methods: ['POST'])]
-    public function updateSkillsField(Request $request, SkillRepository $skillRepository, SessionInterface $session): Response
-    {
-        $courseId = $request->request->get('course_id');
-        // Assuming you have a method to get thematics by course
-        $skills = $skillRepository->findBy(['course' => $courseId]);
-
-        $form = $this->createFormBuilder()
-            ->add('skills', EntityType::class, [
-                'class' => Skill::class,
-                'choices' => $skills,
-                'choice_label' => 'name',
-                'multiple' => true,
-                'expanded' => true
-            ])
-            ->getForm();
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $selectedThematic = $form->get('skills')->getData();
-            $session->set('selected_skills', $selectedThematic);
-        }
-
-        return $this->render('admin/exercise/forms/skills.html.twig', [
-            'form' => $form->createView()
+        return $this->render('admin/exercise/delete.html.twig', [
+            'exercise' => $exercise,
+            'confirmationForm' => $form->createView(),
         ]);
     }
 
