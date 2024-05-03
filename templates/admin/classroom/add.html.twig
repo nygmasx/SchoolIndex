@@ -4,13 +4,35 @@
 {% endblock %}
 
 {% block main %}
-	<div class="bg-slate-200 flex flex-col  min-h-screen max-sm:min-h-[75vh] font-['Epilogue'] pb-5">
-	<h1 class="text-2xl	 md:text-4xl font-medium text-center max-sm:pt-4 lg:text-start text-blue-900 pt-12 px-6 pb-4">Administration</h1>
+	<div class="bg-slate-200 flex flex-col  min-h-screen font-['Epilogue'] pb-5">
+		<h1 class="text-2xl	 md:text-4xl max-sm:text-3xl max-sm:pt-6 font-medium text-center lg:text-start text-blue-900 pt-12 px-6 pb-4">
+			Administration</h1>		<div class="px-[18px] max-sm:px-[10px]">
+			<div class="flex gap-3 max-sm:hidden">
+			<a href="{{ path('app_contributor') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 opacity-[0.8] flex justify-center transition duration-200 hover:opacity-100">
+				<span class="justify-center items-center flex text-white font-noto">Contributeurs</span>
+			</a>
+			<a href="{{ path('app_admin_exercise') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex justify-center opacity-[0.8] transition duration-200 hover:opacity-100">
+				<span class="justify-center items-center flex text-white font-noto">Exercices</span>
+			</a>
+			<a href="{{ path('app_admin_course') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex opacity-[0.8] justify-center transition duration-200 hover:opacity-100">
+				<span class="justify-center items-center flex text-white font-noto">Matières</span>
+			</a>
+			<a href="{{ path('app_classroom') }}" class="bg-customBlue rounded-tl-xl px-14 py-2.5 rounded-tr-xl flex justify-center transition duration-200 hover:opacity-100">
+				<span class="justify-center items-center flex text-white font-noto">Classes</span>
+			</a>
+			<a href="{{ path('app_thematic') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex opacity-80 justify-center transition duration-200 hover:opacity-100">
+				<span class="justify-center items-center flex text-white font-noto">Thématiques</span>
+			</a>
+			<a href="{{ path('app_skill') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 opacity-80 flex justify-center transition duration-200 hover:opacity-100">
+				<span class="justify-center items-center flex text-white font-noto" href="">Compétences</span>
+			</a>
+			<a href="{{ path('app_origin') }}" class="bg-customBlue rounded-tl-xl px-5 py-2.5 rounded-tr-xl flex opacity-80 justify-center  transition duration-200 hover:opacity-100">
+				<span class="justify-center items-center flex text-white font-noto">Origines</span>
+			</a>
+		</div>
 
-		{% include "admin/layout/nav.html.twig" %}
-
-		<div class="bg-white rounded-md w-[95%]  md:w-[97%] p-3 md:p-7  mx-auto rounded-tl-none	">
-			<h1 class="text-[20px] font-semibold font-noto mt-2.5">Ajouter une classe</h1>
+			<div class="bg-white rounded-md w-full p-3 md:p-7 rounded-tl-none	">
+			<h1 class="text-[20px] font-semibold font-noto">Ajouter une classe</h1>
 
 			<form action="{{ path('add_classroom') }}" method="post" class="mt-4">
 				{{ form_start(form) }}
@@ -18,15 +40,16 @@
 					{{ form_label(form.name, 'Nom de la classe :', {'label_attr': {'class': 'block text-base font-medium text-gray-700'}}) }}
 					{{ form_widget(form.name, {'attr': {
 		'placeholder': 'Saisissez le nom de la classe',
-		'class': 'max-sm:w-full h-[50px] mt-1 p-2 block w-[50%] text-base border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500'}}) }}
+		'class': 'max-sm:w-full h-[50px] mt-1 p-2 block w-[50%] text-base border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500'}}) }}
 				</div>
     <div class="flex gap-5 max-sm:flex-col">
-					<a href="{{ path('app_classroom') }}" class="font-semibold flex justify-center items-center bg-slate-100 h-11 px-5 rounded-md font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200">&lt; Retourner à la liste</a>
+					<a href="{{ path('app_classroom') }}" class="font-semibold flex justify-center items-center bg-slate-100 h-11 px-5 rounded-md font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200">&lt; Retour à la liste</a>
 					<button type="submit" class="font-semibold bg-slate-100 h-11 px-5 rounded-md font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200">Enregistrer</button>
 				</div>
 				{{ form_end(form) }}
 			</form>
 		</div>
+	</div>
 	</div>
 
 {% endblock %}

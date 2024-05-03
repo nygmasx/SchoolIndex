@@ -2,79 +2,51 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-    <div class="bg-slate-200 flex flex-col min-h-[95vh]">
-        <h1 class="text-[28px] ml-12 text-customBlue font-epilogue md:mt-8 font-medium">Administration</h1>
+	<div class="bg-slate-200 flex flex-col  min-h-screen font-['Epilogue'] pb-5">
+		<h1 class="text-2xl	 md:text-4xl max-sm:text-3xl max-sm:pt-6 font-medium text-center lg:text-start text-blue-900 pt-12 px-6 pb-4">
+			Soumettre un exercice</h1>
+		<div class="px-[18px] max-sm:px-[10px]">
+			<div class="flex gap-3 max-[1330px]:overflow-auto	">
+				<a href="{{ path('exercise_create_general') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 opacity-[0.8] flex justify-center transition duration-200 hover:opacity-100">
+					<span class="justify-center items-center flex text-white font-noto">Informations générales</span>
+				</a>
+				<a href="{{ path('exercise_create_sources') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-14 py-2.5 flex justify-center transition duration-200 hover:opacity-100">
+					<span class="justify-center items-center flex text-white font-noto">Sources</span>
+				</a>
+				<a href="{{ path('exercise_create_files') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 opacity-[0.8] flex justify-center transition duration-200 hover:opacity-100">
+					<span class="justify-center items-center flex text-white font-noto">Fichiers</span>
+				</a>
+			</div>
 
-        <div class="flex gap-3 min-md:ml-10 max-sm:ml-1 ml-8 mt-4 max-sm:hidden">
-            <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[220px] h-[40px] flex justify-center">
-                <a class="justify-center items-center flex text-white font-noto"
-                   href="{{ path('exercise_create_general') }}">Informations générales</a>
-            </div>
-            <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
-                <a class="justify-center items-center flex text-white font-noto"
-                   href="{{ path('exercise_create_sources') }}">Sources</a>
-            </div>
-            <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
-                <a class="justify-center items-center flex text-white font-noto" href="{{ path('exercise_create_files') }}">Fichiers</a>
-            </div>
-        </div>
+			<div class="max-[1330px]:rounded-tr-none	bg-white rounded-md w-full p-3 md:p-7 rounded-tl-none">
+				<h1 class="text-[20px] font-semibold font-noto">Sources</h1>
 
-        <div class="w-[95%] md:ml-[30px] min-md:w-[100%] min-md:ml-10 rounded-lg  sm:flex sm:flex-col justify-center  bg-white max-sm:w-[100%] p-4 ">
-            <div class="flex justify-center max-sm:pt-2 ">
-                <select id="pageSelect" class="md:hidden ">
-                    <option value="contributeurs">Contributeurs</option>
-                    <option value="exercices">Exercices</option>
-                    <option value="matieres">Matières</option>
-                    <option value="classes">Classes</option>
-                    <option value="thematiques">Thématiques</option>
-                    <option value="competences">Compétences</option>
-                    <option value="origines">Origines</option>
-                </select>
-            </div>
-            <h1 class="ml-7 text-[20px] font-semibold font-noto md:pt-6 max-sm:mt-[5px]">Ajouter un
-                contributeur</h1>
+                {{ form_start(form, {'attr': {'class': ''}}) }}
+				<div class="max-sm:block flex gap-12 my-4">
+					<div class="w-[40%] max-sm:w-full">
+                        {{ form_label(form.origin, null, {'label_attr': {'class': 'w-full block text-base font-medium text-gray-700'}}) }}
+                        {{ form_widget(form.origin, {'attr': {'class': 'w-full mb-4 max-sm:w-full h-[50px] mt-1 p-2 block text-base border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500', 'id': 'base-input-name'}}) }}
 
-            <div class="flex w-[90%] justify-center items-center gap-8">
-                {{ form_start(form, {'attr': {'class': 'mx-auto flex w-full justify-center items-center gap-8'}}) }}
+                        {{ form_label(form.originName, null, {'label_attr': {'class': 'w-full block text-base font-medium text-gray-700'}}) }}
+                        {{ form_widget(form.originName, {'attr': {'class': 'w-full mb-4 max-sm:w-full h-[50px] mt-1 p-2 block text-base border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500', 'placeholder': 'Saisissez le nom ou le lien de l\'origine', 'id': 'countries-course'}}) }}
 
-                <div class="w-1/2">
-                    <div class="mb-5">
-                        {{ form_label(form.origin, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                        {{ form_widget(form.origin, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'base-input-name'}}) }}
+                        {{ form_label(form.originInformation, null, {'label_attr': {'class': 'w-full block text-base font-medium text-gray-700'}}) }}
+                        {{ form_widget(form.originInformation, {'attr': {'class': 'w-full mb-4 max-sm:w-full h-[50px] mt-1 p-2 block text-base border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500','placeholder': 'Saisissez des informations complémentaires', 'id': 'countries-course'}}) }}
                     </div>
+                    <div class="w-[40%] max-sm:w-full">
+                        {{ form_label(form.proposedbyType, null, {'label_attr': {'class': 'w-full block text-base font-medium text-gray-700'}}) }}
+                        {{ form_widget(form.proposedbyType, {'attr': {'class': 'w-full mb-4 max-sm:w-full h-[50px] mt-1 p-2 block text-base border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500', 'id': 'countries-course'}}) }}
 
-                    <div class="mb-5">
-                        {{ form_label(form.originName, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                        {{ form_widget(form.originName, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'countries-course'}}) }}
-                    </div>
+                        {{ form_label(form.proposedByFirstName, null, {'label_attr': {'class': 'w-full block text-base font-medium text-gray-700'}}) }}
+                        {{ form_widget(form.proposedByFirstName, {'attr': {'class': 'w-full mb-4 max-sm:w-full h-[50px] mt-1 p-2 block text-base border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500', 'placeholder': 'Saisissez votre nom', 'id': 'countries-course'}}) }}
 
-                    <div class="mb-5">
-                        {{ form_label(form.originInformation, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                        {{ form_widget(form.originInformation, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'countries-course'}}) }}
+                        {{ form_label(form.proposedByLastName, null, {'label_attr': {'class': 'w-full block text-base font-medium text-gray-700'}}) }}
+                        {{ form_widget(form.proposedByLastName, {'attr': {'class': 'w-full mb-4 max-sm:w-full h-[50px] mt-1 p-2 block text-base border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500', 'placeholder': 'Saisissez votre prénom', 'id': 'countries-course'}}) }}
                     </div>
                 </div>
-
-                <div class="w-1/2">
-                    <div class="mb-5">
-                        {{ form_label(form.proposedbyType, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                        {{ form_widget(form.proposedbyType, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'countries-course'}}) }}
-                    </div>
-
-                    <div class="mb-5">
-                        {{ form_label(form.proposedByFirstName, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                        {{ form_widget(form.proposedByFirstName, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'countries-course'}}) }}
-                    </div>
-
-                    <div class="mb-5">
-                        {{ form_label(form.proposedByLastName, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                        {{ form_widget(form.proposedByLastName, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'countries-course'}}) }}
-                    </div>
-
                     {{ form_rest(form) }}
-                    <button type="submit">Soumettre</button>
+					<button type="submit" class="font-semibold bg-slate-100 h-11 px-5 rounded-md font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200">Continuer</button>
                     {{ form_end(form) }}
-                </div>
-            </div>
         </div>
     </div>
 {% endblock %}

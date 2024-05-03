@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CourseController extends AbstractController
 {
-    #[Route('/matieres/{name}', name: 'app_course')]
+    #[Route('/matiere/{name}', name: 'app_course')]
     public function index(EntityManagerInterface $entityManager, PaginatorInterface $paginator, Request $request, ExerciseRepository $exerciseRepository, string $name, Course $course): Response
     {
         // Récupérer le nom de la matière depuis la requête (par exemple)

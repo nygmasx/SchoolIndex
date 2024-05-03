@@ -24,7 +24,7 @@ class CourseController extends AbstractController
         private CourseRepository $courseRepository,
     ) {}
 
-    #[Route('/matières', name: 'app_admin_course')]
+    #[Route('/matiere', name: 'app_admin_course')]
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
 
@@ -41,6 +41,12 @@ class CourseController extends AbstractController
             5 // Limite par page
         );
 
+        $courses = $pagination->getItems();
+        foreach ($courses as $course) {
+            $exerciseCount = count($course->getExercises());
+            $course->exercisesCount = $exerciseCount;
+        }
+
         return $this->render('admin/course/index.html.twig', [
             'controller_name' => 'CourseController',
             'searchTerm' => $searchTerm,
@@ -48,7 +54,7 @@ class CourseController extends AbstractController
         ]);
     }
 
-    #[Route('/matières/create', name: 'new_course')]
+    #[Route('/matiere/create', name: 'new_course')]
     public function addcourse(Request $request, AuthorizationCheckerInterface $authChecker): Response
     {
 
@@ -66,7 +72,7 @@ class CourseController extends AbstractController
             $this->entityManager->persist($course);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('app_course');
+            return $this->redirectToRoute('app_admin_course');
         }
 
         return $this->render('admin/course/create.html.twig', [
@@ -74,7 +80,7 @@ class CourseController extends AbstractController
         ]);
     }
 
-    #[Route('/matières/delete/{id}', name: 'course_delete', methods: ['GET', 'POST'])]
+    #[Route('/matiere/delete/{id}', name: 'course_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, Course $course, AuthorizationCheckerInterface $authChecker): Response
     {
 
@@ -97,7 +103,7 @@ class CourseController extends AbstractController
 
             $this->addFlash('success', 'L\'utilisateur a été supprimé avec succès.');
 
-            return $this->redirectToRoute('app_course');
+            return $this->redirectToRoute('app_admin_course');
         }
 
         return $this->render('admin/course/delete.html.twig', [
@@ -106,7 +112,7 @@ class CourseController extends AbstractController
         ]);
     }
 
-    #[Route('/course/edit/{id}', name: 'edit_course')]
+    #[Route('/matiere/edit/{id}', name: 'edit_course')]
     public function editcourse(Course $course, Request $request, AuthorizationCheckerInterface $authChecker): Response
     {
 
@@ -124,7 +130,7 @@ class CourseController extends AbstractController
 
             $this->addFlash('success', 'Les informations de la matière ont été mises à jour.');
 
-            return $this->redirectToRoute('app_course');
+            return $this->redirectToRoute('app_admin_course');
         }
 
         return $this->render('admin/course/edit.html.twig', [

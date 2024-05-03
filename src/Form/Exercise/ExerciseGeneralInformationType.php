@@ -27,18 +27,18 @@ class ExerciseGeneralInformationType extends AbstractType
         $builder = new DynamicFormBuilder($builder);
         $builder
             ->add('name', TextType::class, [
-                "label" => "Nom de l'exercice",
+                "label" => "Nom de l'exercice :",
                 'required' => true
             ])
             ->add('course', EntityType::class, [
-                "label" => "Matière",
-                'placeholder' => 'Choisissez une matière',
+                "label" => "Matière :",
+                'placeholder' => 'Choisissez une matière :',
                 'class' => Course::class,
                 'choice_label' => 'name',
             ])
             ->add('classroom', EntityType::class, [
                 'class' => Classroom::class,
-                'label' => 'Classe',
+                'label' => 'Classe :',
                 'choice_label' => 'name',
             ])
             ->add('thematic', EntityType::class, [
@@ -49,10 +49,10 @@ class ExerciseGeneralInformationType extends AbstractType
                 'placeholder' => 'Veuillez séléctionner une matière'
             ])
             ->add('chapter', TextType::class, [
-                'label' => 'Chapitre'
+                'label' => 'Chapitre :'
             ])
             ->add('keywords', TextType::class, [
-                'label' => 'Mots Clés',
+                'label' => 'Mots Clés :',
                 'autocomplete' => true,
                 'tom_select_options' => [
                     'create' => true,
@@ -86,10 +86,11 @@ class ExerciseGeneralInformationType extends AbstractType
                 ],
             ])
             ->add('duration', TextType::class, [
-                'label' => 'Durée (en heure)'
+                'label' => 'Durée (en heure) :'
             ])
             ->add('skills', EntityType::class, [
                 'class' => Skill::class,
+                'label' => 'Compétence(s) :',
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true

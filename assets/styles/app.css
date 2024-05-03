@@ -19,7 +19,7 @@ html[data-turbo-visit-direction="forward"]::view-transition-old(sidebar):only-ch
 
 .turbo-progress-bar {
     height: 5px;
-    background-color: green;
+    background-color: #1B3168;
 }
 
 html.turn-advance.turn-exit [data-turn-exit] {
@@ -45,6 +45,7 @@ html.turn-exit [data-turn-exit] {
 
 .toggle-password-button{
     position: sticky !important;
+    color: #757575 !important;
 }
 
 .active{
@@ -200,3 +201,24 @@ html.turn-exit [data-turn-exit] {
   .hoverr-element.active svg path {
     stroke: rgb(23, 37, 84); /* Style actif pour le contour du SVG */
   }
+
+#exercise_general_information_skills{
+    margin-top: 0.25rem;
+    margin-bottom: 1rem;
+    grid-auto-rows: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 0.1fr);
+    gap: 10px;
+}
+
+[type='checkbox'], [type='radio'] {
+    border-color: rgb(209 213 219) !important;
+    border-radius: 7px !important;
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+#file-file-button{
+    background-color: white !important;
+    color: black !important;
+}
