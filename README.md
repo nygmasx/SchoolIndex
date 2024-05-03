@@ -40,6 +40,10 @@ symfony console d:f:l
 
 [Lien de la doc pour l'installation de maildev]([http://127.0.0.1:1080](https://github.com/maildev/maildev)) pour vérifier le mot de passe oublié&nbsp;:
 
+```bash
+https://github.com/maildev/maildev
+```
+
 ## Auteurs
 
 - [@Yacine Guerda](https://github.com/BouderBaden)
