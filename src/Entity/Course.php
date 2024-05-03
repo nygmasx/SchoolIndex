@@ -6,6 +6,7 @@ use App\Repository\CourseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: CourseRepository::class)]
 class Course
@@ -18,13 +19,13 @@ class Course
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'course', targetEntity: Skill::class)]
+    #[ORM\OneToMany(mappedBy: 'course', targetEntity: Skill::class, cascade: ['persist', 'remove'])]
     private Collection $skills;
 
-    #[ORM\OneToMany(mappedBy: 'course', targetEntity: Exercise::class, cascade: ['remove'])]
+    #[ORM\OneToMany(mappedBy: 'course', targetEntity: Exercise::class, cascade: ['persist', 'remove'])]
     private Collection $exercises;
 
-    #[ORM\OneToMany(targetEntity: Thematic::class, mappedBy: 'course', cascade: ['remove'])]
+    #[ORM\OneToMany(targetEntity: Thematic::class, mappedBy: 'course', cascade: ['persist', 'remove'])]
     private Collection $thematics;
 
     public function __construct()

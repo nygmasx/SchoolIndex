@@ -37,7 +37,7 @@ class ExerciseType extends AbstractType
                 'tom_select_options' => [
                     'create' => true,
                     'createOnBlur' => true,
-                    'delimiter' => ',',
+                    'delimiter' => '@',
                 ],
             ])
             ->add('difficulty', ChoiceType::class, [
@@ -76,6 +76,10 @@ class ExerciseType extends AbstractType
             ])
             ->add('proposedbyType', ChoiceType::class, [
                 "label" => "Ou proposé par un :",
+                'choices' => [
+                    "Éleve" => "Éleve",
+                    "Professeur" => "Professeur"
+                ]
             ])
             ->add('proposedByFirstName', TextType::class, [
                 "label" => "Nom :",
@@ -97,8 +101,7 @@ class ExerciseType extends AbstractType
                 'class' => Thematic::class,
                 'label' => 'Thématique :',
                 'choice_label' => 'name',
-                'disabled' => 'true',
-                'placeholder' => 'Veuillez séléctionner une matière'
+                'placeholder' => 'Veuillez séléctionner une matière :'
             ])
             ->add('origin', EntityType::class, [
                 "label" => "Origine :",
@@ -111,11 +114,11 @@ class ExerciseType extends AbstractType
                 'multiple' => true,
                 'expanded' => true
             ])
-            ->add('firstFile', VichFileType::class, [
+            ->add('firstFile', FileType::class, [
                 "label" => "Fiche exercice (PDF, word) * :",
                 'required' => true
             ])
-            ->add('secondFile', VichFileType::class, [
+            ->add('secondFile', FileType::class, [
                 "label" => "Fiche corrigé (PDF, word) * :",
                 'required' => true
             ]);
