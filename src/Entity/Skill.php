@@ -22,7 +22,7 @@ class Skill
     #[ORM\JoinColumn(nullable: false)]
     private ?course $course = null;
 
-    #[ORM\ManyToMany(targetEntity: Exercise::class, mappedBy: 'skill')]
+    #[ORM\ManyToMany(targetEntity: Exercise::class, mappedBy: 'skills')]
     private Collection $exercises;
 
     public function __construct()

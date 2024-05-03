@@ -1,4 +1,3 @@
-<p>Bonjour {{ user.firstname }}</p>
-<p>Votre demande de réinitialisation a été prise en compte. Veuillez cliquer sur le lien ci-dessous afin de procéder à la réinitialisation.</p>
-<a href="{{ url|raw }}">Cliquez ici</a>
-<p>Merci, et à bientot sur SchoolIndex.</p>
+<p>Bonjour, {{ user.firstname }} {{user.lastname}} demande un changement de mot de passe.</p>
+<p>Adresse email de la personne : {{user.email}}</p>
+<p>Après changement, merci de notifier l’utilisateur de son nouveau mot de passe.</p>

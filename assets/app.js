@@ -14,30 +14,44 @@ Turn.start();
 document.addEventListener('turbo:load', function() {
     const profileImg = document.getElementById('profile-img');
     const optionsList = document.getElementById('options-list');
-
-    // Ajouter un gestionnaire d'événement de clic sur l'image du profil
-    profileImg.addEventListener('click', function(event) {
+    const courseDropdownToggle = document.getElementById('CourseDropdownToggle');
+    const coursesList = document.getElementById('courses-list');
+    
+    // Ajouter un gestionnaire d'événement de clic sur le bouton de liste de cours
+    courseDropdownToggle.addEventListener('click', function (event) {
         event.stopPropagation(); // Empêcher la propagation de l'événement de clic
-        toggleOptionsList();
+        toggleList(coursesList);
+        hideList(optionsList); // Cacher la liste d'options si elle est ouverte
     });
-
-    // Fonction pour afficher ou masquer la liste des options
-    function toggleOptionsList() {
-        optionsList.classList.toggle('hidden');
+    
+    // Ajouter un gestionnaire d'événement de clic sur l'image du profil
+    profileImg.addEventListener('click', function (event) {
+        event.stopPropagation(); // Empêcher la propagation de l'événement de clic
+        toggleList(optionsList);
+        hideList(coursesList); // Cacher la liste des cours si elle est ouverte
+    });
+    
+    // Fonction pour afficher ou masquer la liste
+    function toggleList(listElement) {
+        listElement.classList.toggle('hidden');
     }
-
-    // Écouter les clics sur l'ensemble du document pour masquer la liste des options si nécessaire
-    document.addEventListener('click', function(event) {
-        const isClickInsideMenu = profileImg.contains(event.target);
+    
+    // Fonction pour masquer une liste spécifique
+    function hideList(listElement) {
+        listElement.classList.add('hidden');
+    }
+    
+    // Écouter les clics sur l'ensemble du document pour masquer les listes si nécessaire
+    document.addEventListener('click', function (event) {
+        const isClickInsideDropdown = courseDropdownToggle.contains(event.target);
+        const isClickInsideCoursesList = coursesList.contains(event.target);
         const isClickInsideOptions = optionsList.contains(event.target);
-        if (!isClickInsideMenu && !isClickInsideOptions) {
-            hideOptionsList();
+        if (!isClickInsideDropdown && !isClickInsideCoursesList) {
+            hideList(coursesList);
+        }
+        if (!isClickInsideOptions) {
+            hideList(optionsList);
         }
     });
-
-    // Fonction pour masquer la liste des options
-    function hideOptionsList() {
-        optionsList.classList.add('hidden');
-    }
-
+        
 });

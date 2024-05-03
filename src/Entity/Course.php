@@ -21,10 +21,10 @@ class Course
     #[ORM\OneToMany(mappedBy: 'course', targetEntity: Skill::class)]
     private Collection $skills;
 
-    #[ORM\OneToMany(mappedBy: 'course', targetEntity: Exercise::class)]
+    #[ORM\OneToMany(mappedBy: 'course', targetEntity: Exercise::class, cascade: ['remove'])]
     private Collection $exercises;
 
-    #[ORM\OneToMany(targetEntity: Thematic::class, mappedBy: 'course')]
+    #[ORM\OneToMany(targetEntity: Thematic::class, mappedBy: 'course', cascade: ['remove'])]
     private Collection $thematics;
 
     public function __construct()

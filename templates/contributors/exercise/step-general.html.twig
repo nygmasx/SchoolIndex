@@ -3,175 +3,142 @@
 
 {% block main %}
 
-    <script type="text/javascript">
-        console.log($('#general-form').serialize());
-        var ajaxRequestCounter = 0;  // Initialize counter to track AJAX requests
+	<script type="text/javascript">
+		console.log($('#general-form').serialize());
+var ajaxRequestCounter = 0; // Initialize counter to track AJAX requests
 
-        function updateThematicField() {
-            ajaxRequestCounter++;  // Increment for the new AJAX request
-            var courseId = $('#exercise_general_information_course').val();
-            $.ajax({
-                url: "{{ path('update_thematic_field') }}",
-                type: "POST",
-                data: { course_id: courseId },
-                success: function (data) {
-                    $('#thematic-field-container').html(data);
-                    // Other logic to handle the response
-                    ajaxRequestCounter--;  // Decrement the counter on success
-                    if (ajaxRequestCounter === 0) {
-                        $(document).trigger('ajaxCompleted');
-                    }
-                },
-                error: function () {
-                    alert('Error updating thematic field');
-                    ajaxRequestCounter--;  // Decrement the counter on error
-                }
-            });
-        }
+function updateThematicField() {
+ajaxRequestCounter++; // Increment for the new AJAX request
+var courseId = $('#exercise_general_information_course').val();
+$.ajax({
+url: "{{ path('update_thematic_field') }}",
+type: "POST",
+data: {
+course_id: courseId
+},
+success: function (data) {
+$('#thematic-field-container').html(data);
+// Other logic to handle the response
+ajaxRequestCounter--; // Decrement the counter on success
+if (ajaxRequestCounter === 0) {
+$(document).trigger('ajaxCompleted');
+}
+},
+error: function () {
+alert('Error updating thematic field');
+ajaxRequestCounter--; // Decrement the counter on error
+}
+});
+}
 
-        function updateSkillsField() {
-            ajaxRequestCounter++;  // Increment for the new AJAX request
-            var courseId = $('#exercise_general_information_course').val();
-            $.ajax({
-                url: "{{ path('update_skills_field') }}",
-                type: "POST",
-                data: { course_id: courseId },
-                success: function (data) {
-                    $('#skills-field-container').html(data);
-                    // Other logic to handle the response
-                    ajaxRequestCounter--;  // Decrement the counter on success
-                    if (ajaxRequestCounter === 0) {
-                        $(document).trigger('ajaxCompleted');
-                    }
-                },
-                error: function () {
-                    alert('Error updating skills field');
-                    ajaxRequestCounter--;  // Decrement the counter on error
-                }
-            });
-        }
+function updateSkillsField() {
+ajaxRequestCounter++; // Increment for the new AJAX request
+var courseId = $('#exercise_general_information_course').val();
+$.ajax({
+url: "{{ path('update_skills_field') }}",
+type: "POST",
+data: {
+course_id: courseId
+},
+success: function (data) {
+$('#skills-field-container').html(data);
+// Other logic to handle the response
+ajaxRequestCounter--; // Decrement the counter on success
+if (ajaxRequestCounter === 0) {
+$(document).trigger('ajaxCompleted');
+}
+},
+error: function () {
+alert('Error updating skills field');
+ajaxRequestCounter--; // Decrement the counter on error
+}
+});
+}
 
-        // Handling form submission
-        $('#general-form').on('submit', function(e) {
-            e.preventDefault();
-            console.log($(this).serialize());  // Check what's being submitted
+// Handling form submission
+$('#general-form').on('submit', function (e) {
+e.preventDefault();
+console.log($(this).serialize()); // Check what's being submitted
 
-            if (ajaxRequestCounter === 0) {
-                this.submit();
-            } else {
-                $(document).one('ajaxCompleted', () => {
-                    this.submit();
-                });
-            }
-        });
-
-
-    </script>
+if (ajaxRequestCounter === 0) {
+this.submit();
+} else {
+$(document).one('ajaxCompleted', () => {
+this.submit();
+});
+}
+});
+	</script>
 
 
+	<div class="bg-slate-200 flex flex-col  min-h-screen font-['Epilogue'] pb-5">
+		<h1 class="text-2xl	 md:text-4xl max-sm:text-3xl max-sm:pt-6 font-medium text-center lg:text-start text-blue-900 pt-12 px-6 pb-4">
+			Soumettre un exercice</h1>
+		<div class="px-[18px] max-sm:px-[10px]">
+			<div class="flex gap-3 max-[1330px]:overflow-auto	">
+				<a href="{{ path('exercise_create_general') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-14 py-2.5 flex justify-center transition duration-200 hover:opacity-100">
+					<span class="justify-center items-center flex text-white font-noto">Informations générales</span>
+				</a>
+				<a href="{{ path('exercise_create_sources') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 opacity-[0.8] flex justify-center transition duration-200 hover:opacity-100">
+					<span class="justify-center items-center flex text-white font-noto">Sources</span>
+				</a>
+				<a href="{{ path('exercise_create_files') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 opacity-[0.8] flex justify-center transition duration-200 hover:opacity-100">
+					<span class="justify-center items-center flex text-white font-noto">Fichiers</span>
+				</a>
+			</div>
 
-    <div class="bg-slate-200 flex flex-col min-h-[95vh]">
-        <h1 class="text-[28px] ml-12 text-customBlue font-epilogue md:mt-8 font-medium">Administration</h1>
+			<div class="max-[1330px]:rounded-tr-none	bg-white rounded-md w-full p-3 md:p-7 rounded-tl-none">
+				<h1 class="text-[20px] font-semibold font-noto">Soumettre un exercice</h1>
+					{{ form_start(form, {'attr': {'id': 'general-form' }}) }}
+					<div class="max-sm:block flex gap-12 my-4">
+						<div class="w-[40%] max-sm:w-full">
+							{{ form_label(form.name, null, {'label_attr': {'class': 'w-full block text-base font-medium text-gray-700'}}) }}
+							{{ form_widget(form.name, {'attr': {'class': 'w-full mb-4 max-sm:w-full h-[50px] mt-1 p-2 block text-base border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500', 'placeholder': 'Saisissez le nom de l\'exercice', 'id': 'base-input-name'}}) }}
+							{{ form_errors(form.name) }}
 
-        <div class="flex gap-3 min-md:ml-10 max-sm:ml-1 ml-8 mt-4 max-sm:hidden">
-            <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[220px] h-[40px] flex justify-center">
-                <a class="justify-center items-center flex text-white font-noto"
-                   href="{{ path('exercise_create_general') }}">Informations générales</a>
-            </div>
-            <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
-                <a class="justify-center items-center flex text-white font-noto"
-                   href="{{ path('exercise_create_sources') }}">Sources</a>
-            </div>
-            <div class="bg-customBlue rounded-tl-xl rounded-tr-xl w-[120px] h-[40px] flex justify-center opacity-[0.8]">
-                <a class="justify-center items-center flex text-white font-noto"
-                   href="{{ path('exercise_create_files') }}">Fichiers</a>
-            </div>
-        </div>
+							{{ form_label(form.course, null, {'label_attr': {'class': 'w-full block text-base font-medium text-gray-700'}}) }}
+							{{ form_widget(form.course, {'attr': {'id': 'course-select','onChange': 'updateThematicField(), updateSkillsField()','class': 'w-full mb-4 max-sm:w-full h-[50px] mt-1 p-2 block text-base border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500'}}) }}
+							{{ form_errors(form.course) }}
 
-        <div class="w-[95%] md:ml-[30px] min-md:w-[100%] min-md:ml-10 rounded-lg  sm:flex sm:flex-col justify-center  bg-white max-sm:w-[100%] p-4 ">
-            <div class="flex justify-center max-sm:pt-2">
-                <select id="pageSelect" class="md:hidden">
-                    <option value="contributeurs">Contributeurs</option>
-                    <option value="exercices">Exercices</option>
-                    <option value="matieres">Matières</option>
-                    <option value="classes">Classes</option>
-                    <option value="thematiques">Thématiques</option>
-                    <option value="competences">Compétences</option>
-                    <option value="origines">Origines</option>
-                </select>
-            </div>
-            <h1 class="ml-7 text-[20px] font-semibold font-noto md:pt-6 max-sm:mt-[5px]">Ajouter un
-                contributeur</h1>
+							{{ form_label(form.classroom, null, {'label_attr': {'class': 'w-full block text-base font-medium text-gray-700'}}) }}
+							{{ form_widget(form.classroom, {'attr': {'class': 'w-full mb-4 max-sm:w-full h-[50px] mt-1 p-2 block text-base border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500', 'id': 'countries-course'}}) }}
+							{{ form_errors(form.classroom) }}
 
-            <div class="flex w-[90%] justify-center items-start gap-8">
-                {{ form_start(form, {'attr': {'class': 'mx-auto flex w-full justify-center items-start gap-8', 'id': 'general-form' }}) }}
+							{{ form_label(form.thematic, null, {'label_attr': {'class': 'w-full block text-base font-medium text-gray-700'}}) }}
+							{{ form_widget(form.thematic, {'attr': {'class': 'w-full mb-4 max-sm:w-full h-[50px] mt-1 p-2 block text-base border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500'}}) }}
+							{{ form_errors(form.thematic) }}
 
-                <div class="w-1/2">
-                    <div class="mb-5">
-                        {{ form_label(form.name, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                        {{ form_widget(form.name, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'base-input-name'}}) }}
-                        {{ form_errors(form.name) }}
-                    </div>
+							{{ form_label(form.chapter, null, {'label_attr': {'class': 'w-full block text-base font-medium text-gray-700'}}) }}
+							{{ form_widget(form.chapter, {
+										'attr': {
+											'placeholder': 'Saisissez le chapite de l\exercice',
+											'class': 'w-full mb-4 max-sm:w-full h-[50px] mt-1 p-2 block text-base border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500',
+											'id': 'countries-course'
+										}
+									}) }}
+							{{ form_errors(form.chapter) }}
+						</div>
+						<div class="w-[40%] max-sm:w-full">
+							{{ form_label(form.skills, null, {'label_attr': {'class': 'w-full block text-base font-medium text-gray-700'}}) }}
+							{{ form_widget(form.skills, {'attr': {'class': 'border-gray-200	'}}) }}
+							{{ form_errors(form.skills) }}
 
-                    <div class="mb-5">
-                        {{ form_label(form.course, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                        {{ form_widget(form.course, {'attr': {'id': 'course-select','onChange': 'updateThematicField(), updateSkillsField()','class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
-                        {{ form_errors(form.course) }}
-                    </div>
+							{{ form_label(form.keywords, null, {'label_attr': {'class': 'w-full block text-base font-medium text-gray-700'}}) }}
+							{{ form_widget(form.keywords, {'attr': {'class': 'w-full mb-4 max-sm:w-full h-[50px] mt-1  block text-base rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500'}}) }}
+							{{ form_errors(form.keywords) }}
 
-                    <div class="mb-5">
-                        {{ form_label(form.classroom, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                        {{ form_widget(form.classroom, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'countries-course'}}) }}
-                        {{ form_errors(form.classroom) }}
-                    </div>
+							{{ form_label(form.difficulty, null, {'label_attr': {'class': 'w-full block text-base font-medium text-gray-700'}}) }}
+							{{ form_widget(form.difficulty, {'attr': {'class': 'w-full mb-4 max-sm:w-full h-[50px] mt-1 p-2 block text-base border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500', 'id': 'countries-course'}}) }}
 
-                    <div class="mb-5" id="thematic-field-container">
-                        {{ form_label(form.thematic, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                        {{ form_widget(form.thematic, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
-                        {{ form_errors(form.thematic) }}
-                    </div>
-
-                    <div class="mb-5">
-                        {{ form_label(form.chapter, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                        {{ form_widget(form.chapter, {
-                            'attr': {
-                                'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
-                                'id': 'countries-course'
-                            }
-                        }) }}
-                        {{ form_errors(form.chapter) }}
-                    </div>
-                </div>
-
-                <div class="w-1/2">
-                    <div class="mb-5" id="skills-field-container">
-                        {{ form_label(form.skills, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                        {{ form_widget(form.skills, {'attr': {'class': ''}}) }}
-                        {{ form_errors(form.skills) }}
-                    </div>
-
-                    <div class="mb-5">
-                        {{ form_label(form.keywords, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                        {{ form_widget(form.keywords, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
-                        {{ form_errors(form.keywords) }}
-
-                        <div class="mb-5">
-                            {{ form_label(form.difficulty, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                            {{ form_widget(form.difficulty, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'countries-course'}}) }}
-                        </div>
-
-                        <div class="mb-5">
-                            {{ form_label(form.duration, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-                            {{ form_widget(form.duration, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'id': 'countries-course'}}) }}
-                            {{ form_errors(form.duration) }}
-                        </div>
-                    </div>
-
-                    {{ form_rest(form) }}
-                    <button type="submit">Soumettre</button>
-                    {{ form_end(form) }}
-                </div>
-            </div>
-        </div>
-    </div>
-{% endblock %}
+							{{ form_label(form.duration, null, {'label_attr': {'class': 'w-full block text-base font-medium text-gray-700'}}) }}
+							{{ form_widget(form.duration, {'attr': {'placeholder': 'Saisissez la durée en heure de l\'exercice','class': 'w-full mb-4 max-sm:w-full h-[50px] mt-1 p-2 block text-base border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500', 'id': 'countries-course'}}) }}
+							{{ form_errors(form.duration) }}
+						</div>
+					</div>
+					{{ form_rest(form) }}
+					<button type="submit" class="font-semibold bg-slate-100 h-11 px-5 rounded-md font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200">Continuer</button>
+					{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+	{% endblock %}

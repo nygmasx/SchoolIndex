@@ -37,10 +37,7 @@
 				<div class="toggle-password-container flex flex-col">
 					<label for="inputPassword" class="md:text-center lg:text-justify text-gray-700 md:text-[18px] font-medium">Password
 												                        :</label>
-					<input type="password" name="password" id="inputPassword" class="border-gray-200 border w-full rounded h-11" autocomplete="current-password" required
-                            {{ stimulus_controller('symfony/ux-toggle-password/toggle-password', {
-                                buttonClasses: ['toggle-password-button']
-                            }) }} placeholder="Saisissez votre mot de passe">
+					<input type="password" name="password" id="inputPassword" class="border-gray-200 border w-full rounded h-11" autocomplete="current-password" required >
 				</div>
 				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 				<div class="flex justify-between items-center max-sm:flex-col max-sm:items-start max-sm:gap-5	">

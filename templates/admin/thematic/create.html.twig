@@ -11,10 +11,10 @@
 				<a href="{{ path('app_contributor') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 opacity-[0.8] flex justify-center transition duration-200 hover:opacity-100">
 					<span class="justify-center items-center flex text-white font-noto">Contributeurs</span>
 				</a>
-				<a href="#" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex justify-center opacity-[0.8] transition duration-200 hover:opacity-100">
+				<a href="{{ path('app_admin_exercise') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex justify-center opacity-[0.8] transition duration-200 hover:opacity-100">
 					<span class="justify-center items-center flex text-white font-noto">Exercices</span>
 				</a>
-				<a href="{{ path('app_course') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex opacity-[0.8] justify-center transition duration-200 hover:opacity-100">
+				<a href="{{ path('app_admin_course') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex opacity-[0.8] justify-center transition duration-200 hover:opacity-100">
 					<span class="justify-center items-center flex text-white font-noto">Matières</span>
 				</a>
 				<a href="{{ path('app_classroom') }}" class="bg-customBlue rounded-tl-xl px-5 py-2.5 rounded-tr-xl flex justify-center opacity-[0.8] transition duration-200 hover:opacity-100">
@@ -31,10 +31,6 @@
 				</a>
 			</div>
 
-<<<<<<< HEAD
-	{% include "admin/layout/nav.html.twig" %}
-=======
->>>>>>> 2a70289 (J'ai finis tous les onglets du backoffice sauf Exercices + refonte du style d'un peu toutes les pages)
 
 			<div class="max-[1330px]:rounded-tr-none	bg-white rounded-md w-full p-3 md:p-7 rounded-tl-none">
 				<h1 class="text-[20px] font-semibold font-noto">Ajouter une thématique</h1>
@@ -43,29 +39,29 @@
 				<div class="w-[40%] max-sm:w-full">
                         {{ form_label(form.name, 'Nom de la thématique :', {
                             'label_attr': {
-							    'class': 'block text-base font-medium text-gray-700',
+							    'class': 'w-full block text-base font-medium text-gray-700',
                                 'data-toggle': 'tooltip',
                             }
                         }) }}
                         {{ form_errors(form.name) }}
                         {{ form_widget(form.name, { 
                             'attr': {
-								'class': 'max-sm:w-full h-[50px] mt-1 p-2 block text-base border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500',
-                                'placeholder': 'Saisissez le nom du contributeur',
+								'class': 'w-full max-sm:w-full h-[50px] mt-1 p-2 block text-base border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500',
+                                'placeholder': 'Saisissez le nom de la thématique',
                             } 
                         }) }}
                     </div>
 				<div class="w-[40%] max-sm:w-full">
                     {{ form_label(form.course, 'Matière :', {
                         'label_attr': {
-                            'class': 'block text-base font-medium text-gray-700',
+                            'class': 'w-full block text-base font-medium text-gray-700',
                             'data-toggle': 'tooltip',
                         } 
                     }) }}
                     {{ form_errors(form.course) }}
                     {{ form_widget(form.course, { 
                         'attr': {
-								'class': 'max-sm:w-full h-[50px] mt-1 p-2 block text-base border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500',
+								'class': 'w-full max-sm:w-full h-[50px] mt-1 p-2 block text-base border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500',
                         } 
                     }) }}
                     </div>
@@ -77,66 +73,11 @@
                             {{ form_widget(form.submit, { 
                                 'label': 'Enregistrer',
                                 'attr': {
-                                    'class': 'font-semibold bg-slate-100 h-11 px-5 rounded-md font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200e',
+                                    'class': 'font-semibold bg-slate-100 h-11 px-5 rounded-md font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200',
                                 }
                             }) }}
         		</div>
     		{{ form_end(form) }}
 
-<<<<<<< HEAD
-    <div class="md:flex gap-12">
-
-        <div class="w-full md:w-[35%]">
-        {{ form_label(form.name, 'Nom :', {
-        'label_attr': {
-            'class': 'noto text-color text-customGrey',
-            'data-toggle': 'tooltip',
-        }
-        }) }}
-        {{ form_errors(form.name) }}
-        {{ form_widget(form.name, {
-            'attr': {
-                'class': 'my-custom-class flex flex-column border border-borderGrey rounded-md p-2 mb-4 focus:outline-none focus:border-darkGrey w-full',
-                'placeholder': 'Saisissez le nom du contributeur',
-            }
-        }) }}
-    </div>
-
-
-        <div class="w-full md:w-[35%]">
-            {{ form_label(form.course, 'Matière :', {
-            'label_attr': {
-                'class': 'noto text-color text-customGrey',
-                'data-toggle': 'tooltip',
-            }
-            }) }}
-            {{ form_errors(form.course) }}
-            {{ form_widget(form.course, {
-                'attr': {
-                    'class': 'my-custom-class flex flex-column text-customGrey border border-borderGrey rounded-md p-2 mb-4 focus:outline-none focus:border-darkGrey w-full',
-                }
-            }) }}
-        </div>
-    </div>
-
-    <div class="flex gap-7 pt-3 pb-8">
-
-    <a href="{{path('app_thematic')}}" class="font-semibold h-[45px] items-center flex justify-center text-sm bg-slate-100  font-noto text-fontGrey py-2 px-4 rounded hover:bg-slate-200 focus:outline-none focus:shadow-outline">< Retour à la liste</a>
-
-        <div class="">
-            {{ form_widget(form.submit, {
-                'label': 'Enregistrer',
-                'attr': {
-                    'class': 'h-[45px] font-semibold items-center flex justify-center text-sm bg-slate-100 font-noto text-fontGrey py-2 px-4 rounded hover:bg-slate-200 focus:outline-none focus:shadow-outline',
-                }
-            }) }}
-        </div>
-
-    </div>
-
-    {{ form_end(form) }}
-</div>
-=======
 	</div>
->>>>>>> 2a70289 (J'ai finis tous les onglets du backoffice sauf Exercices + refonte du style d'un peu toutes les pages)
 {% endblock %}

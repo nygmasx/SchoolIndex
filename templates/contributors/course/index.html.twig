@@ -38,9 +38,14 @@
                                 {{ exercise.difficulty }}</td>
                             <td class="px-6 py-4">{{ exercise.duration }}</td>
                             <td class="px-6	py-4 flex flex-wrap	gap-1.5	">
-										<span class="bg-gray-200 px-4 py-2 rounded-full">
-											{{ exercise.keywords }}
-										</span>
+										{% set keywords = exercise.keywords|split('@') %}
+										{% for keyword in keywords %}
+											{% if keyword != "" %}
+												<span class="bg-gray-200 px-4 py-2 rounded-full">
+													{{ keyword }}
+												</span>
+											{% endif %}
+										{% endfor %}
                             </td>
                             <td class="px-6	py-4  ">
                                 <div class="flex flex-col gap-4 items-baseline">
@@ -88,9 +93,14 @@
                                 {{ exercise.difficulty }}</td>
                             <td class="px-6 py-4">{{ exercise.duration }}</td>
                             <td class="px-6	py-4 flex flex-wrap	gap-1.5	">
-										<span class="bg-gray-200 px-4 py-2 rounded-full">
-											{{ exercise.keywords }}
-										</span>
+										{% set keywords = exercise.keywords|split('@') %}
+										{% for keyword in keywords %}
+											{% if keyword != "" %}
+												<span class="bg-gray-200 px-4 py-2 rounded-full">
+													{{ keyword }}
+												</span>
+											{% endif %}
+										{% endfor %}
                             </td>
                             <td class="px-6	py-4  ">
                                 <div class="flex flex-col gap-4 items-baseline">

@@ -3,32 +3,54 @@
 {% block title %}Page d'administration{% endblock %}
 
 {% block main %}
-    <div class="bg-slate-200 flex flex-col min-h-screen font-['Epilogue'] pb-5">
-	<h1 class="text-2xl	 md:text-4xl font-medium text-center max-sm:pt-4 lg:text-start text-blue-900 pt-12 px-6 pb-4">Administration</h1>
+	<div class="bg-slate-200 flex flex-col  min-h-screen font-['Epilogue'] pb-5">
+		<h1 class="text-2xl	 md:text-4xl max-sm:text-3xl max-sm:pt-6 font-medium text-center lg:text-start text-blue-900 pt-12 px-6 pb-4">
+			Administration</h1>
+		<div class="px-[18px] max-sm:px-[10px]">
+			<div class="flex gap-3 max-[1330px]:overflow-auto	">
+				<a href="{{ path('app_contributor') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex justify-center opacity-[0.8] transition duration-200 hover:opacity-100">
+					<span class="justify-center items-center flex text-white font-noto">Contributeurs</span>
+				</a>
+				<a href="{{ path('app_admin_exercise') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-14 py-2.5 flex justify-center  transition duration-200 hover:opacity-100">
+					<span class="justify-center items-center flex text-white font-noto">Exercices</span>
+				</a>
+				<a href="{{ path('app_admin_course') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex justify-center opacity-[0.8] transition duration-200 hover:opacity-100">
+					<span class="justify-center items-center flex text-white font-noto">Matières</span>
+				</a>
+				<a href="{{ path('app_classroom') }}" class="bg-customBlue rounded-tl-xl px-5 py-2.5 rounded-tr-xl flex justify-center opacity-[0.8] transition duration-200 hover:opacity-100">
+					<span class="justify-center items-center flex text-white font-noto">Classes</span>
+				</a>
+				<a href="{{ path('app_thematic') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex justify-center opacity-80 transition duration-200 hover:opacity-100">
+					<span class="justify-center items-center flex text-white font-noto">Thématiques</span>
+				</a>
+				<a href="{{ path('app_skill') }}" class="bg-customBlue rounded-tl-xl rounded-tr-xl px-5 py-2.5 flex justify-center opacity-80 transition duration-200 hover:opacity-100">
+					<span class="justify-center items-center flex text-white font-noto" href="">Compétences</span>
+				</a>
+				<a href="{{ path('app_origin') }}" class="bg-customBlue rounded-tl-xl px-5 py-2.5 rounded-tr-xl flex justify-center opacity-80 transition duration-200 hover:opacity-100">
+					<span class="justify-center items-center flex text-white font-noto">Origines</span>
+				</a>
+			</div>
 
-        {% include "admin/layout/nav.html.twig" %}
-
-        <div class="bg-white rounded-md w-[95%] md:w-[97%] p-3 md:p-7 min-h-[85vh] m-auto rounded-tl-none">
-
-            <h1 class="text-[20px] font-semibold font-noto mt-2.5">Gestion des origines</h1>
-            <div>
-                <p class="font-noto text-customGrey pt-3">Rechercher par le nom d'une origine</p>
-                <form class="flex items-center pt-2.5 gap-7 max-sm:flex-col">
-                    <input type="text" name="search" class="text-gray-500 rounded-md border-gray-300 border border-solid h-11 p-2 outline-none w-[45%] max-sm:w-[100%]">
-                    <button type="submit" class="bg-slate-100 h-11 rounded-md w-[15%] max-[768px]:w-[25%] max-[640px]:w-[40%] font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200">Rechercher</button>
-                    <a href="{{ path('admin_exercise_create') }}" class="flex justify-center items-center bg-customGreen font-medium font-noto text-white text-[16px] w-[15%] max-[768px]:w-[25%] max-[640px]:w-[40%] rounded-md border-gray-300 border border-solid h-11 transition duration-200 hover:bg-darkGreen ">
-                        <button type="submit">Ajouter +</button>
-                    </a>
-                </form>
-                <div class="overflow-x-auto relative mt-5 rounded-xl border border-solid border-gray-200">
-                    <table class="w-full">
+			<div class=" max-[1330px]:rounded-tr-none bg-white rounded-md w-full p-3 md:p-7 rounded-tl-none	">
+				<h1 class="text-[20px] font-semibold font-noto ">Gestion des contributeurs</h1>
+				<div>
+					<p class="font-noto text-customGrey pt-3">Rechercher par le nom, la matière ou la thématique d'un exercice :</p>
+					<form class="flex items-center pt-2.5 gap-7	max-sm:flex-col">
+						<input type="text" name="search" class="text-gray-500 rounded-md border-gray-200 border border-solid h-11 p-2 outline-none w-[45%] max-sm:w-[100%]">
+						<button type="submit" class="bg-slate-100 h-11 rounded-md w-[15%] max-[768px]:w-[25%] max-[640px]:w-[40%] font-noto text-customGrey text-[16px] transition duration-200 hover:bg-slate-200">Rechercher</button>
+						<a href="{{ path('exercise_create_general') }}" class="flex justify-center items-center bg-customGreen font-medium font-noto text-white text-[16px] w-[15%] max-[768px]:w-[25%] max-[640px]:w-[40%]  rounded-md border-gray-200 border border-solid h-11 transition duration-200 hover:bg-darkGreen ">
+							<button type="submit">Ajouter +</button>
+						</a>
+					</form>
+					<div class="overflow-x-auto relative mt-5 rounded-xl border border-solid border-gray-200">
+						<table class="w-full">
                         <thead class="text-left h-12 bg-gray-100">
                             <tr>
-                                <th class="font-medium px-6 py-3 rounded-tl-xl w-[80%]">Nom</th>
-                                <th class="font-medium px-6 py-3 rounded-tl-xl w-[80%]">Matière</th>
-                                <th class="font-medium px-6 py-3 rounded-tl-xl w-[80%]">Niveau</th>
-                                <th class="font-medium px-6 py-3 rounded-tl-xl w-[80%]">Thématique</th>
-                                <th class="font-medium px-6 py-3 rounded-tl-xl w-[80%]">Fichiers</th>
+                                <th class="font-medium px-6 py-3 rounded-tl-xl">Nom</th>
+                                <th class="font-medium px-6 py-3">Matière</th>
+                                <th class="font-medium px-6 py-3">Niveau</th>
+                                <th class="font-medium px-6 py-3">Thématique</th>
+                                <th class="font-medium px-6 py-3">Fichiers</th>
                                 <th class="font-medium px-6 py-3 rounded-tr-xl">Action</th>
                             </tr>
                         </thead>
@@ -52,7 +74,7 @@
                                                 </svg>Corrigé</a>
                                         </div>
                                     </td>
-                                    <td class="py-4 px-6 md:flex md:justify-center md:items-center md:gap-3 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center max-sm:gap-3">
+                                    <td class="py-4 h-24 px-6 md:flex md:justify-center md:items-center md:gap-3 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center max-sm:gap-3">
                                         <a href="" class="flex items-center gap-2.5 font-medium hover:underline">
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M11.266 0.875098L9.68262 2.45843H1.95833V13.5418H13.0417V5.81747L14.625 4.23414V14.3334C14.625 14.5434 14.5416 14.7448 14.3931 14.8932C14.2447 15.0417 14.0433 15.1251 13.8333 15.1251H1.16667C0.956704 15.1251 0.75534 15.0417 0.606874 14.8932C0.458407 14.7448 0.375 14.5434 0.375 14.3334V1.66676C0.375 1.4568 0.458407 1.25544 0.606874 1.10697C0.75534 0.958505 0.956704 0.875098 1.16667 0.875098H11.266ZM14.2173 0.162598L15.3375 1.2836L8.0605 8.5606L6.94267 8.56297L6.94108 7.44118L14.2173 0.162598Z" fill="#757575"/>

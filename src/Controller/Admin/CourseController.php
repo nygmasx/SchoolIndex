@@ -24,7 +24,7 @@ class CourseController extends AbstractController
         private CourseRepository $courseRepository,
     ) {}
 
-    #[Route('/matière', name: 'app_admin_course')]
+    #[Route('/matiere', name: 'app_admin_course')]
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
 
@@ -72,7 +72,7 @@ class CourseController extends AbstractController
             $this->entityManager->persist($course);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('app_course');
+            return $this->redirectToRoute('app_admin_course');
         }
 
         return $this->render('admin/course/create.html.twig', [
@@ -103,7 +103,7 @@ class CourseController extends AbstractController
 
             $this->addFlash('success', 'L\'utilisateur a été supprimé avec succès.');
 
-            return $this->redirectToRoute('app_course');
+            return $this->redirectToRoute('app_admin_course');
         }
 
         return $this->render('admin/course/delete.html.twig', [
@@ -130,7 +130,7 @@ class CourseController extends AbstractController
 
             $this->addFlash('success', 'Les informations de la matière ont été mises à jour.');
 
-            return $this->redirectToRoute('app_course');
+            return $this->redirectToRoute('app_admin_course');
         }
 
         return $this->render('admin/course/edit.html.twig', [
